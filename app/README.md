@@ -27,6 +27,21 @@ With no Supabase env vars the app runs in **demo mode**: in-memory data mirrorin
    `exp://**` for Expo Go and `http://localhost:8081/auth-callback` for web).
 4. Copy `.env.example` to `.env.local` and fill in the project URL and publishable key.
 
+## TestFlight
+
+Builds run on EAS. `eas.json` bakes the Supabase URL and publishable key into the `production`
+and `preview` profiles (both are public client values; RLS does the protecting).
+
+```bash
+npx eas-cli@latest login                     # Expo account
+npx eas-cli@latest init                      # once: links the project, writes expo.owner / projectId
+npx eas-cli@latest build -p ios --profile production --auto-submit
+```
+
+The first build asks for your Apple Developer login. It creates the `design.embed.client` bundle
+ID, the signing certificate and the App Store Connect app record, then uploads the build to
+TestFlight. Build numbers auto-increment remotely. Add testers in App Store Connect → TestFlight.
+
 ### Data model
 
 - Clients read everything on projects they're members of (RLS via `is_member`). They write only
