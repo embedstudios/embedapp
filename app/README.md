@@ -21,7 +21,7 @@ With no Supabase env vars the app runs in **demo mode**: in-memory data mirrorin
 
 1. Apply `supabase/migrations/20261028000000_client_app.sql`, then `supabase/seed.sql` for demo data
    (`supabase db push`, or paste both into the SQL editor).
-2. In `seed.sql`, replace `priya@nimai.in` with a real inbox **before** seeding, then invite that
+2. The seed invites `hello@embed.design` (as Priya Raman) to all three demo projects. Invite that
    email under Auth → Users → Invite user. Sign-in is invite-only (`shouldCreateUser: false`).
 3. Auth → URL Configuration → Redirect URLs: add `embed://auth-callback` (plus
    `exp://**` for Expo Go and `http://localhost:8081/auth-callback` for web).

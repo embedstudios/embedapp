@@ -1,6 +1,6 @@
 -- Demo data mirroring the design prototype: Priya Raman (VP Product, Nimai Wealth)
--- with three projects. Replace the invite email with a real inbox you control,
--- then invite that email from the Supabase dashboard (Auth → Invite user).
+-- with three projects, invited as hello@embed.design for testing. Invite that
+-- email from the Supabase dashboard (Auth → Invite user) to sign in.
 -- Relative dates keep the demo current whenever it is seeded.
 
 insert into public.projects (id, name, subtitle, status, current_phase, progress, phase_summary, start_on, due_on, contract_inr, lead_name) values
@@ -9,7 +9,7 @@ insert into public.projects (id, name, subtitle, status, current_phase, progress
   ('00000000-0000-4000-a000-000000000003', 'BThere', 'Design system', 'active', 'handover', 91, 'On track', current_date - 88, current_date + 10, 1100000, 'Arnav');
 
 insert into public.project_invites (email, project_id, role, full_name, title)
-select 'priya@nimai.in', id, 'client', 'Priya Raman', 'VP Product' from public.projects;
+select 'hello@embed.design', id, 'client', 'Priya Raman', 'VP Product' from public.projects;
 
 insert into public.phases (project_id, key, now_label, blurb)
 select p.id, v.key::public.phase_key, v.now_label, v.blurb
