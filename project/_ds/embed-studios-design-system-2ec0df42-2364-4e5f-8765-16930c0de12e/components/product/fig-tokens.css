@@ -1,0 +1,179 @@
+/* Generated from Figma Variables. First mode = :root default.
+   FLOAT tokens are unitless — multiply by 1px in calc() where a length is needed. */
+
+:root {
+  --base-accent: var(--blue-600); /* @kind color */
+  --base-primary: var(--slate-900); /* @kind color */
+  --base-secondary: var(--slate-500); /* @kind color */
+  --blue-600: rgb(37,99,235); /* @kind color */
+  --buttons-outlined-border-disabled: var(--gray-200); /* @kind color */
+  --buttons-outlined-border: var(--slate-200); /* @kind color */
+  --buttons-outlined-fg-disabled: var(--gray-300); /* @kind color */
+  --buttons-outlined-fg: var(--base-accent); /* @kind color */
+  --buttons-plain-fg-disabled: var(--gray-300); /* @kind color */
+  --buttons-plain-fg: var(--base-accent); /* @kind color */
+  --buttons-primary-bg-disabled: var(--gray-300); /* @kind color */
+  --buttons-primary-fg-disabled: var(--gray-100); /* @kind color */
+  --buttons-primary-fg: var(--gray-50); /* @kind color */
+  --buttons-secondary-bg-disabled: var(--gray-100); /* @kind color */
+  --buttons-secondary-bg: var(--slate-100); /* @kind color */
+  --buttons-secondary-fg-disabled: var(--gray-300); /* @kind color */
+  --buttons-secondary-fg: var(--base-accent); /* @kind color */
+  --colors-indigo: rgb(97,85,245); /* @kind color */
+  --component-fill: rgb(245,245,245); /* @kind color */
+  --component-stroke: var(--colors-indigo); /* @kind color */
+  --gray-100: rgb(243,244,246); /* @kind color */
+  --gray-200: rgb(229,231,235); /* @kind color */
+  --gray-300: rgb(209,213,219); /* @kind color */
+  --gray-50: rgb(249,250,251); /* @kind color */
+  --icons-primary: var(--base-primary); /* @kind color */
+  --icons-secondary: var(--base-secondary); /* @kind color */
+  --radius-l: 16;
+  --radius-m: 12;
+  --radius-s: 8;
+  --schemes-on-surface: rgb(29,27,32); /* @kind color */
+  --slate-100: rgb(241,245,249); /* @kind color */
+  --slate-200: rgb(226,232,240); /* @kind color */
+  --slate-500: rgb(100,116,139); /* @kind color */
+  --slate-50: rgb(248,250,252); /* @kind color */
+  --slate-700: rgb(51,65,85); /* @kind color */
+  --slate-900: rgb(15,23,42); /* @kind color */
+  --white-2: rgb(255,255,255); /* @kind color */
+  --white: rgb(255,255,255); /* @kind color */
+}
+
+:root[data-theme="dark"], .dark {
+  --base-accent: var(--blue-600); /* @kind color */
+  --base-primary: var(--slate-50); /* @kind color */
+  --base-secondary: rgba(248,250,252,0.7); /* @kind color */
+  --buttons-outlined-border-disabled: rgb(255,255,255); /* @kind color */
+  --buttons-outlined-border: var(--slate-700); /* @kind color */
+  --buttons-outlined-fg-disabled: rgb(255,255,255); /* @kind color */
+  --buttons-outlined-fg: var(--gray-50); /* @kind color */
+  --buttons-plain-fg-disabled: rgb(255,255,255); /* @kind color */
+  --buttons-plain-fg: var(--gray-50); /* @kind color */
+  --buttons-primary-bg-disabled: rgb(255,255,255); /* @kind color */
+  --buttons-primary-fg-disabled: rgb(255,255,255); /* @kind color */
+  --buttons-primary-fg: var(--gray-50); /* @kind color */
+  --buttons-secondary-bg-disabled: rgb(255,255,255); /* @kind color */
+  --buttons-secondary-bg: var(--slate-700); /* @kind color */
+  --buttons-secondary-fg-disabled: rgb(255,255,255); /* @kind color */
+  --buttons-secondary-fg: var(--gray-50); /* @kind color */
+  --colors-indigo: rgb(107,93,255); /* @kind color */
+  --colors-indigo: rgb(167,170,255); /* @kind color */
+  --icons-primary: var(--base-primary); /* @kind color */
+  --icons-secondary: var(--base-secondary); /* @kind color */
+  --schemes-on-surface: rgb(230,224,233); /* @kind color */
+  --schemes-on-surface: rgb(255,249,255); /* @kind color */
+  --schemes-on-surface: rgb(255,255,255); /* @kind color */
+}
+
+:root[data-theme="light"], .light {
+  --colors-indigo: rgb(86,74,222); /* @kind color */
+  --schemes-on-surface: rgb(0,0,0); /* @kind color */
+  --schemes-on-surface: rgb(29,27,32); /* @kind color */
+}
+
+:root[data-mode="monochrome-lt"] {
+  --schemes-on-surface: rgb(27,27,27); /* @kind color */
+}
+
+:root[data-mode="monochrome-dt"] {
+  --schemes-on-surface: rgb(226,226,226); /* @kind color */
+}
+
+:root[data-mode="pink-lt"] {
+  --schemes-on-surface: rgb(33,25,28); /* @kind color */
+}
+
+:root[data-mode="pink-dt"] {
+  --schemes-on-surface: rgb(238,223,227); /* @kind color */
+}
+
+:root[data-mode="rose-lt"] {
+  --schemes-on-surface: rgb(34,25,26); /* @kind color */
+}
+
+:root[data-mode="rose-dt"] {
+  --schemes-on-surface: rgb(240,222,223); /* @kind color */
+}
+
+:root[data-mode="red-lt"] {
+  --schemes-on-surface: rgb(35,25,24); /* @kind color */
+}
+
+:root[data-mode="red-dt"] {
+  --schemes-on-surface: rgb(241,222,220); /* @kind color */
+}
+
+:root[data-mode="orange-lt"] {
+  --schemes-on-surface: rgb(34,26,21); /* @kind color */
+}
+
+:root[data-mode="orange-dt"] {
+  --schemes-on-surface: rgb(240,223,215); /* @kind color */
+}
+
+:root[data-mode="yellow-lt"] {
+  --schemes-on-surface: rgb(31,27,19); /* @kind color */
+}
+
+:root[data-mode="yellow-dt"] {
+  --schemes-on-surface: rgb(235,225,212); /* @kind color */
+}
+
+:root[data-mode="chartreuse-lt"] {
+  --schemes-on-surface: rgb(27,28,20); /* @kind color */
+}
+
+:root[data-mode="chartreuse-dt"] {
+  --schemes-on-surface: rgb(229,227,214); /* @kind color */
+}
+
+:root[data-mode="green-lt"] {
+  --schemes-on-surface: rgb(24,29,24); /* @kind color */
+}
+
+:root[data-mode="green-dt"] {
+  --schemes-on-surface: rgb(224,228,219); /* @kind color */
+}
+
+:root[data-mode="teal-lt"] {
+  --schemes-on-surface: rgb(23,29,27); /* @kind color */
+}
+
+:root[data-mode="teal-dt"] {
+  --schemes-on-surface: rgb(221,228,225); /* @kind color */
+}
+
+:root[data-mode="cyan-lt"] {
+  --schemes-on-surface: rgb(23,28,30); /* @kind color */
+}
+
+:root[data-mode="cyan-dt"] {
+  --schemes-on-surface: rgb(222,227,230); /* @kind color */
+}
+
+:root[data-mode="blue-lt"] {
+  --schemes-on-surface: rgb(26,27,33); /* @kind color */
+}
+
+:root[data-mode="blue-dt"] {
+  --schemes-on-surface: rgb(226,226,233); /* @kind color */
+}
+
+:root[data-mode="indigo-lt"] {
+  --schemes-on-surface: rgb(28,27,33); /* @kind color */
+}
+
+:root[data-mode="indigo-dt"] {
+  --schemes-on-surface: rgb(229,225,233); /* @kind color */
+}
+
+:root[data-mode="purple-lt"] {
+  --schemes-on-surface: rgb(29,26,32); /* @kind color */
+}
+
+:root[data-mode="purple-dt"] {
+  --schemes-on-surface: rgb(231,224,232); /* @kind color */
+}

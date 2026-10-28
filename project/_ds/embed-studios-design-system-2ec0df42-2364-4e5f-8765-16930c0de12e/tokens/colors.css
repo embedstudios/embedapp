@@ -1,0 +1,47 @@
+/* ============================================================
+   Embed Studios — Color tokens
+   Core palette: charcoal ink, off-white paper, mint accent.
+   Extracted verbatim from the brand file (Final-Logo-2).
+   ============================================================ */
+:root {
+  /* ---- Base scale ---- */
+  --es-ink: #0B0F0E;           /* rgb(11,15,14)  — primary dark ink / background */
+  --es-surface-dark: #141A18;  /* rgb(20,26,24)  — raised surface on ink         */
+  --es-charcoal: #333333;      /* rgb(51,51,51)  — legacy ink (kept for imports) */
+  --es-black: #050505;         /* rgb(5,5,5)     — pure logo black on light      */
+  --es-ink-2: #505050;         /* rgb(80,80,80)  — muted mark / secondary ink    */
+  --es-gray: #999999;          /* rgb(153,153,153) — captions, meta              */
+  --es-line: #dadada;          /* rgb(218,218,218) — hairline / divider          */
+  --es-paper: #fafafa;         /* rgb(250,250,250) — off-white surface           */
+  --es-white: #ffffff;
+
+  /* ---- Accent ---- */
+  --es-mint: #affcce;          /* rgb(175,252,206) — signature CTA / highlight  */
+  --es-mint-ink: #0B0F0E;      /* text that sits on mint                        */
+
+  /* ---- Collateral blues (used on social/creative backgrounds) ---- */
+  --es-blue: #2d4ebf;          /* rgb(45,78,191)                                */
+  --es-blue-deep: #110b86;     /* rgb(17,11,134)                                */
+  --es-blue-sky: #3e98d4;      /* rgb(62,152,212) — accent rules on collateral  */
+  --es-mint-hiring: #affcce;   /* hiring highlight text                          */
+
+  /* ============================================================
+     Semantic aliases — reference these in components.
+     ============================================================ */
+  --es-bg: var(--es-ink);            /* AI-studio default: dark ink canvas */
+  --es-bg-inverse: var(--es-paper);
+  --es-surface: var(--es-surface-dark);
+  --es-surface-light: var(--es-paper);
+
+  --es-text: var(--es-white);        /* on dark ink */
+  --es-text-muted: var(--es-gray);
+  --es-text-inverse: var(--es-ink);  /* on light paper */
+
+  --es-border: rgba(255,255,255,0.08);
+  --es-border-light: var(--es-line);
+
+  --es-accent: var(--es-mint);
+  --es-accent-text: var(--es-mint-ink);
+
+  --es-focus: var(--es-mint);
+}

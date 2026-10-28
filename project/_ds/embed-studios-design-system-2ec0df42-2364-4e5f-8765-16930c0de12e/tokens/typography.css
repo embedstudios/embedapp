@@ -1,0 +1,40 @@
+/* ============================================================
+   Embed Studios — Typography tokens
+   Space Grotesk → display + wordmark & headings (tight tracking)
+   Inter         → body / UI text
+   DM Mono       → the brand "voice": taglines wrapped in <tag> markers
+   ============================================================ */
+:root {
+  --es-font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --es-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --es-font-sans: var(--es-font-body);  /* alias: UI text = Inter */
+  --es-font-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Display / wordmark treatment — the identity look */
+  --es-display-weight: 500;
+  --es-display-tracking: -0.04em;   /* wordmark letter-spacing (Space Grotesk) */
+  --es-display-leading: 0.912;      /* wordmark line-height    */
+
+  /* Type scale (px) — golden-ratio (φ ≈ 1.618) progression from a 16px base */
+  --es-text-3xl: 111px;  /* base · φ^5 */
+  --es-text-2xl: 68px;   /* base · φ^4 */
+  --es-text-xl: 42px;    /* base · φ^3 */
+  --es-text-lg: 26px;    /* base · φ^2 */
+  --es-text-md: 21px;    /* base · φ   (heading↔body step) */
+  --es-text-base: 16px;  /* body */
+  --es-text-sm: 13px;    /* base ÷ √φ  */
+  --es-text-xs: 10px;    /* base ÷ φ   */
+
+  /* Line-heights */
+  --es-leading-tight: 1.05;
+  --es-leading-snug: 1.2;
+  --es-leading-normal: 1.44;   /* DM Mono body voice */
+  --es-leading-relaxed: 1.6;
+
+  /* Weights */
+  --es-weight-light: 300;
+  --es-weight-regular: 400;
+  --es-weight-medium: 500;
+  --es-weight-semibold: 600;
+  --es-weight-bold: 700;
+}

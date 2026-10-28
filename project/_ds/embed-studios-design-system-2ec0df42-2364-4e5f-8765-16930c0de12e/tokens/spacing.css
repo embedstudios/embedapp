@@ -1,0 +1,25 @@
+/* ============================================================
+   Embed Studios — Spacing & radius
+   ============================================================ */
+:root {
+  --es-space-1: 4px;
+  --es-space-2: 8px;
+  --es-space-3: 12px;
+  --es-space-4: 16px;
+  --es-space-5: 24px;
+  --es-space-6: 32px;
+  --es-space-7: 48px;
+  --es-space-8: 64px;
+  --es-space-9: 96px;
+
+  /* Radius — the brand leans on fully-rounded pills for CTAs
+     and a soft 10px card corner (from the collateral). */
+  --es-radius-sm: 6px;
+  --es-radius-md: 10px;      /* card corner on social collateral */
+  --es-radius-lg: 20px;
+  --es-radius-pill: 999px;   /* button / capsule */
+
+  /* Elevation — the brand is largely flat; one soft shadow. */
+  --es-shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --es-shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+}

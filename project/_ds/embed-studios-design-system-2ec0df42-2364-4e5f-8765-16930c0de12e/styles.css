@@ -1,0 +1,9 @@
+@import "tokens/fonts.css";
+@import "tokens/colors.css";
+@import "tokens/typography.css";
+@import "tokens/spacing.css";
+
+/* Product UI kit (materialized from the source file's product component library) */
+@import "./components/product/fig-tokens.css";
+@import "./components/product/fig-typography.css";
+@import "./components/product/fig-assets.css";

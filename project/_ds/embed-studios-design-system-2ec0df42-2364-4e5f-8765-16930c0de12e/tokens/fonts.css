@@ -1,0 +1,5 @@
+/* Embed Studios webfonts.
+   Space Grotesk → display / wordmark & headings
+   Inter        → body / UI text
+   DM Mono      → the brand "voice": taglines wrapped in <tag> markers */
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");

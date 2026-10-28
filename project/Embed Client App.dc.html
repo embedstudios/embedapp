@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/components/product/fig-tokens.css">
+  <link rel="stylesheet" href="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/components/product/fig-typography.css">
+  <link rel="stylesheet" href="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/components/product/fig-assets.css">
+  <link rel="stylesheet" href="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/styles.css">
+  <script src="_ds/embed-studios-design-system-2ec0df42-2364-4e5f-8765-16930c0de12e/_ds_bundle.js"></script>
+  <style>
+    body{margin:0;background:#FAFAFA;color:#0B0F0E;font-family:"Inter",-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:#0B0F0E}a:hover{opacity:.7}
+    button{font:inherit}
+    input,textarea{font:inherit;color:inherit}
+    input::placeholder,textarea::placeholder{color:var(--mu)}
+    [data-th="light"]{--bg:#FAFAFA;--sf:#FFFFFF;--sf2:#F1F1F1;--tx:#0B0F0E;--mu:#5A5A5A;--ln:#DADADA;--mint:#0E7A45;--mi:#FFFFFF;--mintsoft:rgba(14,122,69,.1);--warn:#8A5A00;--warnsoft:rgba(255,196,80,.22);--logo-filter:brightness(0);color-scheme:light}
+    [data-th="light"] .es-btn-primary{background:#0E7A45 !important;color:#FFFFFF !important}
+    [data-th="light"] .es-btn-secondary{box-shadow:inset 0 0 0 2px #0E7A45 !important;color:#0E7A45 !important}
+    @keyframes es-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    @keyframes es-up{from{transform:translateY(100%)}to{transform:none}}
+    @keyframes es-fade{from{opacity:0}to{opacity:1}}
+    @keyframes es-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+    @keyframes es-pulse{0%{box-shadow:0 0 0 0 rgba(175,252,206,.6)}70%{box-shadow:0 0 0 8px rgba(175,252,206,0)}100%{box-shadow:0 0 0 0 rgba(175,252,206,0)}}
+    @keyframes es-pop{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+    @keyframes es-draw{to{stroke-dashoffset:0}}
+    @keyframes es-dot{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-4px);opacity:1}}
+    @keyframes es-mark{from{opacity:0;transform:rotate(-8deg) scale(.9)}to{opacity:1;transform:none}}
+    @keyframes es-word{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    @keyframes es-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @keyframes es-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes es-blink{0%,45%{opacity:1}50%,95%{opacity:0}100%{opacity:1}}
+    @keyframes es-burst{0%{transform:translate(0,0) rotate(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1);opacity:0}}
+    @keyframes es-stamp{0%{transform:rotate(-14deg) scale(1.8);opacity:0}60%{transform:rotate(-10deg) scale(.96);opacity:1}100%{transform:rotate(-10deg) scale(1);opacity:1}}
+    @keyframes es-sheen{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+    @keyframes es-step{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.35);opacity:1}}
+    @keyframes es-spin{to{transform:rotate(360deg)}}
+    @keyframes es-wave{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+    .es-scr::-webkit-scrollbar{display:none}
+    .es-mq:hover{animation-play-state:paused}
+    [data-th] [data-shell]{transition:background .35s ease,color .35s ease}
+    [data-th] button{transition:transform .12s ease,opacity .15s ease,background .2s ease,border-color .2s ease}
+    [data-th] button:active{transform:scale(.97)}
+    [data-th] button:hover{opacity:.88}
+  </style>
+</helmet>
+
+<div style="max-width:1180px;margin:0 auto;padding:40px 28px 80px;display:flex;flex-direction:column;gap:32px">
+
+  <div style="display:flex;flex-wrap:wrap;gap:24px 40px;align-items:flex-end;justify-content:space-between;border-bottom:1px solid #DADADA;padding-bottom:24px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:620px">
+      <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Logo" variant="lockup" tone="dark" size="34" hint-size="120px,34px"></x-import>
+      <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.CodeTag" tag="client" size="20" hint-size="100%,58px">Track your project, add to scope, accept a quote — without leaving the app.</x-import>
+      <p style="margin:0;font-size:14px;line-height:1.55;color:#505050;text-wrap:pretty">Clickable prototype for Embed's customers (PMs, VPs, founders). Guided scope brief → fixed-price quote in-app within 24h, shown in INR and USD. Phases follow the embed.design process: Research → Strategy → Ideation → Design → Handover. Tap anything in the phone; the flow map on the right jumps between screens.</p>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button onClick="{{ restart }}" style="height:40px;padding:0 18px;border-radius:999px;border:0;background:#0B0F0E;color:#fff;cursor:pointer;font-size:13px;font-weight:500">Restart flow</button>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:center">
+
+    <!-- ============ PHONE ============ -->
+    <div data-th="{{ theme }}" style="flex:none">
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ isDark }}" hint-size="402px,874px">
+        <div data-shell="1" style="height:100%;position:relative;background:var(--bg);color:var(--tx);font-family:var(--es-font-body);display:flex;flex-direction:column;overflow:hidden">
+
+          <!-- ---------- SIGN IN ---------- -->
+          <sc-if value="{{ isSignin }}" hint-placeholder-val="{{ true }}">
+            <div style="flex:1;display:flex;flex-direction:column;padding:120px 28px 48px;position:relative;overflow:hidden">
+              <div style="position:absolute;right:-90px;top:60px;color:var(--mint);opacity:.08;animation:es-float 7s ease-in-out infinite;pointer-events:none"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Logo" variant="mark" tone="mint" size="360" hint-size="313px,360px"></x-import></div>
+              <div style="animation:es-mark .7s cubic-bezier(.2,.8,.2,1) both;transform-origin:left center;position:relative"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Logo" variant="mark" tone="{{ logoTone }}" size="52" hint-size="46px,52px"></x-import></div>
+              <div style="margin-top:36px;font-family:var(--es-font-display);font-weight:500;font-size:36px;line-height:1.02;letter-spacing:-0.035em;position:relative">
+                <span style="display:block;animation:es-word .6s cubic-bezier(.2,.8,.2,1) .15s both">Your project,</span>
+                <span style="display:block;animation:es-word .6s cubic-bezier(.2,.8,.2,1) .28s both">always in <span style="color:var(--mint)">view</span>.</span>
+              </div>
+              <div style="margin-top:14px;font-family:var(--es-font-mono);font-size:13px;line-height:1.44;color:var(--mu);animation:es-word .6s cubic-bezier(.2,.8,.2,1) .42s both;position:relative"><span style="color:var(--mu)">&lt;hi&gt;</span> <span style="color:var(--tx)">We embed user experience with your digital products</span> <span style="color:var(--mu)">&lt;/hi&gt;</span><span style="display:inline-block;width:7px;height:13px;margin-left:4px;vertical-align:-2px;background:var(--mint);animation:es-blink 1.1s steps(1) infinite"></span></div>
+              <div style="flex:1"></div>
+              <div style="margin:0 -28px 22px;position:relative;animation:es-word .6s cubic-bezier(.2,.8,.2,1) .5s both">
+                <div style="padding:0 28px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Trusted by product teams across industries</div>
+                <div style="margin-top:12px;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)">
+                  <div class="es-mq" style="display:flex;width:max-content;animation:es-marquee 60s linear infinite">
+                    <sc-if value="{{ logosReady }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ clientLogos }}" as="c" hint-placeholder-count="0">
+                      <span style="display:flex;flex:none;align-items:center;justify-content:center;width:104px;height:44px;margin:0 10px"><span role="img" aria-label="{{ c.name }}" style="display:block;height:{{ c.h }};width:{{ c.w }};background:var(--tx);opacity:.72;-webkit-mask:{{ c.mask }};mask:{{ c.mask }}"></span></span>
+                    </sc-for></sc-if>
+                  </div>
+                </div>
+              </div>
+              <label style="display:flex;flex-direction:column;gap:8px;animation:es-word .6s cubic-bezier(.2,.8,.2,1) .55s both;position:relative">
+                <span style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Work email</span>
+                <input value="{{ email }}" onChange="{{ setEmail }}" placeholder="you@company.com" type="email" style="height:52px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);padding:0 16px;font-size:16px;outline:none;color:var(--tx)" style-focus="border-color:var(--mint)">
+              </label>
+              <sc-if value="{{ emailError }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:8px;font-size:13px;color:var(--warn)">Enter the email your project invite was sent to.</div>
+              </sc-if>
+              <div style="margin-top:16px;display:flex;flex-direction:column;gap:12px;animation:es-word .6s cubic-bezier(.2,.8,.2,1) .65s both;position:relative">
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="md" on-click="{{ signIn }}" dc-props="{{ signBtn }}" class-name="{{ btnClass }}" hint-size="100%,46px">{{ signLabel }}</x-import>
+                <div style="text-align:center;font-size:13px;color:var(--mu);line-height:1.5">No password. We'll email a one-tap link.<br>Access is by invite from your Embed project lead.</div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- HOME ---------- -->
+          <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:62px 20px 120px;display:flex;flex-direction:column;gap:20px;animation:es-in .3s ease;position:relative">
+              <div style="position:absolute;right:-70px;top:70px;color:var(--mint);opacity:.07;pointer-events:none;animation:es-float 8s ease-in-out infinite"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Logo" variant="mark" tone="mint" size="260" hint-size="226px,260px"></x-import></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative">
+                <button onClick="{{ openSheet }}" style="display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 12px 6px 6px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);cursor:pointer">
+                  <span style="width:32px;height:32px;border-radius:999px;background:var(--mint);color:var(--mi);display:grid;place-items:center;font-family:var(--es-font-display);font-weight:500;font-size:14px">{{ project.initial }}</span>
+                  <span style="font-size:14px;font-weight:500">{{ project.name }}</span>
+                  <span style="display:inline-flex;color:var(--mu)"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsDownSmall" size="18" hint-size="18px,18px"></x-import></span>
+                </button>
+                <button onClick="{{ goMore }}" aria-label="Account" style="width:44px;height:44px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);display:grid;place-items:center;cursor:pointer"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="EssentialsUserCircle" size="22" hint-size="22px,22px"></x-import></button>
+              </div>
+
+              <div style="position:relative;animation:es-word .5s cubic-bezier(.2,.8,.2,1) .05s both">
+                <div style="font-family:var(--es-font-mono);font-size:13px;line-height:1.44;color:var(--mu)"><span>&lt;{{ greetTag }}&gt;</span> <span style="color:var(--tx)">{{ greeting }}, Priya</span> <span>&lt;/{{ greetTag }}&gt;</span></div>
+                <div style="margin-top:10px;font-family:var(--es-font-mono);font-size:12px;color:var(--mu);letter-spacing:.02em">{{ project.week }} · due {{ project.due }}</div>
+                <div style="margin-top:6px;font-family:var(--es-font-display);font-weight:500;font-size:30px;line-height:1.05;letter-spacing:-0.03em;text-wrap:pretty">{{ project.sub }}</div>
+              </div>
+
+              <sc-if value="{{ project.isProposal }}" hint-placeholder-val="{{ false }}">
+                <div style="background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:16px">
+                  <div style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Before Phase 1</div>
+                  <div style="margin-top:6px;font-family:var(--es-font-display);font-weight:500;font-size:22px;letter-spacing:-0.02em;line-height:1.1">Brief received — we're preparing your proposal</div>
+                  <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.45">
+                    <div style="display:flex;gap:10px;align-items:flex-start"><span style="width:20px;height:20px;border-radius:999px;background:var(--mint);color:var(--mi);display:grid;place-items:center;flex:none"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsTickSmall" size="12" hint-size="12px,12px"></x-import></span><span>Brief sent · {{ project.budget }} · {{ project.when }}</span></div>
+                    <div style="display:flex;gap:10px;align-items:flex-start"><span style="width:20px;height:20px;border-radius:999px;border:1.5px solid var(--mint);flex:none"></span><span>{{ leadName }} books a 30-min discovery call</span></div>
+                    <div style="display:flex;gap:10px;align-items:flex-start"><span style="width:20px;height:20px;border-radius:999px;border:1.5px solid var(--ln);flex:none"></span><span style="color:var(--mu)">Fixed-price proposal here within 3 working days</span></div>
+                  </div>
+                  <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--ln);font-size:13px;color:var(--mu)">Then: Research → Strategy → Ideation → Design → Handover</div>
+                </div>
+              </sc-if>
+              <!-- phase rail -->
+              <sc-if value="{{ project.notProposal }}" hint-placeholder-val="{{ true }}">
+              <div style="background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:16px;position:relative;animation:es-word .5s cubic-bezier(.2,.8,.2,1) .12s both">
+                <div style="display:flex;justify-content:space-between;align-items:baseline">
+                  <div style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Phase {{ project.phaseNo }} of 5</div>
+                  <div style="font-family:var(--es-font-display);font-weight:500;font-size:28px;letter-spacing:-0.03em;font-variant-numeric:tabular-nums">{{ pctShown }}<span style="font-size:16px;color:var(--mu)">%</span></div>
+                </div>
+                <div style="margin-top:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px">
+                  <sc-for list="{{ rail }}" as="p" hint-placeholder-count="5">
+                    <button onClick="{{ p.open }}" aria-label="{{ p.name }}" style="height:44px;padding:0;border:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:8px">
+                      <span style="display:block;height:6px;border-radius:999px;width:100%;background:var(--ln);overflow:hidden"><span style="display:block;position:relative;overflow:hidden;height:100%;width:{{ p.fillW }};border-radius:999px;background:{{ p.barBg }};transform-origin:left;animation:es-fill .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:{{ p.delay }}"><sc-if value="{{ p.current }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:0;bottom:0;width:30%;background:rgba(255,255,255,.55);filter:blur(2px);animation:es-sheen 2.6s ease-in-out 1.2s infinite"></span></sc-if></span></span>
+                      <span style="font-size:11px;font-weight:500;color:{{ p.labelColor }};text-align:left">{{ p.name }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <button onClick="{{ openCurrentPhase }}" style="margin-top:14px;width:100%;min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:0;border-top:1px solid var(--ln);padding:12px 0 0;background:transparent;color:var(--tx);cursor:pointer;text-align:left">
+                  <span>
+                    <span style="display:block;font-size:15px;font-weight:500">Now: {{ currentPhase.name }} — {{ currentPhase.now }}</span>
+                    <span style="display:block;margin-top:2px;font-size:13px;color:var(--mu)">{{ currentPhase.summary }}</span>
+                  </span>
+                  <span style="display:inline-flex;color:var(--mu)"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsRightSmall" size="20" hint-size="20px,20px"></x-import></span>
+                </button>
+              </div>
+              </sc-if>
+
+              <!-- needs you -->
+              <sc-if value="{{ showPending }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+                    <div style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu)">&lt;needs-you count="<span style="color:var(--tx)">{{ pendingCount }}</span>"&gt;</div>
+                    <button onClick="{{ goApprovals }}" style="border:0;background:none;color:var(--tx);font-size:13px;text-decoration:underline;text-underline-offset:4px;cursor:pointer;min-height:32px">All approvals</button>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <sc-for list="{{ pendingList }}" as="a" hint-placeholder-count="2">
+                      <button onClick="{{ a.open }}" style="display:flex;align-items:center;gap:14px;text-align:left;width:100%;min-height:64px;padding:14px 16px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);cursor:pointer;animation:es-word .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:{{ a.delay }}" style-hover="border-color:var(--mint)">
+                        <span style="width:8px;height:8px;border-radius:999px;background:var(--mint);flex:none;animation:es-pulse 2s ease-out infinite"></span>
+                        <span style="flex:1;min-width:0">
+                          <span style="display:block;font-size:15px;font-weight:500">{{ a.title }}</span>
+                          <span style="display:block;margin-top:2px;font-size:13px;color:var(--mu)">{{ a.kind }} · {{ a.meta }}</span>
+                        </span>
+                        <span style="font-family:var(--es-font-mono);font-size:11px;color:{{ a.dueColor }}">{{ a.due }}</span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <!-- scope + money glance -->
+              <sc-if value="{{ project.notProposal }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <button onClick="{{ goScope }}" style="text-align:left;padding:14px 16px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);cursor:pointer;min-height:84px">
+                  <span style="display:block;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Scope</span>
+                  <span style="display:block;margin-top:8px;font-size:15px;font-weight:500;line-height:1.3">{{ scopeGlance }}</span>
+                </button>
+                <button onClick="{{ goInvoices }}" style="text-align:left;padding:14px 16px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);cursor:pointer;min-height:84px">
+                  <span style="display:block;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Billing</span>
+                  <span style="display:block;margin-top:8px;font-size:15px;font-weight:500;line-height:1.3">{{ billingGlance }}</span>
+                </button>
+              </div>
+
+              <!-- activity -->
+              <div>
+                <div style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu);margin-bottom:10px">&lt;this-week&gt;</div>
+                <div style="display:flex;flex-direction:column">
+                  <sc-for list="{{ activity }}" as="ev" hint-placeholder-count="4">
+                    <div style="display:grid;grid-template-columns:44px 1fr;gap:0 10px;padding:10px 0;border-bottom:1px solid var(--ln);animation:es-word .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:{{ ev.delay }}">
+                      <div style="font-family:var(--es-font-mono);font-size:11px;color:var(--mu);padding-top:2px">{{ ev.day }}</div>
+                      <div>
+                        <div style="font-size:14px;line-height:1.4">{{ ev.text }}</div>
+                        <div style="font-size:12px;color:var(--mu);margin-top:2px">{{ ev.who }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <!-- ---------- PHASE DETAIL ---------- -->
+          <sc-if value="{{ isPhase }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:54px 20px 120px;animation:es-in .3s ease">
+              <div style="display:flex;align-items:center;gap:4px;margin-left:-10px">
+                <button onClick="{{ back }}" aria-label="Back" style="width:44px;height:44px;border:0;background:none;color:var(--tx);display:grid;place-items:center;cursor:pointer"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsArrowLeft" size="22" hint-size="22px,22px"></x-import></button>
+                <span style="font-size:13px;color:var(--mu)">{{ project.name }}</span>
+              </div>
+              <div style="display:flex;gap:6px;margin:8px 0 14px;overflow:auto" class="es-scr">
+                <sc-for list="{{ phaseTabs }}" as="t" hint-placeholder-count="5">
+                  <button onClick="{{ t.open }}" style="flex:none;height:36px;padding:0 14px;border-radius:999px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }};font-size:13px;font-weight:500;cursor:pointer">{{ t.name }}</button>
+                </sc-for>
+              </div>
+              <div style="position:relative">
+                <div aria-hidden="true" style="position:absolute;right:-6px;top:-30px;font-family:var(--es-font-display);font-weight:500;font-size:150px;line-height:1;letter-spacing:-0.06em;color:transparent;-webkit-text-stroke:1.5px var(--ln);pointer-events:none;user-select:none;animation:es-word .7s cubic-bezier(.2,.8,.2,1) both">{{ phase.no }}</div>
+                <div style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu);position:relative">&lt;phase {{ phase.no }}/05&gt; {{ phase.status }}</div>
+                <div style="margin-top:4px;font-family:var(--es-font-display);font-weight:500;font-size:32px;letter-spacing:-0.03em;line-height:1.05;position:relative">{{ phase.name }}</div>
+              </div>
+              <p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:var(--mu);text-wrap:pretty">{{ phase.blurb }}</p>
+
+              <div style="margin-top:20px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Deliverables</div>
+              <div style="margin-top:8px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;overflow:hidden">
+                <sc-for list="{{ phase.items }}" as="d" hint-placeholder-count="4">
+                  <button onClick="{{ d.open }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:0;border-bottom:1px solid var(--ln);background:transparent;color:var(--tx);cursor:pointer;animation:es-word .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:{{ d.delay }}" style-hover="background:var(--sf2)">
+                    <span style="width:22px;height:22px;border-radius:999px;flex:none;display:grid;place-items:center;background:{{ d.dotBg }};color:{{ d.dotColor }};border:1.5px solid {{ d.dotBorder }};animation:es-pop .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:{{ d.delay2 }}">
+                      <sc-if value="{{ d.done }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsTickSmall" size="14" hint-size="14px,14px"></x-import></sc-if>
+                    </span>
+                    <span style="flex:1;min-width:0">
+                      <span style="display:block;font-size:15px">{{ d.name }}</span>
+                      <span style="display:block;font-size:12px;color:var(--mu);margin-top:1px">{{ d.note }}</span>
+                    </span>
+                    <span style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.02em;padding:4px 8px;border-radius:999px;background:{{ d.pillBg }};color:{{ d.pillColor }}">{{ d.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:20px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Files</div>
+              <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ phase.files }}" as="f" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);min-height:56px">
+                    <span style="width:36px;height:36px;border-radius:8px;background:var(--sf2);display:grid;place-items:center;font-family:var(--es-font-mono);font-size:10px;color:var(--mu)">{{ f.ext }}</span>
+                    <span style="flex:1;min-width:0"><span style="display:block;font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.name }}</span><span style="display:block;font-size:12px;color:var(--mu)">{{ f.meta }}</span></span>
+                    <span style="color:var(--mu);display:inline-flex"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="ArrowsExpand" size="18" hint-size="18px,18px"></x-import></span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:20px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Your Embed team</div>
+              <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ team }}" as="m" hint-placeholder-count="3">
+                  <button onClick="{{ goChat }}" style="display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);cursor:pointer;min-height:44px">
+                    <span style="width:28px;height:28px;border-radius:999px;background:var(--sf2);display:grid;place-items:center;font-size:12px;font-weight:600">{{ m.initial }}</span>
+                    <span style="text-align:left"><span style="display:block;font-size:13px;font-weight:500">{{ m.name }}</span><span style="display:block;font-size:11px;color:var(--mu)">{{ m.role }}</span></span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- APPROVALS LIST ---------- -->
+          <sc-if value="{{ isApprovals }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:62px 20px 120px;animation:es-in .3s ease">
+              <div style="font-family:var(--es-font-display);font-weight:500;font-size:30px;letter-spacing:-0.03em">Approvals</div>
+              <p style="margin:6px 0 0;font-family:var(--es-font-mono);font-size:12px;color:var(--mu);line-height:1.5">&lt;rule&gt; <span style="color:var(--tx)">Nothing moves without you</span> &lt;/rule&gt;</p>
+              <div style="margin-top:20px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Waiting on you · {{ pendingCount }}</div>
+              <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ pendingList }}" as="a" hint-placeholder-count="2">
+                  <button onClick="{{ a.open }}" style="display:flex;align-items:center;gap:14px;text-align:left;width:100%;min-height:64px;padding:14px 16px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);cursor:pointer;animation:es-word .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:{{ a.delay }}" style-hover="border-color:var(--mint)">
+                    <span style="width:8px;height:8px;border-radius:999px;background:var(--mint);flex:none;animation:es-pulse 2s ease-out infinite"></span>
+                    <span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:500">{{ a.title }}</span><span style="display:block;margin-top:2px;font-size:13px;color:var(--mu)">{{ a.kind }} · {{ a.meta }}</span></span>
+                    <span style="font-family:var(--es-font-mono);font-size:11px;color:{{ a.dueColor }}">{{ a.due }}</span>
+                  </button>
+                </sc-for>
+                <sc-if value="{{ noPending }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:28px 16px;border-radius:10px;border:1px dashed var(--ln);text-align:center;font-size:14px;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:12px"><span style="color:var(--mint);animation:es-float 4s ease-in-out infinite"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Logo" variant="mark" tone="mint" size="44" hint-size="38px,44px"></x-import></span><span style="font-family:var(--es-font-mono);font-size:12px">&lt;inbox-zero&gt; <span style="color:var(--tx)">Nothing waiting on you</span> &lt;/inbox-zero&gt;</span></div>
+                </sc-if>
+              </div>
+              <div style="margin-top:24px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Decided</div>
+              <div style="margin-top:8px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;overflow:hidden">
+                <sc-for list="{{ decidedList }}" as="a" hint-placeholder-count="2">
+                  <button onClick="{{ a.open }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:0;border-bottom:1px solid var(--ln);background:transparent;color:var(--tx);cursor:pointer">
+                    <span style="flex:1;min-width:0"><span style="display:block;font-size:15px">{{ a.title }}</span><span style="display:block;font-size:12px;color:var(--mu);margin-top:1px">{{ a.kind }} · {{ a.decidedOn }}</span></span>
+                    <span style="font-family:var(--es-font-mono);font-size:11px;padding:4px 8px;border-radius:999px;background:{{ a.pillBg }};color:{{ a.pillColor }}">{{ a.statusLabel }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- APPROVAL DETAIL ---------- -->
+          <sc-if value="{{ isApproval }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:54px 20px 32px;animation:es-in .3s ease;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;gap:4px;margin-left:-10px">
+                <button onClick="{{ back }}" aria-label="Back" style="width:44px;height:44px;border:0;background:none;color:var(--tx);display:grid;place-items:center;cursor:pointer"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsArrowLeft" size="22" hint-size="22px,22px"></x-import></button>
+                <span style="font-size:13px;color:var(--mu)">Approvals</span>
+              </div>
+              <div style="margin-top:8px;font-family:var(--es-font-mono);font-size:12px;color:var(--mu)">{{ approval.kind }} · {{ approval.phaseName }}</div>
+              <div style="margin-top:4px;font-family:var(--es-font-display);font-weight:500;font-size:28px;letter-spacing:-0.03em;line-height:1.08;text-wrap:pretty">{{ approval.title }}</div>
+              <div style="margin-top:16px;aspect-ratio:16/10;border-radius:10px;background:var(--sf2);border:1px solid var(--ln);display:grid;place-items:center;position:relative;overflow:hidden">
+                <div style="position:absolute;inset:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+                  <div style="border-radius:6px;background:var(--sf);border:1px solid var(--ln)"></div><div style="border-radius:6px;background:var(--sf);border:1px solid var(--ln)"></div><div style="border-radius:6px;background:var(--sf);border:1px solid var(--ln)"></div><div style="border-radius:6px;background:var(--sf);border:1px solid var(--ln)"></div>
+                </div>
+                <span style="position:relative;font-family:var(--es-font-mono);font-size:11px;padding:6px 10px;border-radius:999px;background:var(--bg);color:var(--tx);border:1px solid var(--ln)">Preview · {{ approval.meta }}</span>
+              </div>
+              <p style="margin:14px 0 0;font-size:14px;line-height:1.55;text-wrap:pretty">{{ approval.note }}</p>
+              <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+                <button style="min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:8px"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="ArrowsExpand" size="16" hint-size="16px,16px"></x-import>Open in Figma</button>
+                <button onClick="{{ goChat }}" style="min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:8px"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="EssentialsChat" size="16" hint-size="16px,16px"></x-import>Ask {{ approval.owner }}</button>
+              </div>
+              <div style="flex:1;min-height:16px"></div>
+              <sc-if value="{{ approval.isPending }}" hint-placeholder-val="{{ true }}">
+                <sc-if value="{{ feedbackOpen }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+                    <span style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">What should change?</span>
+                    <textarea value="{{ feedback }}" onChange="{{ setFeedback }}" rows="3" placeholder="Be specific — screen, element, and why. We'll turn it into tickets." style="border-radius:10px;border:1px solid var(--ln);background:var(--sf);padding:12px 14px;font-size:15px;line-height:1.45;resize:none;outline:none;color:var(--tx)" style-focus="border-color:var(--mint)"></textarea>
+                    <sc-if value="{{ feedbackError }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:var(--warn)">Add at least a sentence so the team can act on it.</span></sc-if>
+                  </label>
+                </sc-if>
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <sc-if value="{{ feedbackOpen }}" hint-placeholder-val="{{ false }}">
+                    <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="md" on-click="{{ sendChanges }}" dc-props="{{ fullBtn }}" class-name="{{ btnClass }}" hint-size="100%,46px">Send change request</x-import>
+                    <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="link" size="sm" on-dark="{{ isDark }}" on-click="{{ closeFeedback }}" dc-props="{{ fullBtn }}" hint-size="100%,32px">Cancel</x-import>
+                  </sc-if>
+                  <sc-if value="{{ feedbackClosed }}" hint-placeholder-val="{{ true }}">
+                    <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="md" on-click="{{ approve }}" dc-props="{{ fullBtn }}" class-name="{{ btnClass }}" hint-size="100%,46px">Approve</x-import>
+                    <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="secondary" size="md" on-dark="{{ isDark }}" class-name="es-btn-secondary" on-click="{{ openFeedback }}" dc-props="{{ fullBtn }}" hint-size="100%,46px">Request changes</x-import>
+                  </sc-if>
+                </div>
+              </sc-if>
+              <sc-if value="{{ approval.isDecided }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:14px 16px;border-radius:10px;background:{{ approval.pillBg }};color:{{ approval.pillColor }};font-size:14px;font-weight:500">{{ approval.statusLabel }} · {{ approval.decidedOn }}</div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <!-- ---------- SCOPE LIST ---------- -->
+          <sc-if value="{{ isScope }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:62px 20px 120px;animation:es-in .3s ease">
+              <div style="font-family:var(--es-font-display);font-weight:500;font-size:30px;letter-spacing:-0.03em">Scope</div>
+              <p style="margin:6px 0 0;font-size:14px;color:var(--mu);line-height:1.5">Need something that isn't in the plan? Brief us here. You'll get a fixed-price quote in the app within one working day.</p>
+              <div style="margin-top:16px">
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="md" on-click="{{ startBrief }}" dc-props="{{ fullBtn }}" class-name="{{ btnClass }}" hint-size="100%,46px">Request a scope change</x-import>
+                <button onClick="{{ startProject }}" style="margin-top:10px;width:100%;min-height:44px;border:0;background:none;color:var(--tx);font-size:14px;text-decoration:underline;text-underline-offset:4px;cursor:pointer">Start a new project</button>
+              </div>
+              <div style="margin-top:24px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Requests</div>
+              <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ requests }}" as="r" hint-placeholder-count="2">
+                  <button onClick="{{ r.open }}" style="text-align:left;width:100%;padding:14px 16px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);cursor:pointer;min-height:72px">
+                    <span style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+                      <span style="font-size:15px;font-weight:500">{{ r.title }}</span>
+                      <span style="flex:none;font-family:var(--es-font-mono);font-size:11px;padding:4px 8px;border-radius:999px;background:{{ r.pillBg }};color:{{ r.pillColor }}">{{ r.statusLabel }}</span>
+                    </span>
+                    <span style="display:block;margin-top:6px;font-size:13px;color:var(--mu);line-height:1.4">{{ r.sub }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <div style="margin-top:24px;padding:14px 16px;border-radius:10px;border:1px solid var(--ln)">
+                <div style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu)">&lt;how-it-works&gt;</div>
+                <div style="margin-top:12px;display:grid;grid-template-columns:18px 1fr;gap:0 12px">
+                  <div style="display:flex;flex-direction:column;align-items:center"><span style="width:10px;height:10px;border-radius:999px;background:var(--mint);flex:none;animation:es-step 2.4s ease-in-out infinite"></span><span style="flex:1;width:1px;background:var(--ln)"></span></div>
+                  <div style="padding-bottom:14px;font-size:13px;line-height:1.5"><b style="font-weight:600">Brief</b> — 3 short steps, about 2 minutes.</div>
+                  <div style="display:flex;flex-direction:column;align-items:center"><span style="width:10px;height:10px;border-radius:999px;background:var(--mint);flex:none;animation:es-step 2.4s ease-in-out .8s infinite"></span><span style="flex:1;width:1px;background:var(--ln)"></span></div>
+                  <div style="padding-bottom:14px;font-size:13px;line-height:1.5"><b style="font-weight:600">Quote</b> — fixed price + timeline impact from your lead, within a working day.</div>
+                  <div style="display:flex;flex-direction:column;align-items:center"><span style="width:10px;height:10px;border-radius:999px;background:var(--mint);flex:none;animation:es-step 2.4s ease-in-out 1.6s infinite"></span></div>
+                  <div style="font-size:13px;line-height:1.5"><b style="font-weight:600">Accept</b> — in-app. Work is scheduled; 50% invoiced on acceptance.</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- BRIEF WIZARD ---------- -->
+          <sc-if value="{{ isBrief }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:54px 20px 32px;animation:es-in .3s ease;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-left:-10px">
+                <button onClick="{{ briefBack }}" aria-label="Back" style="width:44px;height:44px;border:0;background:none;color:var(--tx);display:grid;place-items:center;cursor:pointer"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsArrowLeft" size="22" hint-size="22px,22px"></x-import></button>
+                <button onClick="{{ cancelBrief }}" style="min-height:44px;padding:0 6px;border:0;background:none;color:var(--mu);font-size:14px;cursor:pointer">Save &amp; exit</button>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:4px">
+                <sc-for list="{{ briefSteps }}" as="s" hint-placeholder-count="4"><span style="height:3px;border-radius:999px;background:{{ s.bg }}"></span></sc-for>
+              </div>
+              <div style="position:relative;margin-top:16px">
+                <div aria-hidden="true" style="position:absolute;right:-6px;top:-22px;font-family:var(--es-font-display);font-weight:500;font-size:120px;line-height:1;letter-spacing:-0.06em;color:transparent;-webkit-text-stroke:1.5px var(--ln);pointer-events:none;user-select:none;animation:es-word .6s cubic-bezier(.2,.8,.2,1) both">0{{ brief.stepNo }}</div>
+                <div style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu);position:relative">{{ brief.eyebrow }} · step {{ brief.stepNo }} of 4</div>
+              </div>
+
+              <sc-if value="{{ brief.s1 }}" hint-placeholder-val="{{ true }}">
+                <div style="margin-top:4px;font-family:var(--es-font-display);font-weight:500;font-size:28px;letter-spacing:-0.03em;line-height:1.08">{{ brief.title1 }}</div>
+                <sc-if value="{{ brief.isProj }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:flex;flex-direction:column;gap:8px;margin-top:16px">
+                    <span style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Project name</span>
+                    <input value="{{ brief.pname }}" onChange="{{ setPname }}" placeholder="e.g. Lending dashboard redesign" style="height:48px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);padding:0 14px;font-size:15px;outline:none;color:var(--tx)" style-focus="border-color:var(--mint)">
+                  </label>
+                  <div style="margin-top:16px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Services you need</div>
+                </sc-if>
+                <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
+                  <sc-for list="{{ briefTypes }}" as="t" hint-placeholder-count="5">
+                    <button onClick="{{ t.toggle }}" style="min-height:40px;padding:0 14px;border-radius:999px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }};font-size:14px;font-weight:500;cursor:pointer">{{ t.name }}</button>
+                  </sc-for>
+                </div>
+                <label style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+                  <span style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Describe it</span>
+                  <textarea value="{{ brief.desc }}" onChange="{{ setDesc }}" rows="5" placeholder="{{ brief.descPlaceholder }}" style="border-radius:10px;border:1px solid var(--ln);background:var(--sf);padding:12px 14px;font-size:15px;line-height:1.45;resize:none;outline:none;color:var(--tx)" style-focus="border-color:var(--mint)"></textarea>
+                </label>
+                <sc-if value="{{ brief.err1 }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:13px;color:var(--warn)">Name it, pick at least one type and add a sentence or two.</div></sc-if>
+              </sc-if>
+
+              <sc-if value="{{ brief.s2 }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:4px;font-family:var(--es-font-display);font-weight:500;font-size:28px;letter-spacing:-0.03em;line-height:1.08">What should it achieve?</div>
+                <p style="margin:8px 0 0;font-size:14px;color:var(--mu);line-height:1.5">Outcomes help us size it right — and say no to what won't move the needle.</p>
+                <label style="display:flex;flex-direction:column;gap:8px;margin-top:16px">
+                  <span style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Goal</span>
+                  <textarea value="{{ brief.goal }}" onChange="{{ setGoal }}" rows="3" placeholder="e.g. Lift activation from 31% to 40% in Q1." style="border-radius:10px;border:1px solid var(--ln);background:var(--sf);padding:12px 14px;font-size:15px;line-height:1.45;resize:none;outline:none;color:var(--tx)" style-focus="border-color:var(--mint)"></textarea>
+                </label>
+                <sc-if value="{{ brief.isScope }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:16px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Priority</div>
+                  <div style="margin-top:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+                    <sc-for list="{{ priorities }}" as="p" hint-placeholder-count="3">
+                      <button onClick="{{ p.pick }}" style="min-height:44px;border-radius:10px;border:1px solid {{ p.border }};background:{{ p.bg }};color:{{ p.color }};font-size:14px;font-weight:500;cursor:pointer">{{ p.name }}</button>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ brief.isProj }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:16px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Budget range · optional</div>
+                  <div style="margin-top:8px;display:grid;grid-template-columns:repeat(2,1fr);gap:6px">
+                    <sc-for list="{{ budgets }}" as="p" hint-placeholder-count="4">
+                      <button onClick="{{ p.pick }}" style="min-height:44px;border-radius:10px;border:1px solid {{ p.border }};background:{{ p.bg }};color:{{ p.color }};font-size:14px;font-weight:500;cursor:pointer">{{ p.name }}</button>
+                    </sc-for>
+                  </div>
+                  <div style="margin-top:8px;font-size:12px;color:var(--mu);line-height:1.5">A range helps us propose the right depth of work. It is not a commitment.</div>
+                </sc-if>
+              </sc-if>
+
+              <sc-if value="{{ brief.s3 }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:4px;font-family:var(--es-font-display);font-weight:500;font-size:28px;letter-spacing:-0.03em;line-height:1.08">When do you need it?</div>
+                <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px">
+                  <sc-for list="{{ whens }}" as="w" hint-placeholder-count="3">
+                    <button onClick="{{ w.pick }}" style="text-align:left;min-height:56px;padding:12px 16px;border-radius:10px;border:1px solid {{ w.border }};background:{{ w.bg }};color:var(--tx);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px">
+                      <span><span style="display:block;font-size:15px;font-weight:500">{{ w.name }}</span><span style="display:block;font-size:13px;color:var(--mu);margin-top:2px">{{ w.sub }}</span></span>
+                      <span style="width:20px;height:20px;border-radius:999px;border:1.5px solid {{ w.ringColor }};background:{{ w.dot }};flex:none"></span>
+                    </button>
+                  </sc-for>
+                </div>
+                <button style="margin-top:16px;width:100%;min-height:52px;border-radius:10px;border:1px dashed var(--ln);background:transparent;color:var(--mu);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="AuthoringAttach" size="18" hint-size="18px,18px"></x-import>Attach references (optional)</button>
+              </sc-if>
+
+              <sc-if value="{{ brief.s4 }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:4px;font-family:var(--es-font-display);font-weight:500;font-size:28px;letter-spacing:-0.03em;line-height:1.08">{{ brief.title4 }}</div>
+                <div style="margin-top:16px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;overflow:hidden">
+                  <sc-for list="{{ briefReview }}" as="row" hint-placeholder-count="4">
+                    <button onClick="{{ row.edit }}" style="width:100%;text-align:left;display:flex;gap:12px;padding:12px 16px;border:0;border-bottom:1px solid var(--ln);background:transparent;color:var(--tx);cursor:pointer;min-height:48px">
+                      <span style="width:72px;flex:none;font-family:var(--es-font-mono);font-size:11px;color:var(--mu);padding-top:3px;text-transform:uppercase;letter-spacing:.04em">{{ row.k }}</span>
+                      <span style="flex:1;font-size:14px;line-height:1.45">{{ row.v }}</span>
+                      <span style="font-size:12px;color:var(--mu);text-decoration:underline;text-underline-offset:3px">Edit</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--mintsoft);font-size:13px;line-height:1.5"><b style="font-weight:600">What happens next:</b> {{ leadName }} {{ brief.nextText }} <sc-if value="{{ brief.isScope }}" hint-placeholder-val="{{ true }}"><b style="font-weight:600">{{ quoteEta }}</b>.</sc-if> Nothing is billed until you accept.</div>
+              </sc-if>
+
+              <div style="flex:1;min-height:20px"></div>
+              <sc-if value="{{ brief.notLast }}" hint-placeholder-val="{{ true }}">
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="md" on-click="{{ briefNext }}" dc-props="{{ fullBtn }}" class-name="{{ btnClass }}" hint-size="100%,46px">Continue</x-import>
+              </sc-if>
+              <sc-if value="{{ brief.s4 }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="md" on-click="{{ submitBrief }}" dc-props="{{ fullBtn }}" class-name="{{ btnClass }}" hint-size="100%,46px">{{ brief.submitLabel }}</x-import>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <!-- ---------- QUOTE ---------- -->
+          <sc-if value="{{ isQuote }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:54px 20px 32px;animation:es-in .3s ease;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:center;gap:4px;margin-left:-10px">
+                <button onClick="{{ back }}" aria-label="Back" style="width:44px;height:44px;border:0;background:none;color:var(--tx);display:grid;place-items:center;cursor:pointer"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsArrowLeft" size="22" hint-size="22px,22px"></x-import></button>
+                <span style="font-size:13px;color:var(--mu)">Scope</span>
+              </div>
+              <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:10px">
+                <span style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu);white-space:nowrap;flex:none">{{ req.ref }}</span>
+                <span style="font-family:var(--es-font-mono);font-size:11px;padding:4px 8px;border-radius:999px;background:{{ req.pillBg }};color:{{ req.pillColor }}">{{ req.statusLabel }}</span>
+              </div>
+              <div style="margin-top:4px;font-family:var(--es-font-display);font-weight:500;font-size:28px;letter-spacing:-0.03em;line-height:1.08;text-wrap:pretty">{{ req.title }}</div>
+              <p style="margin:8px 0 0;font-size:14px;color:var(--mu);line-height:1.5">{{ req.sub }}</p>
+
+              <sc-if value="{{ req.hasQuote }}" hint-placeholder-val="{{ true }}">
+                <div style="margin-top:18px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:16px">
+                  <div style="display:flex;justify-content:space-between;align-items:center">
+                    <span style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Fixed price</span>
+                    <span style="display:inline-flex;padding:2px;border-radius:999px;background:var(--sf2);border:1px solid var(--ln)">
+                      <button onClick="{{ setINR }}" style="min-width:44px;height:28px;border-radius:999px;border:0;background:{{ inrBg }};color:{{ inrColor }};font-size:12px;font-weight:600;cursor:pointer">INR</button>
+                      <button onClick="{{ setUSD }}" style="min-width:44px;height:28px;border-radius:999px;border:0;background:{{ usdBg }};color:{{ usdColor }};font-size:12px;font-weight:600;cursor:pointer">USD</button>
+                    </span>
+                  </div>
+                  <div style="margin-top:8px;font-family:var(--es-font-display);font-weight:500;font-size:44px;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums">{{ totalShown }}</div>
+                  <div style="margin-top:6px;font-size:12px;color:var(--mu)">≈ {{ quote.alt }} · excl. taxes · valid until {{ quote.valid }}</div>
+                  <div style="margin-top:14px;border-top:1px solid var(--ln)">
+                    <sc-for list="{{ quote.lines }}" as="l" hint-placeholder-count="4">
+                      <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--ln);font-size:14px;animation:es-word .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:{{ l.delay }}">
+                        <span style="flex:1"><span style="display:block">{{ l.name }}</span><span style="display:block;font-size:12px;color:var(--mu);margin-top:1px">{{ l.qty }}</span></span>
+                        <span style="font-family:var(--es-font-mono);font-size:13px">{{ l.amt }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                    <div style="padding:10px 12px;border-radius:8px;background:var(--sf2)"><div style="font-family:var(--es-font-mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Timeline</div><div style="margin-top:4px;font-size:14px;font-weight:500">{{ quote.timeline }}</div></div>
+                    <div style="padding:10px 12px;border-radius:8px;background:var(--sf2)"><div style="font-family:var(--es-font-mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">New due date</div><div style="margin-top:4px;font-size:14px;font-weight:500">{{ quote.newDue }}</div></div>
+                  </div>
+                </div>
+                <div style="margin-top:12px;display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;border:1px solid var(--ln)">
+                  <span style="width:32px;height:32px;border-radius:999px;background:var(--sf2);display:grid;place-items:center;font-size:12px;font-weight:600;flex:none">{{ leadInitial }}</span>
+                  <span style="font-size:13px;line-height:1.5"><b style="font-weight:600">{{ leadName }}:</b> {{ quote.note }}</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ req.reviewing }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:18px;padding:20px 16px;border-radius:10px;border:1px dashed var(--ln);text-align:center">
+                  <div style="font-family:var(--es-font-display);font-weight:500;font-size:20px;letter-spacing:-0.02em">We're sizing it</div>
+                  <div style="margin-top:6px;font-size:13px;color:var(--mu);line-height:1.5">{{ leadName }} will post a fixed-price quote here by {{ quoteEta }}. You'll get a notification.</div>
+                </div>
+              </sc-if>
+
+              <div style="flex:1;min-height:20px"></div>
+              <sc-if value="{{ req.canAccept }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="md" on-click="{{ openConfirm }}" dc-props="{{ fullBtn }}" class-name="{{ btnClass }}" hint-size="100%,46px">Accept quote</x-import>
+                  <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="secondary" size="md" on-dark="{{ isDark }}" class-name="es-btn-secondary" on-click="{{ goChat }}" dc-props="{{ fullBtn }}" hint-size="100%,46px">Discuss first</x-import>
+                </div>
+              </sc-if>
+              <sc-if value="{{ req.accepted }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:14px 16px;border-radius:10px;background:var(--mintsoft);font-size:14px;line-height:1.5"><b style="font-weight:600">Accepted.</b> Added to the Design phase. 50% invoice issued — see Billing.</div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <!-- ---------- INVOICES ---------- -->
+          <sc-if value="{{ isInvoices }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:54px 20px 120px;animation:es-in .3s ease">
+              <div style="display:flex;align-items:center;gap:4px;margin-left:-10px">
+                <button onClick="{{ back }}" aria-label="Back" style="width:44px;height:44px;border:0;background:none;color:var(--tx);display:grid;place-items:center;cursor:pointer"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsArrowLeft" size="22" hint-size="22px,22px"></x-import></button>
+                <span style="font-size:13px;color:var(--mu)">{{ project.name }}</span>
+              </div>
+              <div style="margin-top:8px;font-family:var(--es-font-display);font-weight:500;font-size:30px;letter-spacing:-0.03em">Billing</div>
+              <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="padding:14px 16px;border-radius:10px;background:var(--sf);border:1px solid var(--ln)"><div style="font-family:var(--es-font-mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Paid to date</div><div style="margin-top:6px;font-family:var(--es-font-display);font-weight:500;font-size:22px;letter-spacing:-0.02em">{{ billing.paid }}</div></div>
+                <div style="padding:14px 16px;border-radius:10px;background:var(--sf);border:1px solid var(--ln)"><div style="font-family:var(--es-font-mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Outstanding</div><div style="margin-top:6px;font-family:var(--es-font-display);font-weight:500;font-size:22px;letter-spacing:-0.02em">{{ billing.due }}</div></div>
+              </div>
+              <div style="margin-top:6px;font-size:12px;color:var(--mu)">Contract {{ billing.contract }} · amounts in {{ cur }} · <button onClick="{{ toggleCur }}" style="border:0;background:none;color:var(--tx);font-size:12px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0">show {{ otherCur }}</button></div>
+              <div style="margin-top:20px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Invoices</div>
+              <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ invoices }}" as="inv" hint-placeholder-count="3">
+                  <div style="padding:14px 16px;border-radius:10px;border:1px solid var(--ln);background:var(--sf)">
+                    <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+                      <span><span style="display:block;font-size:15px;font-weight:500">{{ inv.title }}</span><span style="display:block;font-size:12px;color:var(--mu);margin-top:2px;font-family:var(--es-font-mono)">{{ inv.ref }} · {{ inv.when }}</span></span>
+                      <span style="font-family:var(--es-font-mono);font-size:15px">{{ inv.amt }}</span>
+                    </div>
+                    <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:10px">
+                      <span style="font-family:var(--es-font-mono);font-size:11px;padding:4px 8px;border-radius:999px;background:{{ inv.pillBg }};color:{{ inv.pillColor }}">{{ inv.statusLabel }}</span>
+                      <sc-if value="{{ inv.payable }}" hint-placeholder-val="{{ false }}">
+                        <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="sm" on-click="{{ inv.pay }}" class-name="es-btn-primary" hint-size="90px,32px">Pay now</x-import>
+                      </sc-if>
+                      <sc-if value="{{ inv.paid }}" hint-placeholder-val="{{ true }}">
+                        <span style="display:flex;align-items:center;gap:12px">
+                          <span style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.14em;padding:3px 8px;border:1.5px solid var(--mint);color:var(--mint);border-radius:4px;transform:rotate(-10deg);animation:es-stamp .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:{{ inv.delay }}">PAID</span>
+                          <button style="border:0;background:none;color:var(--tx);font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:32px">Receipt</button>
+                        </span>
+                      </sc-if>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- CHAT ---------- -->
+          <sc-if value="{{ isChat }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;min-height:0;animation:es-in .3s ease">
+              <div style="padding:58px 20px 12px;border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:12px">
+                <span style="width:40px;height:40px;border-radius:999px;background:var(--mint);color:var(--mi);display:grid;place-items:center;font-family:var(--es-font-display);font-weight:500">{{ project.initial }}</span>
+                <span style="flex:1"><span style="display:block;font-size:15px;font-weight:500">{{ project.name }} · Embed</span><span style="display:flex;align-items:center;gap:8px;margin-top:3px;font-size:12px;color:var(--mu)"><span style="display:inline-flex"><span style="width:18px;height:18px;border-radius:999px;background:var(--sf2);border:2px solid var(--bg);display:grid;place-items:center;font-size:8px;font-weight:700;animation:es-wave 1.8s ease-in-out infinite">A</span><span style="width:18px;height:18px;border-radius:999px;background:var(--sf2);border:2px solid var(--bg);margin-left:-6px;display:grid;place-items:center;font-size:8px;font-weight:700;animation:es-wave 1.8s ease-in-out .2s infinite">An</span><span style="width:18px;height:18px;border-radius:999px;background:var(--sf2);border:2px solid var(--bg);margin-left:-6px;display:grid;place-items:center;font-size:8px;font-weight:700;animation:es-wave 1.8s ease-in-out .4s infinite">Y</span></span><span style="width:6px;height:6px;border-radius:999px;background:var(--mint);animation:es-pulse 2s ease-out infinite"></span>Online · replies within a working day</span></span>
+              </div>
+              <div class="es-scr" style="flex:1;overflow:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ messages }}" as="m" hint-placeholder-count="4">
+                  <div style="display:flex;flex-direction:column;align-items:{{ m.align }};animation:es-pop .35s cubic-bezier(.2,.8,.2,1) both;transform-origin:{{ m.origin }}">
+                    <div style="max-width:84%;padding:10px 14px;border-radius:16px;{{ m.corner }}:4px;background:{{ m.bg }};color:{{ m.color }};font-size:14px;line-height:1.45;border:1px solid {{ m.border }}">{{ m.text }}</div>
+                    <div style="margin-top:4px;font-family:var(--es-font-mono);font-size:10px;color:var(--mu)">{{ m.meta }}</div>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:center;gap:4px;padding:12px 14px;border-radius:16px;border-bottom-left-radius:4px;background:var(--sf);border:1px solid var(--ln);width:max-content;animation:es-pop .3s ease both">
+                    <span style="width:6px;height:6px;border-radius:999px;background:var(--mu);animation:es-dot 1.2s infinite"></span>
+                    <span style="width:6px;height:6px;border-radius:999px;background:var(--mu);animation:es-dot 1.2s .2s infinite"></span>
+                    <span style="width:6px;height:6px;border-radius:999px;background:var(--mu);animation:es-dot 1.2s .4s infinite"></span>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="padding:10px 16px 112px;border-top:1px solid var(--ln);display:flex;gap:8px;align-items:center">
+                <button aria-label="Attach" style="width:44px;height:44px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);color:var(--mu);display:grid;place-items:center;cursor:pointer;flex:none"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="AuthoringAttach" size="18" hint-size="18px,18px"></x-import></button>
+                <input value="{{ draft }}" onChange="{{ setDraft }}" onKeyDown="{{ draftKey }}" placeholder="Message the team" style="flex:1;min-width:0;height:44px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);padding:0 16px;font-size:15px;outline:none;color:var(--tx)" style-focus="border-color:var(--mint)">
+                <button onClick="{{ send }}" aria-label="Send" style="width:44px;height:44px;border-radius:999px;border:0;background:var(--mint);color:var(--mi);display:grid;place-items:center;cursor:pointer;flex:none"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="EssentialsSend" size="18" hint-size="18px,18px"></x-import></button>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- MORE ---------- -->
+          <sc-if value="{{ isMore }}" hint-placeholder-val="{{ false }}">
+            <div class="es-scr" style="flex:1;overflow:auto;padding:62px 20px 120px;animation:es-in .3s ease">
+              <div style="display:flex;align-items:center;gap:14px">
+                <span style="width:52px;height:52px;border-radius:999px;background:var(--sf2);border:1px solid var(--ln);display:grid;place-items:center;font-family:var(--es-font-display);font-weight:500;font-size:18px">PR</span>
+                <span><span style="display:block;font-family:var(--es-font-display);font-weight:500;font-size:22px;letter-spacing:-0.02em">Priya Raman</span><span style="display:block;font-size:13px;color:var(--mu)">VP Product · {{ emailShown }}</span></span>
+              </div>
+              <div style="margin-top:24px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Preferences</div>
+              <div style="margin-top:8px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;overflow:hidden">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:12px 16px;border-bottom:1px solid var(--ln)">
+                  <span style="font-size:15px">Currency</span>
+                  <span style="display:inline-flex;padding:2px;border-radius:999px;background:var(--sf2);border:1px solid var(--ln)">
+                    <button onClick="{{ setINR }}" style="min-width:56px;height:30px;border-radius:999px;border:0;background:{{ inrBg }};color:{{ inrColor }};font-size:12px;font-weight:600;cursor:pointer">INR</button>
+                    <button onClick="{{ setUSD }}" style="min-width:56px;height:30px;border-radius:999px;border:0;background:{{ usdBg }};color:{{ usdColor }};font-size:12px;font-weight:600;cursor:pointer">USD</button>
+                  </span>
+                </div>
+                <button onClick="{{ toggleNotif }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:12px 16px;border:0;background:transparent;color:var(--tx);cursor:pointer;text-align:left">
+                  <span><span style="display:block;font-size:15px">Notify me when something needs me</span><span style="display:block;font-size:12px;color:var(--mu)">Approvals, quotes, invoices — never progress noise</span></span>
+                  <span style="width:46px;height:28px;border-radius:999px;background:{{ notifBg }};position:relative;flex:none;transition:background .2s"><span style="position:absolute;top:3px;left:{{ notifLeft }};width:22px;height:22px;border-radius:999px;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)"></span></span>
+                </button>
+              </div>
+              <div style="margin-top:24px;font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu)">Projects</div>
+              <div style="margin-top:8px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;overflow:hidden">
+                <sc-for list="{{ projectList }}" as="p" hint-placeholder-count="3">
+                  <button onClick="{{ p.pick }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:0;border-bottom:1px solid var(--ln);background:transparent;color:var(--tx);cursor:pointer">
+                    <span style="flex:1"><span style="display:block;font-size:15px;font-weight:500">{{ p.name }}</span><span style="display:block;font-size:12px;color:var(--mu)">{{ p.sub }} · {{ p.phaseName }}</span></span>
+                    <span style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu)">{{ p.progress }}%</span>
+                  </button>
+                </sc-for>
+                <button onClick="{{ startProject }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:0;background:transparent;color:var(--tx);cursor:pointer">
+                  <span style="display:inline-flex;color:var(--mu)"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsAdd" size="18" hint-size="18px,18px"></x-import></span>
+                  <span style="font-size:15px;font-weight:500">Start a new project</span>
+                </button>
+              </div>
+              <div style="margin-top:24px;display:flex;flex-direction:column;gap:4px">
+                <a href="mailto:hello@embed.design" style="display:flex;align-items:center;min-height:44px;color:var(--tx);font-size:14px;text-decoration:underline;text-underline-offset:4px">hello@embed.design</a>
+                <button onClick="{{ signOut }}" style="display:flex;align-items:center;gap:8px;min-height:44px;border:0;background:none;color:var(--mu);font-size:14px;cursor:pointer;padding:0"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="ArrowsLogout" size="18" hint-size="18px,18px"></x-import>Sign out</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- TAB BAR ---------- -->
+          <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:8px 12px 30px;background:var(--bg);border-top:1px solid var(--ln);display:grid;grid-template-columns:repeat(5,1fr)">
+              <button onClick="{{ tabHome.go }}" style="min-height:48px;border:0;background:transparent;color:{{ tabHome.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;transform:translateY({{ tabHome.lift }})">
+                <span style="position:absolute;top:-9px;left:50%;width:{{ tabHome.dotW }};height:3px;margin-left:-10px;border-radius:999px;background:var(--mint);transition:width .25s cubic-bezier(.2,.8,.2,1)"></span>
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="EssentialsHome" size="22" hint-size="22px,22px"></x-import>
+                <span style="font-size:10px;font-weight:500;letter-spacing:.01em">Home</span>
+              </button>
+              <button onClick="{{ tabApprovals.go }}" style="min-height:48px;border:0;background:transparent;color:{{ tabApprovals.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;transform:translateY({{ tabApprovals.lift }})">
+                <span style="position:absolute;top:-9px;left:50%;width:{{ tabApprovals.dotW }};height:3px;margin-left:-10px;border-radius:999px;background:var(--mint);transition:width .25s cubic-bezier(.2,.8,.2,1)"></span>
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsTick" size="22" hint-size="22px,22px"></x-import>
+                <span style="font-size:10px;font-weight:500;letter-spacing:.01em">Approvals</span>
+                <sc-if value="{{ hasPending }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:4px;left:calc(50% + 6px);min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--mint);color:var(--mi);font-size:10px;font-weight:700;display:grid;place-items:center">{{ pendingCount }}</span></sc-if>
+              </button>
+              <button onClick="{{ tabScope.go }}" style="min-height:48px;border:0;background:transparent;color:{{ tabScope.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;transform:translateY({{ tabScope.lift }})">
+                <span style="position:absolute;top:-9px;left:50%;width:{{ tabScope.dotW }};height:3px;margin-left:-10px;border-radius:999px;background:var(--mint);transition:width .25s cubic-bezier(.2,.8,.2,1)"></span>
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsPlusCircle" size="22" hint-size="22px,22px"></x-import>
+                <span style="font-size:10px;font-weight:500;letter-spacing:.01em">Scope</span>
+              </button>
+              <button onClick="{{ tabChat.go }}" style="min-height:48px;border:0;background:transparent;color:{{ tabChat.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;transform:translateY({{ tabChat.lift }})">
+                <span style="position:absolute;top:-9px;left:50%;width:{{ tabChat.dotW }};height:3px;margin-left:-10px;border-radius:999px;background:var(--mint);transition:width .25s cubic-bezier(.2,.8,.2,1)"></span>
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="EssentialsChat" size="22" hint-size="22px,22px"></x-import>
+                <span style="font-size:10px;font-weight:500;letter-spacing:.01em">Chat</span>
+              </button>
+              <button onClick="{{ tabMore.go }}" style="min-height:48px;border:0;background:transparent;color:{{ tabMore.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;transform:translateY({{ tabMore.lift }})">
+                <span style="position:absolute;top:-9px;left:50%;width:{{ tabMore.dotW }};height:3px;margin-left:-10px;border-radius:999px;background:var(--mint);transition:width .25s cubic-bezier(.2,.8,.2,1)"></span>
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="InterfaceMoreHorizontal" size="22" hint-size="22px,22px"></x-import>
+                <span style="font-size:10px;font-weight:500;letter-spacing:.01em">More</span>
+              </button>
+            </div>
+          </sc-if>
+
+          <!-- ---------- PROJECT SWITCHER SHEET ---------- -->
+          <sc-if value="{{ sheet }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:70;animation:es-fade .25s ease both"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;z-index:71;background:var(--sf);border-radius:20px 20px 0 0;padding:10px 20px 44px;animation:es-up .28s ease">
+              <div style="width:36px;height:4px;border-radius:999px;background:var(--ln);margin:0 auto 14px"></div>
+              <div style="font-family:var(--es-font-display);font-weight:500;font-size:20px;letter-spacing:-0.02em">Your projects</div>
+              <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+                <sc-for list="{{ projectList }}" as="p" hint-placeholder-count="3">
+                  <button onClick="{{ p.pick }}" style="display:flex;align-items:center;gap:12px;text-align:left;min-height:64px;padding:12px 14px;border-radius:10px;border:1px solid {{ p.border }};background:{{ p.bg }};color:var(--tx);cursor:pointer">
+                    <span style="width:36px;height:36px;border-radius:999px;background:var(--mint);color:var(--mi);display:grid;place-items:center;font-family:var(--es-font-display);font-weight:500">{{ p.initial }}</span>
+                    <span style="flex:1"><span style="display:block;font-size:15px;font-weight:500">{{ p.name }}</span><span style="display:block;font-size:12px;color:var(--mu)">{{ p.sub }} · {{ p.phaseName }}</span></span>
+                    <span style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu)">{{ p.progress }}%</span>
+                  </button>
+                </sc-for>
+                <button onClick="{{ startProject }}" style="display:flex;align-items:center;gap:12px;text-align:left;min-height:56px;padding:12px 14px;border-radius:10px;border:1px dashed var(--ln);background:transparent;color:var(--tx);cursor:pointer">
+                  <span style="width:36px;height:36px;border-radius:999px;border:1px solid var(--ln);display:grid;place-items:center;color:var(--mu)"><x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Icon" name="BasicsAdd" size="18" hint-size="18px,18px"></x-import></span>
+                  <span style="flex:1"><span style="display:block;font-size:15px;font-weight:500">Start a new project</span><span style="display:block;font-size:12px;color:var(--mu)">Brief us · proposal within 3 working days</span></span>
+                </button>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- CONFIRM ACCEPT SHEET ---------- -->
+          <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ closeConfirm }}" style="position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:70;animation:es-fade .25s ease both"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;z-index:71;background:var(--sf);border-radius:20px 20px 0 0;padding:10px 20px 44px;animation:es-up .28s ease">
+              <div style="width:36px;height:4px;border-radius:999px;background:var(--ln);margin:0 auto 14px"></div>
+              <div style="font-family:var(--es-font-display);font-weight:500;font-size:22px;letter-spacing:-0.02em;line-height:1.1">Accept {{ quote.total }} for “{{ req.title }}”?</div>
+              <ul style="margin:12px 0 0;padding-left:18px;font-size:14px;line-height:1.6;color:var(--mu)">
+                <li>Adds <b style="color:var(--tx);font-weight:500">{{ quote.timeline }}</b>; new due date {{ quote.newDue }}.</li>
+                <li>50% ({{ quote.half }}) invoiced now, 50% on delivery.</li>
+                <li>You can undo for a few seconds after accepting; after that, message {{ leadName }}.</li>
+              </ul>
+              <div style="margin-top:18px;display:flex;flex-direction:column;gap:10px">
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="primary" size="md" on-click="{{ acceptQuote }}" dc-props="{{ fullBtn }}" class-name="{{ btnClass }}" hint-size="100%,46px">Yes, accept</x-import>
+                <x-import component-from-global-scope="EmbedStudiosDesignSystem_2ec0df.Button" variant="link" size="sm" on-dark="{{ isDark }}" on-click="{{ closeConfirm }}" dc-props="{{ fullBtn }}" hint-size="100%,32px">Not yet</x-import>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- CELEBRATE ---------- -->
+          <sc-if value="{{ celebrate }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;animation:es-fade .2s ease both">
+              <div style="position:relative;width:96px;height:96px">
+                <sc-for list="{{ burst }}" as="bb" hint-placeholder-count="12"><span style="position:absolute;left:40px;top:34px;font-family:var(--es-font-mono);font-size:{{ bb.size }};color:{{ bb.color }};--dx:{{ bb.dx }};--dy:{{ bb.dy }};--rot:{{ bb.rot }};animation:es-burst 1s cubic-bezier(.2,.8,.2,1) .2s both;pointer-events:none">{{ bb.glyph }}</span></sc-for>
+              <div style="width:96px;height:96px;border-radius:999px;background:var(--mint);display:grid;place-items:center;animation:es-pop .6s cubic-bezier(.2,.8,.2,1) both;position:relative">
+                <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><path d="M10 23l8 8 16-18" stroke="var(--mi)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40" style="animation:es-draw .45s ease .25s forwards"></path></svg>
+              </div>
+              </div>
+              <div style="font-family:var(--es-font-display);font-weight:500;font-size:24px;letter-spacing:-0.03em;animation:es-word .5s cubic-bezier(.2,.8,.2,1) .3s both">{{ celebrate.title }}</div>
+              <div style="font-family:var(--es-font-mono);font-size:12px;color:var(--mu);animation:es-word .5s cubic-bezier(.2,.8,.2,1) .4s both">&lt;{{ celebrate.tag }}&gt; {{ celebrate.sub }} &lt;/{{ celebrate.tag }}&gt;</div>
+            </div>
+          </sc-if>
+
+          <!-- ---------- TOAST ---------- -->
+          <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;left:16px;right:16px;bottom:104px;z-index:80;background:var(--tx);color:var(--bg);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);animation:es-in .25s ease">
+              <span style="flex:1">{{ toast.text }}</span>
+              <sc-if value="{{ toast.undo }}" hint-placeholder-val="{{ false }}"><button onClick="{{ toast.undo }}" style="min-height:32px;padding:0 10px;border-radius:999px;border:0;background:var(--mint);color:var(--mi);font-size:13px;font-weight:600;cursor:pointer">Undo</button></sc-if>
+            </div>
+          </sc-if>
+
+        </div>
+      </x-import>
+    </div>
+
+    <!-- ============ SIDE NOTES ============ -->
+    <div style="flex:1 1 300px;max-width:400px;display:flex;flex-direction:column;gap:24px;font-size:13px;line-height:1.5;color:#505050">
+      <div>
+        <div style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#999;margin-bottom:10px">Flow map · tap to jump</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <sc-for list="{{ jumps }}" as="j" hint-placeholder-count="9">
+            <button onClick="{{ j.go }}" style="min-height:34px;padding:0 12px;border-radius:999px;border:1px solid {{ j.border }};background:{{ j.bg }};color:{{ j.color }};font-size:12px;font-weight:500;cursor:pointer">{{ j.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#999;margin-bottom:10px">Heuristics audit (Nielsen) — how each is met</div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ heuristics }}" as="h" hint-placeholder-count="10">
+            <div style="display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid #E6E6E6">
+              <span style="font-family:var(--es-font-mono);font-size:11px;color:#999;padding-top:2px">{{ h.n }}</span>
+              <span><b style="font-weight:600;color:#0B0F0E">{{ h.name }}</b> — {{ h.how }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--es-font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#999;margin-bottom:10px">Assumptions</div>
+        <ul style="margin:0;padding-left:16px;display:flex;flex-direction:column;gap:4px">
+          <li>Customers are invited by their Embed lead; no self-signup. Magic link, no passwords.</li>
+          <li>New projects start from a 4-step brief (name, services, goal, budget range, timing) → discovery call → fixed-price proposal within 3 working days. Until then the project shows a pre-Phase-1 state on Home.</li>
+          <li>Scope quotes are fixed price, human-reviewed, returned in-app within one working day; 50/50 billing.</li>
+          <li>FX shown at an indicative rate (₹83.3 ≈ $1); invoices settle in the contract currency.</li>
+          <li>Deep content (deliverables, approvals, quotes) is modelled on one project; the switcher changes the header, phase and progress.</li>
+          <li>Preview thumbnails and Figma links are placeholders pending real artefacts.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;currency&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;INR&quot;,&quot;USD&quot;],&quot;default&quot;:&quot;INR&quot;,&quot;tsType&quot;:&quot;'INR' | 'USD'&quot;,&quot;section&quot;:&quot;App&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;signin&quot;,&quot;home&quot;,&quot;approvals&quot;,&quot;scope&quot;,&quot;quote&quot;,&quot;chat&quot;],&quot;default&quot;:&quot;signin&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+const RATE = 83.3;
+const PHASES = [
+  { id: 'research', no: '01', name: 'Research', now: 'wrapped', blurb: 'We learned who your users are and where the current product fails them. Everything downstream is anchored to these findings.', items: ['Product research', 'Stakeholder interviews', 'UX audit', 'Benchmarking'], files: [{ ext: 'PDF', name: 'UX audit — Nimai v1.pdf', meta: '42 pages · 14 Aug' }, { ext: 'FIG', name: 'Benchmarking board', meta: 'FigJam · 9 Aug' }] },
+  { id: 'strategy', no: '02', name: 'Strategy', now: 'wrapped', blurb: 'The experience map, sitemap and user journeys that define what we are building and why.', items: ['Experience mapping', 'Sitemapping', 'User flow & journey'], files: [{ ext: 'FIG', name: 'Experience map', meta: 'FigJam · 2 Sep' }, { ext: 'PDF', name: 'Sitemap v3.pdf', meta: '6 pages · 8 Sep' }] },
+  { id: 'ideation', no: '03', name: 'Ideation', now: 'wrapped', blurb: 'Concepts and low-fidelity wireframes, tested with your team before any pixels were polished.', items: ['Concept sketching', 'Low-fi wireframing', 'Design feedback'], files: [{ ext: 'FIG', name: 'Low-fi wireframes v2', meta: 'Figma · 1 Oct' }] },
+  { id: 'design', no: '04', name: 'Design', now: 'hi-fi wireframing', blurb: 'Hi-fidelity screens, an interactive prototype and the design system your engineers will build from.', items: ['Hi-fi wireframing', 'Prototyping', 'Responsive design', 'Design system'], files: [{ ext: 'FIG', name: 'Nimai — Hi-fi v2', meta: 'Figma · updated today' }, { ext: 'FIG', name: 'Prototype v0.9', meta: 'Figma · 24 Oct' }] },
+  { id: 'handover', no: '05', name: 'Handover', now: 'upcoming', blurb: 'Documented handover, design QA on builds, Jira moduling and post-launch UI enhancements.', items: ['Design handover', 'Design testing', 'Jira moduling', 'UI enhancements'], files: [] },
+];
+const DESIGN_ITEMS = [
+  { name: 'Hi-fi wireframing', st: 'review', note: '14 of 22 screens · dashboard in review' },
+  { name: 'Prototyping', st: 'progress', note: 'v0.9 shared · v1 after dashboard sign-off' },
+  { name: 'Responsive design', st: 'upcoming', note: 'Tablet breakpoints · starts 10 Nov' },
+  { name: 'Design system', st: 'progress', note: 'Tokens & 31 components documented' },
+];
+const PROJECTS = [
+  { id: 'nimai', name: 'Nimai Wealth', sub: 'Mobile app redesign', phase: 3, progress: 62, due: '12 Dec', week: 'Week 11 of 16', contract: '₹19,20,000' },
+  { id: 'korklub', name: 'Korklub', sub: 'Shopify storefront', phase: 1, progress: 28, due: '30 Jan', week: 'Week 3 of 10', contract: '₹8,40,000' },
+  { id: 'bthere', name: 'BThere', sub: 'Design system', phase: 4, progress: 91, due: '7 Nov', week: 'Week 13 of 14', contract: '₹11,00,000' },
+];
+const TEAM = [{ name: 'Arnav', role: 'Project lead', initial: 'A' }, { name: 'Anushka', role: 'UI designer', initial: 'An' }, { name: 'Yash', role: 'Front-end', initial: 'Y' }];
+const INIT_APPROVALS = [
+  { id: 'a1', title: 'Portfolio dashboard — hi-fi v2', kind: 'Hi-fi screens', meta: '14 screens', due: 'due in 2d', urgent: true, phaseName: 'Design', owner: 'Anushka', status: 'pending', note: 'Second pass on the dashboard after your note on information density. Holdings now lead; performance moved under a tab. Approving unlocks the Transactions screens.' },
+  { id: 'a2', title: 'Colour & type foundations', kind: 'Design system', meta: 'tokens', due: 'due in 5d', urgent: false, phaseName: 'Design', owner: 'Arnav', status: 'pending', note: 'The token set the whole UI will inherit: 2 brand colours, 5 greys, a 7-step type scale. Low risk to approve now; easy to retune later.' },
+  { id: 'a3', title: 'Onboarding flow v3', kind: 'Hi-fi screens', meta: '9 screens', due: '', urgent: false, phaseName: 'Design', owner: 'Anushka', status: 'approved', decidedOn: '21 Oct', note: 'KYC reduced from 6 to 4 steps; progressive disclosure for PAN details.' },
+  { id: 'a4', title: 'User journey map', kind: 'Strategy', meta: '3 journeys', due: '', urgent: false, phaseName: 'Strategy', owner: 'Arnav', status: 'approved', decidedOn: '2 Oct', note: 'First-investment, SIP top-up and withdrawal journeys with pain points ranked.' },
+];
+const INIT_REQUESTS = [
+  { id: 'r1', ref: 'SCR-02', title: 'Dark mode across the app', sub: 'Theme tokens, 12 hi-fi screens re-cut, prototype update.', status: 'quoted', inr: 240000, timeline: '+9 working days', newDue: '23 Dec', valid: '5 Nov', note: 'Sized tight because the token work is already half done in the design system. If you want it later, the price holds for 7 days.', lines: [{ name: 'Dark token set', qty: '1 set · 2 days', inr: 50000 }, { name: 'Hi-fi screens, dark', qty: '12 screens', inr: 120000 }, { name: 'Prototype update', qty: 'v1 → v1.1', inr: 40000 }, { name: 'QA & contrast audit', qty: '1 day', inr: 30000 }] },
+  { id: 'r2', ref: 'SCR-01', title: 'Referral screen', sub: 'Invite flow and rewards ledger.', status: 'accepted', inr: 95000, timeline: '+4 working days', newDue: '12 Dec', valid: '—', note: 'Accepted 9 Oct; in Design.', lines: [{ name: 'Hi-fi screens', qty: '4 screens', inr: 60000 }, { name: 'Prototype update', qty: '', inr: 35000 }] },
+];
+const INIT_INVOICES = [
+  { id: 'i1', title: 'Milestone 2 — Strategy & Ideation', ref: 'INV-0151', when: 'due 15 Nov', inr: 480000, status: 'due' },
+  { id: 'i2', title: 'Scope: Referral screen (50%)', ref: 'INV-0149', when: 'paid 11 Oct', inr: 47500, status: 'paid' },
+  { id: 'i3', title: 'Milestone 1 — Research', ref: 'INV-0142', when: 'paid 1 Oct', inr: 480000, status: 'paid' },
+];
+const INIT_MSGS = [
+  { me: false, text: 'Hi Priya — dashboard v2 is up for review. Main change: holdings first, performance under a tab, as discussed.', meta: 'Anushka · Tue 11:20' },
+  { me: true, text: 'Thanks. Will go through it tonight. Any chance the dark-mode quote lands this week?', meta: 'You · Tue 14:02' },
+  { me: false, text: 'Posted it under Scope just now — ₹2.4L, +9 days. Happy to walk you through it.', meta: 'Arnav · Wed 09:48' },
+];
+const TYPES = ['New screens', 'New feature', 'Design system', 'Research & testing', 'Website'];
+const PRIOS = ['Low', 'Normal', 'Urgent'];
+const WHENS = [{ name: 'As soon as possible', sub: 'We re-plan the current phase around it' }, { name: 'Next phase', sub: 'Slots in without moving the due date' }, { name: 'Flexible', sub: 'Usually the best price' }];
+const CLIENTS = [['Fractal Analytics', 'fractal', 3.51], ['NPCI', 'npci', 3.25], ['Tata Sons', 'tata-sons', 1.14], ['Aragen', 'aragen', 2.79], ['Bloomsbury', 'bloomsbury', 8.82], ['LG', 'lg', 4.95], ['Easy Homes', 'easy-homes', 3.03], ['Korklub', 'korklub', 4.56], ['Yoda', 'yoda', 3.61], ['Nimai', 'nimai', 4.73], ['BThere', 'bthere', 2.51], ['Experience Co', 'experience-co', 2.77], ['Sazo', 'sazo', 3.61], ['One Less', 'one-less', 5.31], ['HF', 'hf', 1.89], ['PD', 'pd', 4.33], ['TDW', 'tdw', 2.6]];
+// equal visual weight: target a constant area (~1900px²), clamped to the 96×40 cell
+const logoH = r => { const hh = Math.sqrt(1900 / r); return Math.round(Math.min(40, Math.max(14, Math.min(hh, 96 / r)))) + 'px'; };
+const HEUR = [
+  ['01', 'Visibility of status', 'phase rail + % on Home, per-deliverable status pills, request/invoice states, toast confirmations.'],
+  ['02', 'Match the real world', 'phases and deliverables use Embed\u2019s own process names; money in the customer\u2019s currency; plain-language timelines.'],
+  ['03', 'User control & freedom', 'back on every sub-screen, Save & exit in the brief, Undo on approve/accept, cancel on sheets.'],
+  ['04', 'Consistency', 'one card, one pill, one mint CTA per screen; the same list row everywhere.'],
+  ['05', 'Error prevention', 'confirm sheet restates price, timeline and billing before accepting; brief validates before moving on.'],
+  ['06', 'Recognition over recall', 'project chip always visible; review step shows the whole brief; quote shows line items, not just a total.'],
+  ['07', 'Flexibility & efficiency', 'Needs-you shortcuts on Home, team chips open chat, currency toggle inline on the quote.'],
+  ['08', 'Minimal design', 'only what the customer acts on; progress noise is excluded from notifications by default.'],
+  ['09', 'Error recovery', 'inline, specific messages next to the field; nothing is lost on validation.'],
+  ['10', 'Help', '“How quoting works” and “What happens next” panels sit where the question arises.'],
+];
+const fmtINR = n => { const s = String(Math.round(n)); if (s.length <= 3) return '₹' + s; const last = s.slice(-3); let rest = s.slice(0, -3); rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ','); return '₹' + rest + ',' + last; };
+const fmtUSD = n => '$' + Math.round(n / RATE).toLocaleString('en-US');
+
+class Component extends DCLogic {
+  state = {
+    screen: 'signin', stack: [], project: 'nimai', theme: null, cur: null, email: '', emailError: false,
+    phaseId: 'design', approvalId: null, approvals: INIT_APPROVALS, feedbackOpen: false, feedback: '', feedbackError: false,
+    brief: { step: 1, mode: 'scope', pname: '', types: [], desc: '', goal: '', prio: 'Normal', budget: '', when: '', err1: false },
+    projects: PROJECTS, requests: INIT_REQUESTS, reqId: 'r1', confirmOpen: false, sheet: false, invoices: INIT_INVOICES,
+    messages: INIT_MSGS, draft: '', replied: false, toast: null, notif: true, signing: false, typing: false, celebrate: null,
+  };
+  componentDidMount() { const s = this.props.startScreen; if (s && s !== 'signin') this.setState({ screen: s }); this._raf = {}; this._prev = {}; this.syncTweens(); }
+  componentDidUpdate() { this.syncTweens(); }
+  syncTweens() {
+    const s = this.state, ps = this._prev || {};
+    this._prev = { screen: s.screen, project: s.project, reqId: s.reqId, cur: this.cur() };
+    const p = (s.projects || []).find(x => x.id === s.project);
+    if (s.screen === 'home' && p && (ps.screen !== 'home' || ps.project !== s.project)) { this.setTw('pct', 0); this.tween('pct', p.proposal ? 0 : p.progress, 900); }
+    const r = (s.requests || []).find(x => x.id === s.reqId);
+    const cur = this.cur(), pcur = ps.cur || cur;
+    if (s.screen === 'quote' && r && (ps.screen !== 'quote' || ps.reqId !== s.reqId || pcur !== cur)) { this.setTw('total', ps.screen === 'quote' ? r.inr * 0.985 : 0); this.tween('total', r.inr, 800); }
+  }
+  setTw(key, v) { this._tw = { ...(this._tw || {}), [key]: v }; }
+  tween(key, to, ms) {
+    this._raf = this._raf || {}; cancelAnimationFrame(this._raf[key]);
+    const from = (this._tw || {})[key] || 0, t0 = performance.now();
+    const step = now => { const k = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - k, 3); this.setTw(key, from + (to - from) * e); this.forceUpdate(); if (k < 1) this._raf[key] = requestAnimationFrame(step); };
+    this._raf[key] = requestAnimationFrame(step);
+  }
+  celebrate(title, tag, sub, after) { this.setState({ celebrate: { title, tag, sub } }); setTimeout(() => { this.setState({ celebrate: null }); after && after(); }, 1400); }
+  theme() { return 'light'; }
+  cur() { return this.state.cur || this.props.currency || 'INR'; }
+  money(inr) { return this.cur() === 'INR' ? fmtINR(inr) : fmtUSD(inr); }
+  moneyAlt(inr) { return this.cur() === 'INR' ? fmtUSD(inr) : fmtINR(inr); }
+  go(screen, patch) { this.setState(s => ({ stack: [...s.stack, s.screen], screen, sheet: false, ...(patch || {}) })); }
+  tab(screen) { this.setState({ stack: [], screen, sheet: false, feedbackOpen: false }); }
+  back() { this.setState(s => { const st = [...s.stack]; const prev = st.pop() || 'home'; return { stack: st, screen: prev, feedbackOpen: false, feedbackError: false }; }); }
+  toast(text, undo) { clearTimeout(this._t); this.setState({ toast: { text, undo } }); this._t = setTimeout(() => this.setState({ toast: null }), undo ? 6000 : 3000); }
+  setApproval(id, patch) { this.setState(s => ({ approvals: s.approvals.map(a => a.id === id ? { ...a, ...patch } : a) })); }
+  pill(st) {
+    const dark = this.theme() === 'dark';
+    const m = {
+      pending: { bg: 'var(--mintsoft)', color: dark ? '#AFFCCE' : '#0E7A45', label: 'Needs you' },
+      review: { bg: 'var(--mintsoft)', color: dark ? '#AFFCCE' : '#0E7A45', label: 'In review' },
+      quoted: { bg: 'var(--mintsoft)', color: dark ? '#AFFCCE' : '#0E7A45', label: 'Quote ready' },
+      due: { bg: 'var(--warnsoft)', color: 'var(--warn)', label: 'Due 15 Nov' },
+      reviewing: { bg: 'var(--sf2)', color: 'var(--mu)', label: 'Sizing' },
+      progress: { bg: 'var(--sf2)', color: 'var(--tx)', label: 'In progress' },
+      upcoming: { bg: 'transparent', color: 'var(--mu)', label: 'Upcoming' },
+      done: { bg: 'var(--sf2)', color: 'var(--mu)', label: 'Done' },
+      approved: { bg: 'var(--sf2)', color: 'var(--tx)', label: 'Approved' },
+      changes: { bg: 'var(--warnsoft)', color: 'var(--warn)', label: 'Changes requested' },
+      accepted: { bg: 'var(--sf2)', color: 'var(--tx)', label: 'Accepted' },
+      paid: { bg: 'var(--sf2)', color: 'var(--mu)', label: 'Paid' },
+      scheduled: { bg: 'var(--sf2)', color: 'var(--mu)', label: 'Issued today' },
+    };
+    return m[st] || m.upcoming;
+  }
+  renderVals() {
+    const s = this.state, th = this.theme(), dark = th === 'dark', cur = this.cur();
+    const project0 = s.projects.find(p => p.id === s.project) || s.projects[0];
+    const project = { ...project0, initial: project0.name[0], phaseNo: project0.phase + 1, isProposal: !!project0.proposal, notProposal: !project0.proposal };
+    const EMPTY_BRIEF = { step: 1, mode: 'scope', pname: '', types: [], desc: '', goal: '', prio: 'Normal', budget: '', when: '', err1: false };
+    const curPhase = PHASES[project.phase];
+    const sel = (on) => on ? { border: 'var(--mint)', bg: 'var(--mint)', color: 'var(--mi)' } : { border: 'var(--ln)', bg: 'var(--sf)', color: 'var(--tx)' };
+    const dl = i => (i * 70) + 'ms';
+    const rail = PHASES.map((p, i) => ({
+      name: p.name, delay: (120 + i * 90) + 'ms', current: i === project.phase,
+      fillW: i < project.phase ? '100%' : i === project.phase ? Math.max(8, Math.round(((project.progress / 100) * 5 - project.phase) * 100)) + '%' : '0%',
+      barBg: i < project.phase ? 'var(--tx)' : i === project.phase ? 'var(--mint)' : 'var(--ln)',
+      labelColor: i <= project.phase ? 'var(--tx)' : 'var(--mu)',
+      open: () => this.go('phase', { phaseId: p.id }),
+    }));
+    // phase detail
+    const pIdx = PHASES.findIndex(p => p.id === s.phaseId), pRaw = PHASES[pIdx] || curPhase;
+    const items = (pIdx === 3 && project.id === 'nimai' ? DESIGN_ITEMS : pRaw.items.map(n => ({ name: n, st: pIdx < project.phase ? 'done' : pIdx === project.phase ? 'progress' : 'upcoming', note: pIdx < project.phase ? 'Delivered' : pIdx === project.phase ? 'In progress' : 'Not started' })))
+      .map((d, i) => { const pl = this.pill(d.st); const done = d.st === 'done'; return { ...d, done, delay: dl(i), delay2: (i * 70 + 150) + 'ms', label: pl.label, pillBg: pl.bg, pillColor: pl.color, dotBg: done ? 'var(--tx)' : d.st === 'review' ? 'var(--mint)' : 'transparent', dotColor: 'var(--bg)', dotBorder: done ? 'var(--tx)' : d.st === 'review' ? 'var(--mint)' : 'var(--ln)', open: () => { if (d.st === 'review') this.go('approval', { approvalId: 'a1' }); } }; });
+    const phase = { ...pRaw, items, status: pIdx < project.phase ? 'Complete' : pIdx === project.phase ? 'In progress' : 'Upcoming' };
+    const phaseTabs = PHASES.map((p, i) => ({ name: p.name, ...sel(p.id === s.phaseId), open: () => this.setState({ phaseId: p.id }) }));
+    // approvals
+    const decorate = a => { const pl = this.pill(a.status); return { ...a, isPending: a.status === 'pending', isDecided: a.status !== 'pending', statusLabel: pl.label, pillBg: pl.bg, pillColor: pl.color, dueColor: a.urgent ? 'var(--warn)' : 'var(--mu)', open: () => this.go('approval', { approvalId: a.id, feedbackOpen: false, feedback: '', feedbackError: false }) }; };
+    const approvals = s.approvals.map(decorate).map((a, i) => ({ ...a, delay: dl(i) }));
+    const pendingList = approvals.filter(a => a.isPending), decidedList = approvals.filter(a => !a.isPending);
+    const approval = approvals.find(a => a.id === s.approvalId) || approvals[0];
+    // scope
+    const requests = s.requests.map(r => { const pl = this.pill(r.status); return { ...r, statusLabel: pl.label, pillBg: pl.bg, pillColor: pl.color, hasQuote: r.status === 'quoted' || r.status === 'accepted', reviewing: r.status === 'reviewing', canAccept: r.status === 'quoted', accepted: r.status === 'accepted', open: () => this.go('quote', { reqId: r.id }) }; });
+    const req = requests.find(r => r.id === s.reqId) || requests[0];
+    const quote = { total: this.money(req.inr), alt: this.moneyAlt(req.inr), half: this.money(req.inr / 2), valid: req.valid, timeline: req.timeline, newDue: req.newDue, note: req.note, lines: (req.lines || []).map((l, i) => ({ ...l, amt: this.money(l.inr), delay: (200 + i * 70) + 'ms' })) };
+    const tw = this._tw || {};
+    const b = s.brief;
+    const isProj = b.mode === 'project';
+    const brief = { ...b, isProj, isScope: !isProj, stepNo: b.step, stepName: ['', 'What', 'Why', 'When', 'Review'][b.step], s1: b.step === 1, s2: b.step === 2, s3: b.step === 3, s4: b.step === 4, notLast: b.step < 4, title1: isProj ? 'Tell us about the project' : 'What do you need?', title4: isProj ? 'Review your project brief' : 'Review your brief', eyebrow: isProj ? 'New project' : 'Scope change · ' + project.name, submitLabel: isProj ? 'Send project brief' : 'Send brief', nextText: isProj ? 'reviews it and books a 30-min discovery call; you get a fixed-price proposal here within 3 working days.' : 'reviews it and sends a fixed-price quote here by', descPlaceholder: isProj ? 'e.g. Redesign our B2B lending dashboard. 4 user roles, web first, launch in Q2.' : 'e.g. Add a referral screen so users can invite friends and see rewards earned.', typesLabel: isProj ? 'Services' : '' };
+    const setBrief = patch => this.setState(st => ({ brief: { ...st.brief, ...patch } }));
+    const TYPESET = isProj ? ['UX research', 'Product UX & UI', 'Design system', 'AI product design', 'Website / Shopify', 'UX audit'] : TYPES;
+    const briefTypes = TYPESET.map(t => ({ name: t, ...sel(b.types.includes(t)), toggle: () => setBrief({ types: b.types.includes(t) ? b.types.filter(x => x !== t) : [...b.types, t], err1: false }) }));
+    const priorities = PRIOS.map(p => ({ name: p, ...sel(b.prio === p), pick: () => setBrief({ prio: p }) }));
+    const BUDGETS = cur === 'INR' ? ['< ₹5L', '₹5–15L', '₹15–40L', '₹40L+'] : ['< $6k', '$6–18k', '$18–48k', '$48k+'];
+    const budgets = BUDGETS.map((bu, i) => ({ name: bu, ...sel(b.budget === String(i)), pick: () => setBrief({ budget: String(i) }) }));
+    const budgetLabel = b.budget === '' ? 'Not sure yet' : BUDGETS[+b.budget];
+    const whens = WHENS.map(w => ({ ...w, border: b.when === w.name ? 'var(--mint)' : 'var(--ln)', bg: b.when === w.name ? 'var(--mintsoft)' : 'var(--sf)', ringColor: b.when === w.name ? 'var(--mint)' : 'var(--ln)', dot: b.when === w.name ? 'var(--mint)' : 'transparent', pick: () => setBrief({ when: w.name }) }));
+    const briefSteps = [1, 2, 3, 4].map(n => ({ bg: n <= b.step ? 'var(--mint)' : 'var(--ln)' }));
+    const briefReview = (isProj
+      ? [['Project', b.pname || '—', 1], ['Services', b.types.join(', ') || '—', 1], ['Brief', b.desc || '—', 1], ['Goal', b.goal || 'Not specified', 2], ['Budget', budgetLabel, 2], ['When', b.when || 'Flexible', 3]]
+      : [['What', (b.types.join(', ') || '—') + (b.desc ? ' — ' + b.desc : ''), 1], ['Goal', b.goal || 'Not specified', 2], ['Priority', b.prio, 2], ['When', b.when || 'Flexible', 3]]).map(([k, v, step]) => ({ k, v, edit: () => setBrief({ step }) }));
+    // invoices
+    const invoices = s.invoices.map((i, idx) => { const pl = this.pill(i.status); return { ...i, delay: (200 + idx * 120) + 'ms', amt: this.money(i.inr), statusLabel: pl.label, pillBg: pl.bg, pillColor: pl.color, payable: i.status === 'due', paid: i.status === 'paid', pay: () => { this.setState(st => ({ invoices: st.invoices.map(x => x.id === i.id ? { ...x, status: 'paid', when: 'paid today' } : x) })); this.toast('Payment received. Receipt emailed.'); } }; });
+    const paidInr = s.invoices.filter(i => i.status === 'paid').reduce((a, i) => a + i.inr, 0), dueInr = s.invoices.filter(i => i.status !== 'paid').reduce((a, i) => a + i.inr, 0);
+    const billing = { paid: this.money(paidInr), due: this.money(dueInr), contract: cur === 'INR' ? project.contract : fmtUSD(parseInt(project.contract.replace(/[^\d]/g, ''), 10)) };
+    // chat
+    const messages = s.messages.map(m => ({ ...m, align: m.me ? 'flex-end' : 'flex-start', origin: m.me ? 'bottom right' : 'bottom left', corner: m.me ? 'border-bottom-right-radius' : 'border-bottom-left-radius', bg: m.me ? 'var(--mint)' : 'var(--sf)', color: m.me ? 'var(--mi)' : 'var(--tx)', border: m.me ? 'var(--mint)' : 'var(--ln)' }));
+    const pendingCount = pendingList.length;
+    const tabs = [['home', 'Home', 'EssentialsHome'], ['approvals', 'Approvals', 'BasicsTick', pendingCount], ['scope', 'Scope', 'BasicsPlusCircle'], ['chat', 'Chat', 'EssentialsChat'], ['more', 'More', 'InterfaceMoreHorizontal']].map(([id, label, icon, badge]) => { const on = s.screen === id || (id === 'approvals' && s.screen === 'approval') || (id === 'scope' && s.screen === 'quote') || (id === 'home' && (s.screen === 'phase' || s.screen === 'invoices')); return { id, label, icon, badge: badge || false, color: on ? (dark ? '#AFFCCE' : '#0E7A45') : 'var(--mu)', dotW: on ? '20px' : '0px', lift: on ? '-1px' : '0px', go: () => this.tab(id) }; });
+    const activityList = [{ day: 'Wed', text: 'Quote posted for “Dark mode across the app”', who: 'Arnav' }, { day: 'Tue', text: 'Portfolio dashboard v2 sent for your review', who: 'Anushka' }, { day: 'Mon', text: 'Design tokens documented — 31 components', who: 'Yash' }, { day: 'Fri', text: 'Onboarding v3 approved — Transactions screens started', who: 'You' }].map((e, i) => ({ ...e, delay: (300 + i * 60) + 'ms' }));
+    const projectList = s.projects.map(p => ({ ...p, initial: p.name[0], phaseName: p.proposal ? 'Proposal in progress' : PHASES[p.phase].name, progress: p.proposal ? '—' : p.progress, border: p.id === s.project ? 'var(--mint)' : 'var(--ln)', bg: p.id === s.project ? 'var(--mintsoft)' : 'var(--sf)', pick: () => { this.setState({ project: p.id, sheet: false, screen: 'home', stack: [] }); } }));
+    const jumps = [['signin', 'Sign in'], ['home', 'Home'], ['phase', 'Phase'], ['approvals', 'Approvals'], ['approval', 'Approve'], ['scope', 'Scope'], ['brief', 'Scope brief'], ['newproject', 'New project'], ['quote', 'Quote'], ['invoices', 'Billing'], ['chat', 'Chat'], ['more', 'More']].map(([id, label]) => { const on = id === 'newproject' ? (s.screen === 'brief' && isProj) : id === 'brief' ? (s.screen === 'brief' && !isProj) : s.screen === id; return { label, border: on ? '#0B0F0E' : '#DADADA', bg: on ? '#0B0F0E' : '#fff', color: on ? '#fff' : '#0B0F0E', go: () => { if (id === 'newproject') return this.setState({ screen: 'brief', stack: ['home'], sheet: false, brief: { ...EMPTY_BRIEF, mode: 'project' } }); if (id === 'brief') return this.setState({ screen: 'brief', stack: ['home'], sheet: false, brief: { ...(b.mode === 'scope' ? b : EMPTY_BRIEF), mode: 'scope' } }); this.setState({ screen: id, stack: id === 'home' ? [] : ['home'], sheet: false, confirmOpen: false, approvalId: s.approvalId || 'a1' }); } }; });
+    const segOn = { bg: 'var(--tx)', color: 'var(--bg)' }, segOff = { bg: 'transparent', color: 'var(--mu)' };
+    const quotedReq = s.requests.find(r => r.status === 'quoted'), reviewingReq = s.requests.find(r => r.status === 'reviewing');
+    const dueInv = s.invoices.find(i => i.status === 'due');
+    const accepted = s.requests.filter(r => r.status === 'accepted').length;
+    return {
+      theme: th, isDark: dark, themeLabel: dark ? 'Dark' : 'Light', logoTone: dark ? 'light' : 'dark', cur, otherCur: cur === 'INR' ? 'USD' : 'INR',
+      toggleTheme: () => this.setState({ theme: dark ? 'light' : 'dark' }), setDarkTheme: () => this.setState({ theme: 'dark' }), setLightTheme: () => this.setState({ theme: 'light' }),
+      darkBg: dark ? segOn.bg : segOff.bg, darkColor: dark ? segOn.color : segOff.color, lightBg: !dark ? segOn.bg : segOff.bg, lightColor: !dark ? segOn.color : segOff.color,
+      setINR: () => this.setState({ cur: 'INR' }), setUSD: () => this.setState({ cur: 'USD' }), toggleCur: () => this.setState({ cur: cur === 'INR' ? 'USD' : 'INR' }),
+      inrBg: cur === 'INR' ? segOn.bg : segOff.bg, inrColor: cur === 'INR' ? segOn.color : segOff.color, usdBg: cur === 'USD' ? segOn.bg : segOff.bg, usdColor: cur === 'USD' ? segOn.color : segOff.color,
+      restart: () => { clearTimeout(this._t); this.setState({ screen: 'signin', stack: [], approvals: INIT_APPROVALS, requests: INIT_REQUESTS, invoices: INIT_INVOICES, messages: INIT_MSGS, replied: false, brief: EMPTY_BRIEF, projects: PROJECTS, toast: null, sheet: false, confirmOpen: false, project: 'nimai', email: '', emailError: false, signing: false, typing: false, celebrate: null }); },
+      fullBtn: { style: { width: '100%' } }, btnClass: 'es-btn-primary',
+      greeting: (() => { const hr = new Date().getHours(); return hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening'; })(), greetTag: 'hi',
+      burst: Array.from({ length: 12 }, (_, i) => { const a = (i / 12) * Math.PI * 2, r = 70 + (i % 3) * 18; return { glyph: i % 2 ? '>' : '<', size: (12 + (i % 3) * 4) + 'px', color: i % 3 === 0 ? 'var(--tx)' : 'var(--mint)', dx: Math.round(Math.cos(a) * r) + 'px', dy: Math.round(Math.sin(a) * r) + 'px', rot: ((i % 2 ? 1 : -1) * (40 + i * 15)) + 'deg' }; }),
+      logosReady: true,
+      clientLogos: [...CLIENTS, ...CLIENTS].map(([name, file, r]) => ({ name, h: logoH(r), w: Math.min(96, Math.round(parseInt(logoH(r), 10) * r)) + 'px', mask: 'url(assets/logos/' + file + '.svg) center / contain no-repeat' })),
+      isSignin: s.screen === 'signin', isHome: s.screen === 'home', isPhase: s.screen === 'phase', isApprovals: s.screen === 'approvals', isApproval: s.screen === 'approval', isScope: s.screen === 'scope', isBrief: s.screen === 'brief', isQuote: s.screen === 'quote', isInvoices: s.screen === 'invoices', isChat: s.screen === 'chat', isMore: s.screen === 'more',
+      showTabs: ['home', 'approvals', 'scope', 'chat', 'more', 'phase', 'invoices'].includes(s.screen),
+      email: s.email, emailShown: s.email || 'priya@nimai.in', emailError: s.emailError, setEmail: e => this.setState({ email: e.target.value, emailError: false }),
+      signIn: () => { if (!/.+@.+\..+/.test(s.email)) return this.setState({ emailError: true }); this.setState({ signing: true }); setTimeout(() => this.celebrate('Link opened', 'hi', 'welcome back, Priya', () => { this.setState({ screen: 'home', stack: [], signing: false }); }), 900); },
+      signOut: () => this.setState({ screen: 'signin', stack: [], email: '' }),
+      back: () => this.back(), goMore: () => this.go('more'), goApprovals: () => this.tab('approvals'), goScope: () => this.tab('scope'), goChat: () => this.go('chat'), goInvoices: () => this.go('invoices'),
+      openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false }), sheet: s.sheet,
+      project, projectList, rail, currentPhase: { name: curPhase.name, now: curPhase.now, summary: project.id === 'nimai' ? '2 deliverables waiting on your review' : 'On track' }, openCurrentPhase: () => this.go('phase', { phaseId: curPhase.id }),
+      phase, phaseTabs, team: TEAM, leadName: 'Arnav', leadInitial: 'A', quoteEta: 'Thu 10:00',
+      hasPending: pendingCount > 0, showPending: pendingCount > 0 && !project.isProposal, noPending: pendingCount === 0, pendingCount, pendingList, decidedList, approval,
+      feedbackOpen: s.feedbackOpen, feedbackClosed: !s.feedbackOpen, feedback: s.feedback, feedbackError: s.feedbackError,
+      openFeedback: () => this.setState({ feedbackOpen: true }), closeFeedback: () => this.setState({ feedbackOpen: false, feedbackError: false }), setFeedback: e => this.setState({ feedback: e.target.value, feedbackError: false }),
+      approve: () => { const id = approval.id; this.setApproval(id, { status: 'approved', decidedOn: 'today' }); this.celebrate('Approved', 'approved', approval.title, () => { this.back(); this.toast('Approved “' + approval.title + '”', () => { this.setApproval(id, { status: 'pending' }); this.setState({ toast: null }); }); }); },
+      sendChanges: () => { if (s.feedback.trim().length < 12) return this.setState({ feedbackError: true }); this.setApproval(approval.id, { status: 'changes', decidedOn: 'today' }); this.setState({ messages: [...s.messages, { me: true, text: 'Changes on “' + approval.title + '”: ' + s.feedback.trim(), meta: 'You · now' }] }); this.back(); this.toast('Sent to ' + approval.owner + '. Tracked in Chat.'); },
+      scopeGlance: quotedReq ? '1 quote ready to accept' : reviewingReq ? '1 brief being sized' : accepted + ' change' + (accepted === 1 ? '' : 's') + ' in plan',
+      billingGlance: dueInv ? this.money(dueInv.inr) + ' due 15 Nov' : 'Nothing due',
+      activity: activityList, pctShown: Math.round(tw.pct || 0), totalShown: this.money(tw.total || 0), typing: s.typing, celebrate: s.celebrate,
+      signLabel: s.signing ? 'Sending link…' : 'Send magic link', signBtn: { style: { width: '100%' }, disabled: !!s.signing },
+      requests, req, quote,
+      startBrief: () => this.go('brief', { brief: { ...(s.brief.mode === 'scope' ? s.brief : EMPTY_BRIEF), mode: 'scope', step: 1 } }),
+      startProject: () => this.go('brief', { brief: { ...(s.brief.mode === 'project' ? s.brief : EMPTY_BRIEF), mode: 'project', step: 1 } }),
+      brief, briefTypes, priorities, budgets, whens, briefSteps, briefReview,
+      setPname: e => setBrief({ pname: e.target.value, err1: false }), setDesc: e => setBrief({ desc: e.target.value, err1: false }), setGoal: e => setBrief({ goal: e.target.value }),
+      briefNext: () => { if (b.step === 1 && (b.types.length === 0 || b.desc.trim().length < 10 || (isProj && !b.pname.trim()))) return setBrief({ err1: true }); setBrief({ step: Math.min(4, b.step + 1) }); },
+      briefBack: () => { if (b.step > 1) setBrief({ step: b.step - 1 }); else this.back(); },
+      cancelBrief: () => { this.back(); this.toast(isProj ? 'Draft saved. Pick it up from Your projects.' : 'Draft saved. Pick it up any time from Scope.'); },
+      submitBrief: () => {
+        if (isProj) {
+          const id = 'p' + Date.now(); const name = b.pname.trim();
+          this.setState({ projects: [...s.projects, { id, name, sub: b.types[0] || 'New project', phase: 0, progress: 0, due: 'TBC', week: 'Proposal', contract: '—', proposal: true, budget: budgetLabel, when: b.when || 'Flexible' }], project: id, brief: EMPTY_BRIEF, screen: 'home', stack: [] });
+          this.celebrate('Brief sent', 'new', name, () => this.toast('Arnav will reach out to book discovery.'));
+          return;
+        }
+        const id = 'r' + (s.requests.length + 1); const title = b.desc.trim().split(/[.\n]/)[0].slice(0, 48);
+        this.setState({ requests: [{ id, ref: 'SCR-0' + (s.requests.length + 1), title, sub: (b.types.join(', ')) + ' · ' + b.prio + ' · ' + (b.when || 'Flexible'), status: 'reviewing', inr: 0, timeline: '', newDue: '', valid: '', note: '', lines: [] }, ...s.requests], brief: EMPTY_BRIEF, screen: 'scope', stack: [] });
+        this.celebrate('Brief sent', 'scope', 'quote by Thu 10:00', () => this.toast('We\u2019ll notify you when the quote lands.'));
+      },
+      confirmOpen: s.confirmOpen, openConfirm: () => this.setState({ confirmOpen: true }), closeConfirm: () => this.setState({ confirmOpen: false }),
+      acceptQuote: () => { const id = req.id; const prevInv = s.invoices; const setReq = st => this.setState(x => ({ requests: x.requests.map(r => r.id === id ? { ...r, status: st } : r) })); setReq('accepted'); this.setState({ confirmOpen: false, invoices: [{ id: 'i' + Date.now(), title: 'Scope: ' + req.title + ' (50%)', ref: 'INV-0152', when: 'due in 7 days', inr: req.inr / 2, status: 'scheduled' }, ...s.invoices] }); this.celebrate('Scheduled', 'accepted', quote.total + ' · ' + req.timeline, () => this.toast('Quote accepted. Work scheduled.', () => { setReq('quoted'); this.setState({ invoices: prevInv, toast: null }); })); },
+      invoices, billing,
+      messages, draft: s.draft, setDraft: e => this.setState({ draft: e.target.value }),
+      draftKey: e => { if (e.key === 'Enter') this.sendMsg(); }, send: () => this.sendMsg(),
+      notifBg: s.notif ? 'var(--mint)' : 'var(--ln)', notifLeft: s.notif ? '21px' : '3px', toggleNotif: () => this.setState({ notif: !s.notif }),
+      tabHome: tabs[0], tabApprovals: tabs[1], tabScope: tabs[2], tabChat: tabs[3], tabMore: tabs[4],
+      toast: s.toast, jumps, heuristics: HEUR.map(([n, name, how]) => ({ n, name, how })),
+    };
+  }
+  sendMsg() {
+    const t = this.state.draft.trim(); if (!t) return;
+    this.setState(s => ({ messages: [...s.messages, { me: true, text: t, meta: 'You · now' }], draft: '' }));
+    if (!this.state.replied) { this.setState({ replied: true }); setTimeout(() => this.setState({ typing: true }), 700); setTimeout(() => this.setState(s => ({ typing: false, messages: [...s.messages, { me: false, text: 'Got it — on it. I\u2019ll update you here before Thursday\u2019s review.', meta: 'Arnav · now' }] })), 2600); }
+  }
+}
+</script>
+</body>
+</html>
