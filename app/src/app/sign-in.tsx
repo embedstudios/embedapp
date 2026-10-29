@@ -29,7 +29,9 @@ export default function SignIn() {
       const msg = String((err as Error).message);
       setError(/signup|not allowed|not found/i.test(msg)
         ? 'We couldn’t find an invite for that email. Ask your Embed project lead to add you.'
-        : 'Couldn’t send the link. Check your connection and try again.');
+        : /rate limit|security purposes|after \d+ seconds/i.test(msg)
+          ? 'A link was sent recently. Use the latest email, or try again in a few minutes.'
+          : 'Couldn’t send the link. Check your connection and try again.');
     } finally {
       setSending(false);
     }
