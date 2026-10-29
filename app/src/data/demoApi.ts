@@ -135,6 +135,7 @@ export function createDemoApi(): Api {
       setSession(email);
     },
     async completeSignInFromUrl() { return false; },
+    async verifyCode(email) { setSession(email); },
     async signOut() { db = seed(); replied = false; setSession(null); },
 
     async loadProfile() { await wait(120); return { ...db.profile }; },

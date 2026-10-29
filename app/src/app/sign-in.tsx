@@ -17,6 +17,9 @@ export default function SignIn() {
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [sentTo, setSentTo] = useState<string | null>(null);
+  const [code, setCode] = useState('');
+  const [codeError, setCodeError] = useState<string | null>(null);
+  const [verifying, setVerifying] = useState(false);
 
   const send = async () => {
     const e = email.trim();
@@ -24,7 +27,7 @@ export default function SignIn() {
     setSending(true);
     try {
       await api.sendMagicLink(e);
-      if (api.mode === 'live') setSentTo(e);
+      if (api.mode === 'live') { setSentTo(e); setCode(''); setCodeError(null); }
     } catch (err) {
       const msg = String((err as Error).message);
       setError(/signup|not allowed|not found/i.test(msg)
@@ -34,6 +37,21 @@ export default function SignIn() {
           : 'Couldn’t send the link. Check your connection and try again.');
     } finally {
       setSending(false);
+    }
+  };
+
+  const verify = async () => {
+    const c = code.replace(/\D/g, '');
+    if (!sentTo || c.length < 6) return setCodeError('Enter the code from the email.');
+    setVerifying(true);
+    try {
+      await api.verifyCode(sentTo, c);
+    } catch (err) {
+      setCodeError(/expired|invalid/i.test(String((err as Error).message))
+        ? 'That code is wrong or has expired. Check the latest email, or send a new one.'
+        : 'Couldn’t check the code. Check your connection and try again.');
+    } finally {
+      setVerifying(false);
     }
   };
 
@@ -70,10 +88,17 @@ export default function SignIn() {
           <FadeUp dist={8} duration={300} style={{ gap: 12 }}>
             <View style={{ padding: 16, borderRadius: 10, backgroundColor: C.mintsoft, gap: 6 }}>
               <Txt w={600} size={15}>Check your inbox</Txt>
-              <Txt size={14} lh={1.5}>We sent a one-tap link to <Txt w={600} size={14}>{sentTo}</Txt>. Open it on this phone to sign in.</Txt>
+              <Txt size={14} lh={1.5}>We sent a sign-in code to <Txt w={600} size={14}>{sentTo}</Txt>. Enter it below, or tap the link in the email on this phone.</Txt>
             </View>
+            <Field label="Code" value={code} onChangeText={t => { setCode(t); setCodeError(null); }} placeholder="123456"
+              keyboardType="number-pad" textContentType="oneTimeCode" autoComplete="one-time-code" maxLength={8} autoFocus
+              returnKeyType="done" onSubmitEditing={verify} height={52} style={{ fontSize: 20, paddingHorizontal: 16, letterSpacing: 4 }} />
+            {codeError || error ? (
+              <Txt size={13} color={C.warn} accessibilityLiveRegion="polite">{codeError ?? error}</Txt>
+            ) : null}
+            <Button onPress={verify} disabled={verifying}>{verifying ? 'Signing in…' : 'Sign in'}</Button>
             <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 20 }}>
-              <LinkText onPress={send}>Resend link</LinkText>
+              <LinkText onPress={send}>Send a new code</LinkText>
               <LinkText onPress={() => { setSentTo(null); setEmail(''); }}>Use a different email</LinkText>
             </View>
           </FadeUp>

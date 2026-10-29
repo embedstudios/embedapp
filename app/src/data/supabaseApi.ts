@@ -41,6 +41,10 @@ export function createSupabaseApi(sb: SupabaseClient): Api {
       });
       if (error) throw new Error(error.message);
     },
+    async verifyCode(email, code) {
+      const { error } = await sb.auth.verifyOtp({ email, token: code, type: 'email' });
+      if (error) throw new Error(error.message);
+    },
     async completeSignInFromUrl(url) {
       const parsed = new URL(url.replace('#', url.includes('?') ? '&' : '?'));
       const p = parsed.searchParams;

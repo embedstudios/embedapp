@@ -25,7 +25,11 @@ With no Supabase env vars the app runs in **demo mode**: in-memory data mirrorin
    email under Auth → Users → Invite user. Sign-in is invite-only (`shouldCreateUser: false`).
 3. Auth → URL Configuration → Redirect URLs: add `embed://auth-callback` (plus
    `exp://**` for Expo Go and `http://localhost:8081/auth-callback` for web).
-4. Copy `.env.example` to `.env.local` and fill in the project URL and publishable key.
+4. Authentication → Emails → **Magic Link** template: add `{{ .Token }}` so the email carries the
+   6-digit code the sign-in screen asks for (the link keeps working too).
+5. Authentication → Emails → SMTP Settings: use your own sender (e.g. Resend). The built-in mailer
+   allows only 2 emails an hour per project.
+6. Copy `.env.example` to `.env.local` and fill in the project URL and publishable key.
 
 ## TestFlight
 

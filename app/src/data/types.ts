@@ -118,6 +118,8 @@ export interface Api {
   sendMagicLink(email: string): Promise<void>;
   /** Finishes sign-in from a magic-link deep link. Returns false if the URL carried no session. */
   completeSignInFromUrl(url: string): Promise<boolean>;
+  /** Signs in with the one-time code from the same email as the magic link. */
+  verifyCode(email: string, code: string): Promise<void>;
   signOut(): Promise<void>;
 
   loadProfile(): Promise<Profile>;
