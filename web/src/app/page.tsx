@@ -98,7 +98,7 @@ export default function Overview() {
         <div className="stack" style={{ gap: 28 }}>
           <section className="section">
             <div className="section-head">
-              <Tag tag="needs-you" attr={<> count=&quot;<b>{needs.length}</b>&quot;</>} />
+              <Tag tag="Needs you" />
               {pending.length > 0 && <Link className="link" href="/approvals/">All approvals</Link>}
             </div>
             {needs.length ? (

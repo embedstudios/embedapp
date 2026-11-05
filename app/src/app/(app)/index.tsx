@@ -109,7 +109,7 @@ export default function Home() {
           {pending.length > 0 && !proposal ? (
             <View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                <Tag tag="needs-you" size={12} attr={<>{' count="'}<Txt f="mono" size={12}>{pending.length}</Txt>{'"'}</>} />
+                <Tag tag="Needs you" size={12} />
                 <LinkText onPress={() => goTab('/approvals')}>All approvals</LinkText>
               </View>
               <View style={{ gap: 8 }}>{pending.map((a, i) => <ApprovalRow key={a.id} a={a} delay={i * 70} />)}</View>
