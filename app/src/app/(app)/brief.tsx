@@ -40,7 +40,7 @@ export default function Brief() {
   const [busy, setBusy] = useState(false);
   const set = (patch: Partial<Draft>) => setB(x => ({ ...x, ...patch }));
   const projectName = detail?.project.name ?? '';
-  const lead = detail?.project.leadName ?? 'Arnav';
+  const lead = 'Embed';
   const budgetLabel = b.budget == null ? 'Not sure yet' : BUDGETS[cur][b.budget];
 
   const next = () => {
@@ -98,7 +98,7 @@ export default function Brief() {
           <FadeUp key={'n' + b.step} style={{ position: 'absolute', right: -6, top: -22 }}>
             <OutlinedNumeral text={'0' + b.step} size={120} />
           </FadeUp>
-          <Meta f="mono" parts={isProj ? ['New project', 'step ' + b.step + ' of 4'] : ['Scope change', projectName, 'step ' + b.step + ' of 4']} />
+          <Meta f="mono" parts={isProj ? ['New project', 'step ' + b.step + ' of 4'] : ['New scope', projectName, 'step ' + b.step + ' of 4']} />
         </View>
 
         {b.step === 1 ? (

@@ -9,7 +9,7 @@ import { C, R } from '../../theme';
 
 const HOW = [
   ['Brief', ' — 3 short steps, about 2 minutes.'],
-  ['Quote', ' — fixed price + timeline impact from your lead, within a working day.'],
+  ['Quote', ' — fixed price and timeline from Embed, within a working day.'],
   ['Accept', ' — in-app. Work is scheduled; 50% invoiced on acceptance.'],
 ] as const;
 
@@ -22,11 +22,11 @@ export default function Scope() {
     <Screen root>
       <H size={30}>Scope</H>
       <Txt size={14} lh={1.5} color={C.mu} style={{ marginTop: 6 }}>
-        Need something that isn’t in the plan? Brief us here. You’ll get a fixed-price quote in the app within one working day.
+        Need something that isn’t in the plan? Add a new scope here. You’ll get a fixed-price quote in the app within one working day.
       </Txt>
       <View style={{ marginTop: 16 }}>
-        <Button disabled={proposal} onPress={() => router.push({ pathname: '/brief', params: { mode: 'scope' } })}>Request a scope change</Button>
-        {proposal ? <Txt size={12} color={C.mu} style={{ marginTop: 8, textAlign: 'center' }}>Scope changes open once your proposal is accepted.</Txt> : null}
+        <Button disabled={proposal} onPress={() => router.push({ pathname: '/brief', params: { mode: 'scope' } })}>Add a new scope</Button>
+        {proposal ? <Txt size={12} color={C.mu} style={{ marginTop: 8, textAlign: 'center' }}>You can add new scope once your proposal is accepted.</Txt> : null}
         <View style={{ marginTop: 10, alignItems: 'center', minHeight: 44, justifyContent: 'center' }}>
           <LinkText size={14} onPress={() => router.push({ pathname: '/brief', params: { mode: 'project' } })}>Start a new project</LinkText>
         </View>

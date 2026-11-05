@@ -10,7 +10,7 @@ import { Shell } from '@/components/Shell';
 
 export const metadata: Metadata = {
   title: 'Embed Studios — Client portal',
-  description: 'Follow your project with Embed Studios: progress, approvals, scope changes, quotes, invoices and messages.',
+  description: 'Follow your project with Embed Studios: progress, approvals, new scope, quotes, invoices and messages.',
   robots: { index: false, follow: false },
   icons: { icon: '/favicon.png' },
 };

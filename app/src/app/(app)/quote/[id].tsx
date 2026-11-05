@@ -24,7 +24,8 @@ export default function Quote() {
 
   const p = pill(r.status);
   const hasQuote = r.status === 'quoted' || r.status === 'accepted';
-  const lead = detail.project.leadName;
+  /* Quotes come from the studio, not a named person. */
+  const lead = 'Embed';
 
   const accept = async () => {
     setBusy(true);
@@ -34,7 +35,7 @@ export default function Quote() {
       await refresh();
       await celebrate('Scheduled', 'accepted', money(price, cur) + ', ' + r.timeline);
       toast('Quote accepted. Work scheduled.', async () => {
-        try { await api.undoAcceptQuote(r.id); await refresh(); } catch { toast('Too late to undo — message ' + lead + ' instead.'); }
+        try { await api.undoAcceptQuote(r.id); await refresh(); } catch { toast('Too late to undo. Message the Embed team instead.'); }
       });
     } catch (e) {
       setConfirm(false);
@@ -81,7 +82,7 @@ export default function Quote() {
             {r.quoteNote ? (
               <View style={{ marginTop: 12, flexDirection: 'row', gap: 12, alignItems: 'flex-start', paddingVertical: 12, paddingHorizontal: 14, borderRadius: R.md, borderWidth: 1, borderColor: C.ln }}>
                 <Avatar label={lead[0]} size={32} />
-                <Txt size={13} lh={1.5} style={{ flex: 1 }}><Txt w={600} size={13}>{lead}:</Txt> {r.quoteNote}</Txt>
+                <Txt size={13} lh={1.5} style={{ flex: 1 }}><Txt w={600} size={13}>Note from {lead}:</Txt> {r.quoteNote}</Txt>
               </View>
             ) : null}
           </>
@@ -116,7 +117,7 @@ export default function Quote() {
         <View style={{ marginTop: 12, gap: 2 }}>
           <Bullet>Adds <Txt w={500} size={14}>{r.timeline}</Txt>{r.newDueOn ? '; new due date ' + dayMonth(r.newDueOn) : ''}.</Bullet>
           <Bullet>50% ({money(price / 2, cur)}) invoiced now, 50% on delivery.</Bullet>
-          <Bullet>You can undo for a few seconds after accepting; after that, message {lead}.</Bullet>
+          <Bullet>You can undo for a few seconds after accepting; after that, message the Embed team.</Bullet>
         </View>
         <View style={{ marginTop: 18, gap: 10 }}>
           <Button onPress={accept} disabled={busy}>Yes, accept</Button>

@@ -59,7 +59,7 @@ export default function Overview() {
           <h3>Brief received — we’re preparing your proposal</h3>
           <div className="stack" style={{ gap: 10 }}>
             <div className="actions"><span className="tick done">✓</span><Meta parts={['Brief sent', p.budgetLabel, p.timing]} /></div>
-            <div className="actions"><span className="tick progress" />{p.leadName} books a 30-min discovery call</div>
+            <div className="actions"><span className="tick progress" />Embed books a 30-min discovery call</div>
             <div className="actions muted"><span className="tick" />Fixed-price proposal here within 3 working days</div>
           </div>
           <p className="hint">Then: Research → Strategy → Ideation → Design → Handover</p>
@@ -142,8 +142,8 @@ export default function Overview() {
           </div>
           <div className="card stack" style={{ gap: 10 }}>
             <span className="eyebrow">Need something new?</span>
-            <p className="hint">Brief a scope change and get a fixed-price quote here within one working day.</p>
-            <Link href="/scope/?new=1" className="btn btn-sm">Request a scope change</Link>
+            <p className="hint">Add a new scope and get a fixed-price quote here within one working day.</p>
+            <Link href="/scope/?new=1" className="btn btn-sm">Add a new scope</Link>
           </div>
           {d.files.length > 0 && (
             <div className="card stack" style={{ gap: 8 }}>

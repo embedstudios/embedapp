@@ -197,7 +197,7 @@ function ProposalCard({ project }: { project: Project }) {
       <H size={22} ls={-0.02} lh={1.1} style={{ marginTop: 6 }}>Brief received — we’re preparing your proposal</H>
       <View style={{ marginTop: 12, gap: 8 }}>
         <Step state="done">Brief sent: {[project.budgetLabel, project.timing].filter(Boolean).join(', ')}</Step>
-        <Step state="next">{project.leadName} books a 30-min discovery call</Step>
+        <Step state="next">Embed books a 30-min discovery call</Step>
         <Step state="later">Fixed-price proposal here within 3 working days</Step>
       </View>
       <View style={{ marginTop: 14, paddingTop: 12, borderTopWidth: 1, borderTopColor: C.ln }}>
