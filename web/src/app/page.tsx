@@ -62,7 +62,7 @@ export default function Overview() {
             <div className="actions"><span className="tick progress" />Embed books a 30-min discovery call</div>
             <div className="actions muted"><span className="tick" />Fixed-price proposal here within 3 working days</div>
           </div>
-          <p className="hint">Then: Research → Strategy → Ideation → Design → Handover</p>
+          <p className="hint">Then: Discover → Define → Design → Develop → Handoff</p>
         </div>
       ) : (
         <div className="card stack" style={{ gap: 18 }}>

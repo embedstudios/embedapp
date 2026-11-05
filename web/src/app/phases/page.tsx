@@ -26,7 +26,7 @@ function Phases() {
       <div className="page-head">
         <div>
           <h1>Phases &amp; files</h1>
-          <p>Embed’s process: research the problem, set the strategy, explore ideas, design it, then hand it over to your engineers.</p>
+          <p>Embed’s process: discover the problem, define what to build, design it, develop it, then hand it off to your team.</p>
         </div>
       </div>
       <div className="seg" role="tablist" style={{ alignSelf: 'flex-start' }}>

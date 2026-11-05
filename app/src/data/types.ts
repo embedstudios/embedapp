@@ -3,7 +3,7 @@ import type { Currency } from '../lib/format';
 export const PHASE_KEYS = ['research', 'strategy', 'ideation', 'design', 'handover'] as const;
 export type PhaseKey = (typeof PHASE_KEYS)[number];
 export const PHASE_NAMES: Record<PhaseKey, string> = {
-  research: 'Research', strategy: 'Strategy', ideation: 'Ideation', design: 'Design', handover: 'Handover',
+  research: 'Discover', strategy: 'Define', ideation: 'Design', design: 'Develop', handover: 'Handoff',
 };
 
 export type Profile = {

@@ -201,7 +201,7 @@ function ProposalCard({ project }: { project: Project }) {
         <Step state="later">Fixed-price proposal here within 3 working days</Step>
       </View>
       <View style={{ marginTop: 14, paddingTop: 12, borderTopWidth: 1, borderTopColor: C.ln }}>
-        <Txt size={13} color={C.mu}>Then: Research → Strategy → Ideation → Design → Handover</Txt>
+        <Txt size={13} color={C.mu}>Then: Discover → Define → Design → Develop → Handoff</Txt>
       </View>
     </Card>
   );

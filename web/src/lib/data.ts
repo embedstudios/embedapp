@@ -6,7 +6,8 @@ import { supabase } from './supabase';
 
 export const PHASES = ['research', 'strategy', 'ideation', 'design', 'handover'] as const;
 export type PhaseKey = (typeof PHASES)[number];
-export const PHASE_NAMES: Record<PhaseKey, string> = { research: 'Research', strategy: 'Strategy', ideation: 'Ideation', design: 'Design', handover: 'Handover' };
+/* Display names only; the keys are the contract with the admin portal and the database. */
+export const PHASE_NAMES: Record<PhaseKey, string> = { research: 'Discover', strategy: 'Define', ideation: 'Design', design: 'Develop', handover: 'Handoff' };
 
 export type Profile = { id: string; email: string; fullName: string; title: string; currency: 'INR' | 'USD'; notify: boolean };
 export type Project = {
