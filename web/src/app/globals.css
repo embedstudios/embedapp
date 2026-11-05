@@ -5,17 +5,22 @@
    bar plus a bottom tab bar, like the phone app. */
 
 :root {
-  --bg: #fafafa;
+  /* Shared with the studio admin: green-grey canvas, white cards, deep-green
+     ink, forest green for actions and one lime highlight for "needs you". */
+  --bg: #f1f2ec;
   --sf: #ffffff;
-  --sf2: #f1f1f1;
-  --tx: #0b0f0e;
-  --mu: #5a5a5a;
-  --ln: #dadada;
-  --ln2: #e9e9e9;
-  --mint: #0e7a45;
-  --mint-hi: #11905a;
-  --mintsoft: rgba(14, 122, 69, 0.09);
-  --mintline: rgba(14, 122, 69, 0.28);
+  --sf2: #e9ece3;
+  --side: #e6e9df;
+  --tx: #14221b;
+  --mu: #58645d;
+  --ln: rgba(20, 34, 27, 0.12);
+  --ln2: rgba(20, 34, 27, 0.08);
+  --ink: #17302a;
+  --mint: #1d6a41;
+  --mint-hi: #237d4d;
+  --mintsoft: rgba(29, 106, 65, 0.09);
+  --mintline: rgba(29, 106, 65, 0.28);
+  --lime: #c9f19b;
   --warn: #8a5a00;
   --warnsoft: rgba(255, 196, 80, 0.22);
   --bad: #b42323;
@@ -25,7 +30,8 @@
   --display: 'Space Grotesk', -apple-system, system-ui, sans-serif;
   --body: 'Inter', -apple-system, system-ui, sans-serif;
   --mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --r: 10px;
+  --r: 14px;
+  --shadow: 0 1px 2px rgba(20, 34, 27, 0.04), 0 4px 16px -8px rgba(20, 34, 27, 0.1);
   --ease: cubic-bezier(.2, .8, .2, 1);
   color-scheme: light;
 }
@@ -195,7 +201,7 @@ a.picker-row:hover { border-color: var(--mint); }
 .preview { aspect-ratio: 16 / 9; max-width: 100%; border-radius: var(--r); background: var(--sf2); border: 1px solid var(--ln); position: relative; display: grid; place-items: center; overflow: hidden; }
 .preview .frames { position: absolute; inset: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .preview .frames i { border-radius: 8px; background: var(--sf); border: 1px solid var(--ln); }
-.preview span { position: relative; font-family: var(--mono); font-size: 12px; padding: 6px 12px; border-radius: 999px; background: var(--bg); border: 1px solid var(--ln); }
+.preview > span { position: relative; font-family: var(--mono); font-size: 12px; padding: 6px 12px; border-radius: 999px; background: var(--bg); border: 1px solid var(--ln); }
 .quote { border-left: 2px solid var(--ln); padding: 2px 0 2px 14px; margin: 0; color: var(--tx); white-space: pre-wrap; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 
@@ -286,3 +292,23 @@ a.picker-row:hover { border-color: var(--mint); }
   .gate-h { font-size: 36px; }
 }
 .vr { display: inline-block; width: 1px; height: .9em; background: currentColor; opacity: .3; margin: 0 .7em; vertical-align: -.1em; }
+
+/* ---- studio skin (shared with the admin) ---- */
+.card, .stat, .stats > *, .empty { box-shadow: var(--shadow); border-color: var(--ln); }
+.side { background: var(--side); border-right: 0; }
+.nav a { color: var(--tx); font-weight: 450; border-radius: 10px; }
+.nav a:hover { background: rgba(20, 34, 27, 0.05); }
+.nav a.on { background: var(--ink); color: #fff; }
+.nav a em { background: var(--lime); color: var(--tx); }
+.nav a.on em { background: var(--lime); color: var(--tx); }
+.eyebrow { font-size: 11.5px; letter-spacing: .08em; }
+.row small, .hint { color: var(--mu); }
+.btn:not(.btn-ghost):not(.btn-quiet) { background: var(--ink); }
+.btn:not(.btn-ghost):not(.btn-quiet):hover:not(:disabled) { background: #0f241e; }
+.side-initial { background: var(--ink); }
+@media (max-width: 900px) {
+  .side { background: color-mix(in srgb, var(--sf) 94%, transparent); backdrop-filter: blur(14px); border-top: 1px solid var(--ln); }
+  .nav a { color: var(--mu); }
+  .nav a.on { background: transparent; color: var(--ink); }
+  .nav a.on svg { color: var(--ink); }
+}
