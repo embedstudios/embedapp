@@ -122,9 +122,9 @@ export async function sendMessage(projectId: string, body: string) {
   // author_name and from_client are set server-side by the stamp_message trigger.
   check(await supabase.from('messages').insert({ project_id: projectId, author_id: u.user?.id, author_name: '', from_client: true, body }));
 }
-export function subscribeMessages(projectId: string, onMessage: (m: Message) => void) {
+export function subscribeMessages(projectId: string, onMessage: (m: Message) => void, tag = 'page') {
   const ch = supabase
-    .channel('web-messages:' + projectId)
+    .channel('web-messages:' + tag + ':' + projectId)
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages', filter: 'project_id=eq.' + projectId }, p => onMessage(toMessage(p.new)))
     .subscribe();
   return () => { supabase.removeChannel(ch); };

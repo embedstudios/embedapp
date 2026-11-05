@@ -5,6 +5,7 @@ import { useApp } from '@/components/AppProvider';
 import { listMessages, sendMessage, subscribeMessages, type Message } from '@/lib/data';
 import { Meta } from '@/components/ui';
 import { msgTime } from '@/lib/format';
+import { playChat, setSoundOn, soundOn } from '@/lib/sound';
 
 export default function Messages() {
   const { detail, profile, toast } = useApp();
@@ -12,12 +13,17 @@ export default function Messages() {
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
+  const [sound, setSound] = useState(true);
+  useEffect(() => { setSound(soundOn()); }, []);
   const end = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let alive = true;
     listMessages(d.project.id).then(m => alive && setMessages(m)).catch(() => alive && setMessages([]));
-    const off = subscribeMessages(d.project.id, m => setMessages(xs => (xs && xs.some(x => x.id === m.id) ? xs : [...(xs || []), m])));
+    const off = subscribeMessages(d.project.id, m => {
+      if (m.authorId !== profile?.id) playChat('receive');
+      setMessages(xs => (xs && xs.some(x => x.id === m.id) ? xs : [...(xs || []), m]));
+    });
     return () => { alive = false; off(); };
   }, [d.project.id]);
   useEffect(() => { end.current?.scrollIntoView({ block: 'end' }); }, [messages?.length]);
@@ -26,7 +32,7 @@ export default function Messages() {
     const t = draft.trim();
     if (!t || sending) return;
     setSending(true); setDraft('');
-    try { await sendMessage(d.project.id, t); }
+    try { await sendMessage(d.project.id, t); playChat('send'); }
     catch { setDraft(t); toast('Message not sent. Check your connection and try again.'); }
     setSending(false);
   };
@@ -38,6 +44,9 @@ export default function Messages() {
           <h1>Messages</h1>
           <p>Talk to {d.team.map(t => t.name).join(', ') || 'the team'}. The team replies within a working day; replies show up here as they’re sent.</p>
         </div>
+        <button className="btn btn-quiet btn-sm" aria-pressed={sound} onClick={() => { const next = !sound; setSound(next); setSoundOn(next); if (next) playChat('receive'); }}>
+          {sound ? 'Sound on' : 'Sound off'}
+        </button>
       </div>
       <div className="card card-flush chat">
         <div className="chat-log" aria-live="polite">

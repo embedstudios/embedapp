@@ -2,7 +2,8 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Session } from '@supabase/supabase-js';
-import { brandCard, listProjects, loadDetail, loadProfile, updateProfile, type Detail, type Profile, type Project } from '@/lib/data';
+import { brandCard, listProjects, loadDetail, loadProfile, subscribeMessages, updateProfile, type Detail, type Profile, type Project } from '@/lib/data';
+import { playChat } from '@/lib/sound';
 import { supabase } from '@/lib/supabase';
 import { currentSubdomain } from '@/lib/tenant';
 import type { Currency } from '@/lib/format';
@@ -90,6 +91,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setToast({ text, undo });
     timer.current = setTimeout(() => setToast(null), undo ? 7000 : 3500);
   }, []);
+
+  /* A team reply while the client is elsewhere in the portal: chime and a toast.
+     The Messages page plays its own sound, so stay quiet there. */
+  const projectId = detail?.project.id;
+  useEffect(() => {
+    if (!projectId) return;
+    return subscribeMessages(projectId, m => {
+      if (m.fromClient || window.location.pathname.startsWith('/messages')) return;
+      playChat('receive');
+      toast(m.authorName + ': ' + (m.body.length > 70 ? m.body.slice(0, 70) + '…' : m.body));
+    }, 'global');
+  }, [projectId, toast]);
 
   const celebrate = useCallback((title: string, tag: string, subLine: string) => new Promise<void>(resolve => {
     setCele({ title, tag, sub: subLine });
