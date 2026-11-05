@@ -11,6 +11,12 @@ import { useStore } from '../../../state/store';
 import { goBack, pill } from '../../../state/view';
 import { C, R } from '../../../theme';
 
+/* The approval link can be anything: "Open in Figma" for Figma, else the site. */
+function linkLabel(url: string) {
+  const host = (url.match(/^https?:\/\/(?:www\.)?([^/?#]+)/i) || [])[1] || 'link';
+  return /(^|\.)figma\.com$/i.test(host) ? 'Open in Figma' : 'Open ' + host;
+}
+
 export default function ApprovalDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { detail, refresh } = useStore();
@@ -70,7 +76,7 @@ export default function ApprovalDetail() {
         <Txt size={14} lh={1.55} style={{ marginTop: 14 }}>{a.note}</Txt>
 
         <View style={{ marginTop: 12, flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
-          {a.figmaUrl ? <Chip icon="ArrowsExpand" label="Open in Figma" onPress={() => Linking.openURL(a.figmaUrl!)} /> : null}
+          {a.figmaUrl ? <Chip icon="ArrowsExpand" label={linkLabel(a.figmaUrl)} onPress={() => Linking.openURL(a.figmaUrl!)} /> : null}
           <Chip icon="EssentialsChat" label={'Ask ' + a.ownerName} onPress={() => router.push('/chat')} />
         </View>
 

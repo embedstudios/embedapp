@@ -22,6 +22,8 @@ export type TeamMember = { id: string; name: string; role: string };
 export type Approval = {
   id: string; phase: PhaseKey; title: string; kind: string; meta: string; note: string; ownerName: string; dueOn: string | null;
   status: 'pending' | 'approved' | 'changes'; feedback: string | null; decidedAt: string | null; previewUrl: string | null; figmaUrl: string | null;
+  /** Preview of figmaUrl (any link), read by the admin when the approval was saved. */
+  link: { title: string; description: string; site: string; image: string } | null;
 };
 export type QuoteLine = { name: string; qty: string; amountInr: number };
 export type ScopeRequest = {
@@ -100,6 +102,7 @@ export async function loadDetail(projectId: string): Promise<Detail> {
     approvals: approvals.map((r: any) => ({
       id: r.id, phase: r.phase, title: r.title, kind: r.kind, meta: r.meta, note: r.note, ownerName: r.owner_name, dueOn: r.due_on,
       status: r.status, feedback: r.feedback, decidedAt: r.decided_at, previewUrl: r.preview_url, figmaUrl: r.figma_url,
+      link: r.figma_url ? { title: r.link_title || '', description: r.link_description || '', site: r.link_site || '', image: r.link_image || '' } : null,
     })),
     requests: requests.map((r: any) => ({
       id: r.id, ref: r.ref, title: r.title, summary: r.summary, status: r.status, description: r.description, goal: r.goal,

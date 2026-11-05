@@ -58,6 +58,32 @@ function Approvals() {
   );
 }
 
+const hostOf = (url: string) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; } };
+/* "Open in Figma ↗" for Figma, "Open nimai.com ↗" for anything else. */
+const openLabel = (url: string, site?: string) => {
+  const host = hostOf(url);
+  return /(^|\.)figma\.com$/.test(host) ? 'Open in Figma ↗' : 'Open ' + (site && site.length <= 24 ? site : host) + ' ↗';
+};
+
+/** The approval's link as a preview card: image, site, title, description. */
+function LinkCard({ url, link }: { url: string; link: Approval['link'] }) {
+  const host = hostOf(url);
+  const title = link?.title || host;
+  return (
+    <a className="linkcard" href={url} target="_blank" rel="noopener">
+      {link?.image
+        ? <span className="linkcard-img" style={{ backgroundImage: `url(${link.image})` }} />
+        : <span className="linkcard-img linkcard-blank"><b>{(link?.site || host).slice(0, 1).toUpperCase()}</b></span>}
+      <span className="linkcard-body">
+        <small className="eyebrow">{link?.site || host}</small>
+        <strong>{title}</strong>
+        {link?.description && <span className="linkcard-desc">{link.description}</span>}
+        <span className="linkcard-url">{host} ↗</span>
+      </span>
+    </a>
+  );
+}
+
 function ApprovalDetail({ a }: { a: Approval }) {
   const { refresh, toast, celebrate } = useApp();
   const [changes, setChanges] = useState(false);
@@ -93,12 +119,12 @@ function ApprovalDetail({ a }: { a: Approval }) {
         <Pill tone={tone}>{label}</Pill>
       </div>
       <h2 style={{ fontSize: 30, lineHeight: 1.08 }}>{a.title}</h2>
-      {a.previewUrl
-        ? <a href={a.previewUrl} target="_blank" rel="noopener" className="preview" style={{ backgroundImage: `url(${a.previewUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}><span>Open preview ↗</span></a>
-        : <div className="preview"><div className="frames"><i /><i /><i /><i /></div><span><Meta parts={['Preview', a.meta]} /></span></div>}
+      {a.figmaUrl ? <LinkCard url={a.figmaUrl} link={a.link} />
+        : a.previewUrl ? <a href={a.previewUrl} target="_blank" rel="noopener" className="preview" style={{ backgroundImage: `url(${a.previewUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}><span>Open preview ↗</span></a>
+        : null}
       {a.note && <p style={{ margin: 0 }}>{a.note}</p>}
       <div className="actions">
-        {a.figmaUrl && <a className="btn btn-quiet btn-sm" href={a.figmaUrl} target="_blank" rel="noopener">Open in Figma ↗</a>}
+        {a.figmaUrl && <a className="btn btn-quiet btn-sm" href={a.figmaUrl} target="_blank" rel="noopener">{openLabel(a.figmaUrl, a.link?.site)}</a>}
         <Link className="btn btn-quiet btn-sm" href="/messages/">Ask {a.ownerName}</Link>
       </div>
       {a.status === 'pending' ? (

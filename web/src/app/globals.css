@@ -319,3 +319,14 @@ a.picker-row:hover { border-color: var(--mint); }
 .choice-input { margin-top: 10px; padding: 9px 12px; border: 1px solid var(--ln); border-radius: 10px; background: var(--sf); font-size: 15px; max-width: 220px; }
 .choice-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
 .choice-row .choice-input { margin-top: 0; }
+
+/* Approval link preview card (from the link's Open Graph data). */
+.linkcard { display: flex; flex-direction: column; border: 1px solid var(--ln); border-radius: var(--r); overflow: hidden; background: var(--sf); text-decoration: none; color: inherit; box-shadow: var(--shadow); transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+.linkcard:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -16px rgba(20, 34, 27, .35); }
+.linkcard-img { aspect-ratio: 1.91 / 1; background: var(--sf2) center / cover no-repeat; border-bottom: 1px solid var(--ln); }
+.linkcard-blank { display: grid; place-items: center; background: linear-gradient(135deg, var(--sf2), var(--lime)); aspect-ratio: 3 / 1; }
+.linkcard-blank b { font-family: var(--display); font-weight: 500; font-size: 48px; color: var(--ink); opacity: .8; }
+.linkcard-body { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px 16px; }
+.linkcard-body strong { font-family: var(--display); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; line-height: 1.25; }
+.linkcard-desc { color: var(--mu); font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.linkcard-url { color: var(--mint); font-size: 13px; margin-top: 4px; }
