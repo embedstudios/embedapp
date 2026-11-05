@@ -41,9 +41,9 @@ insert into public.approvals (id, project_id, phase, title, kind, meta, note, ow
 
 -- Deliverables: Nimai's Design phase is tracked item by item; everything else is derived from the phase.
 insert into public.deliverables (project_id, phase, name, status, note, approval_id, position) values
-  ('00000000-0000-4000-a000-000000000001', 'design', 'Hi-fi wireframing', 'review', '14 of 22 screens · dashboard in review', '00000000-0000-4000-b000-000000000001', 0),
-  ('00000000-0000-4000-a000-000000000001', 'design', 'Prototyping', 'progress', 'v0.9 shared · v1 after dashboard sign-off', null, 1),
-  ('00000000-0000-4000-a000-000000000001', 'design', 'Responsive design', 'upcoming', 'Tablet breakpoints · starts in 2 weeks', null, 2),
+  ('00000000-0000-4000-a000-000000000001', 'design', 'Hi-fi wireframing', 'review', '14 of 22 screens, dashboard in review', '00000000-0000-4000-b000-000000000001', 0),
+  ('00000000-0000-4000-a000-000000000001', 'design', 'Prototyping', 'progress', 'v0.9 shared, v1 after dashboard sign-off', null, 1),
+  ('00000000-0000-4000-a000-000000000001', 'design', 'Responsive design', 'upcoming', 'Tablet breakpoints, starts in 2 weeks', null, 2),
   ('00000000-0000-4000-a000-000000000001', 'design', 'Design system', 'progress', 'Tokens & 31 components documented', null, 3);
 
 insert into public.deliverables (project_id, phase, name, status, note, position)
@@ -63,10 +63,10 @@ where not (p.id = '00000000-0000-4000-a000-000000000001' and v.phase = 'design')
 insert into public.project_files (project_id, phase, name, ext, meta, position)
 select p.id, v.phase::public.phase_key, v.name, v.ext, v.meta, v.pos
 from public.projects p cross join (values
-  ('research', 'UX audit — v1.pdf', 'PDF', '42 pages · 14 Aug', 0), ('research', 'Benchmarking board', 'FIG', 'FigJam · 9 Aug', 1),
-  ('strategy', 'Experience map', 'FIG', 'FigJam · 2 Sep', 0), ('strategy', 'Sitemap v3.pdf', 'PDF', '6 pages · 8 Sep', 1),
-  ('ideation', 'Low-fi wireframes v2', 'FIG', 'Figma · 1 Oct', 0),
-  ('design', 'Hi-fi v2', 'FIG', 'Figma · updated today', 0), ('design', 'Prototype v0.9', 'FIG', 'Figma · 24 Oct', 1)
+  ('research', 'UX audit — v1.pdf', 'PDF', '42 pages, 14 Aug', 0), ('research', 'Benchmarking board', 'FIG', 'FigJam, 9 Aug', 1),
+  ('strategy', 'Experience map', 'FIG', 'FigJam, 2 Sep', 0), ('strategy', 'Sitemap v3.pdf', 'PDF', '6 pages, 8 Sep', 1),
+  ('ideation', 'Low-fi wireframes v2', 'FIG', 'Figma, 1 Oct', 0),
+  ('design', 'Hi-fi v2', 'FIG', 'Figma, updated today', 0), ('design', 'Prototype v0.9', 'FIG', 'Figma, 24 Oct', 1)
 ) as v(phase, name, ext, meta, pos)
 where v.phase::public.phase_key <= p.current_phase;
 
@@ -81,7 +81,7 @@ insert into public.scope_requests (id, project_id, ref, title, summary, status, 
    95000, '+4 working days', current_date + 45, null, 'Accepted; in Design.', now() - interval '19 days', now() - interval '22 days');
 
 insert into public.quote_lines (request_id, name, qty, amount_inr, position) values
-  ('00000000-0000-4000-c000-000000000002', 'Dark token set', '1 set · 2 days', 50000, 0),
+  ('00000000-0000-4000-c000-000000000002', 'Dark token set', '1 set, 2 days', 50000, 0),
   ('00000000-0000-4000-c000-000000000002', 'Hi-fi screens, dark', '12 screens', 120000, 1),
   ('00000000-0000-4000-c000-000000000002', 'Prototype update', 'v1 → v1.1', 40000, 2),
   ('00000000-0000-4000-c000-000000000002', 'QA & contrast audit', '1 day', 30000, 3),

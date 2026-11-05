@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import {
-  Animated, Pressable, Text, TextInput, View,
+  Animated, Pressable, StyleSheet, Text, TextInput, View,
   type PressableProps, type StyleProp, type TextInputProps, type TextProps, type TextStyle, type ViewStyle,
 } from 'react-native';
 import Svg, { Path, SvgXml } from 'react-native-svg';
@@ -202,3 +202,18 @@ export function Segmented<T extends string>({ options, value, onChange, minWidth
 export const sel = (on: boolean) => on
   ? { borderColor: C.mint, backgroundColor: C.mint, color: C.mi }
   : { borderColor: C.ln, backgroundColor: C.sf, color: C.tx };
+
+/** Metadata segments split by a hairline rule instead of dot separators. Falsy parts are dropped. */
+export function Meta({ parts, size = 12, color = C.mu, f, w, style }: { parts: (string | number | false | null | undefined)[]; size?: number; color?: string; f?: TxtProps['f']; w?: TxtProps['w']; style?: StyleProp<ViewStyle> }) {
+  const xs = parts.filter((p): p is string | number => p !== null && p !== undefined && p !== false && p !== '');
+  return (
+    <View style={[{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }, style]}>
+      {xs.map((p, i) => (
+        <View key={i} style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {i > 0 && <View style={{ width: StyleSheet.hairlineWidth * 2, height: Math.round(size * 0.85), backgroundColor: color, opacity: 0.35, marginHorizontal: 7 }} />}
+          <Txt f={f} w={w} size={size} color={color}>{p}</Txt>
+        </View>
+      ))}
+    </View>
+  );
+}

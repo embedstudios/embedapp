@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Linking, Platform, View } from 'react-native';
 import { useFeedback } from '../../../components/overlays';
 import { Screen } from '../../../components/Screen';
-import { BackRow, Button, Field, H, Icon, Press, Txt } from '../../../components/ui';
+import { BackRow, Button, Field, H, Icon, Meta, Press, Txt } from '../../../components/ui';
 import { api } from '../../../data/api';
 import { PHASE_NAMES } from '../../../data/types';
 import { decidedOn } from '../../../lib/format';
@@ -56,7 +56,7 @@ export default function ApprovalDetail() {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Screen tabs={false} fill>
         <BackRow label="Approvals" onBack={goBack} />
-        <Txt f="mono" size={12} color={C.mu} style={{ marginTop: 8 }}>{a.kind} · {PHASE_NAMES[a.phase]}</Txt>
+        <Meta f="mono" style={{ marginTop: 8 }} parts={[a.kind, PHASE_NAMES[a.phase]]} />
         <H size={28} lh={1.08} style={{ marginTop: 4 }}>{a.title}</H>
 
         <View style={{ marginTop: 16, aspectRatio: 16 / 10, borderRadius: R.md, backgroundColor: C.sf2, borderWidth: 1, borderColor: C.ln, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
@@ -64,7 +64,7 @@ export default function ApprovalDetail() {
             {[0, 1, 2, 3].map(i => <View key={i} style={{ flex: 1, borderRadius: 6, backgroundColor: C.sf, borderWidth: 1, borderColor: C.ln }} />)}
           </View>
           <View style={{ paddingVertical: 6, paddingHorizontal: 10, borderRadius: 999, backgroundColor: C.bg, borderWidth: 1, borderColor: C.ln }}>
-            <Txt f="mono" size={11}>Preview · {a.meta}</Txt>
+            <Meta f="mono" size={11} color={C.tx} parts={['Preview', a.meta]} />
           </View>
         </View>
         <Txt size={14} lh={1.55} style={{ marginTop: 14 }}>{a.note}</Txt>
@@ -98,7 +98,7 @@ export default function ApprovalDetail() {
           </View>
         ) : (
           <View style={{ paddingVertical: 14, paddingHorizontal: 16, borderRadius: R.md, backgroundColor: p.bg }}>
-            <Txt w={500} size={14} color={p.color}>{p.label} · {decidedOn(a.decidedAt)}</Txt>
+            <Meta w={500} size={14} color={p.color} parts={[p.label, decidedOn(a.decidedAt)]} />
           </View>
         )}
       </Screen>

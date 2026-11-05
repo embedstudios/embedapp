@@ -5,7 +5,7 @@ import { FadeUp } from '../../components/motion';
 import { OutlinedNumeral } from '../../components/OutlinedNumeral';
 import { useFeedback } from '../../components/overlays';
 import { Screen } from '../../components/Screen';
-import { BackRow, Button, Card, Eyebrow, Field, H, Icon, Press, Txt, sel } from '../../components/ui';
+import { BackRow, Button, Card, Eyebrow, Field, H, Icon, Meta, Press, Txt, sel } from '../../components/ui';
 import { api } from '../../data/api';
 import { quoteEta, type Currency } from '../../lib/format';
 import { useStore } from '../../state/store';
@@ -98,7 +98,7 @@ export default function Brief() {
           <FadeUp key={'n' + b.step} style={{ position: 'absolute', right: -6, top: -22 }}>
             <OutlinedNumeral text={'0' + b.step} size={120} />
           </FadeUp>
-          <Txt f="mono" size={12} color={C.mu}>{isProj ? 'New project' : 'Scope change · ' + projectName} · step {b.step} of 4</Txt>
+          <Meta f="mono" parts={isProj ? ['New project', 'step ' + b.step + ' of 4'] : ['Scope change', projectName, 'step ' + b.step + ' of 4']} />
         </View>
 
         {b.step === 1 ? (
@@ -140,7 +140,7 @@ export default function Brief() {
             </View>
             {isProj ? (
               <>
-                <Eyebrow style={{ marginTop: 16 }}>Budget range · optional</Eyebrow>
+                <Eyebrow style={{ marginTop: 16 }}>Budget range (optional)</Eyebrow>
                 <View style={{ marginTop: 8, flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
                   {BUDGETS[cur].map((label, i) => <Choice key={label} label={label} on={b.budget === i} onPress={() => set({ budget: b.budget === i ? null : i })} basis="48%" />)}
                 </View>

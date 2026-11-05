@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { FadeUp, useCountUp } from '../../../components/motion';
 import { Sheet, useFeedback } from '../../../components/overlays';
 import { Screen } from '../../../components/Screen';
-import { Avatar, BackRow, Button, Card, Eyebrow, H, Pill, Segmented, Txt } from '../../../components/ui';
+import { Avatar, BackRow, Button, Card, Eyebrow, H, Meta, Pill, Segmented, Txt } from '../../../components/ui';
 import { api } from '../../../data/api';
 import { dayMonth, money, moneyAlt, quoteEta } from '../../../lib/format';
 import { useStore } from '../../../state/store';
@@ -32,7 +32,7 @@ export default function Quote() {
       await api.acceptQuote(r.id);
       setConfirm(false);
       await refresh();
-      await celebrate('Scheduled', 'accepted', money(price, cur) + ' · ' + r.timeline);
+      await celebrate('Scheduled', 'accepted', money(price, cur) + ', ' + r.timeline);
       toast('Quote accepted. Work scheduled.', async () => {
         try { await api.undoAcceptQuote(r.id); await refresh(); } catch { toast('Too late to undo — message ' + lead + ' instead.'); }
       });
@@ -61,9 +61,7 @@ export default function Quote() {
                 <Segmented options={['INR', 'USD'] as const} value={cur} onChange={setCur} />
               </View>
               <H size={44} ls={-0.04} lh={1} style={{ marginTop: 8, fontVariant: ['tabular-nums'] }}>{money(total, cur)}</H>
-              <Txt size={12} color={C.mu} style={{ marginTop: 6 }}>
-                ≈ {moneyAlt(price, cur)} · excl. taxes{r.validUntil ? ' · valid until ' + dayMonth(r.validUntil) : ''}
-              </Txt>
+              <Meta style={{ marginTop: 6 }} parts={['≈ ' + moneyAlt(price, cur), 'excl. taxes', r.validUntil && 'valid until ' + dayMonth(r.validUntil)]} />
               <View style={{ marginTop: 14, borderTopWidth: 1, borderTopColor: C.ln }}>
                 {r.lines.map((l, i) => (
                   <FadeUp key={l.id} delay={200 + i * 70} duration={450} style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: C.ln }}>

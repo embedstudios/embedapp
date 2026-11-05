@@ -2,10 +2,10 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { ApprovalRow } from '../../components/ApprovalRow';
-import { FadeUp, Fill, Float, useCountUp } from '../../components/motion';
+import { FadeUp, Fill, useCountUp } from '../../components/motion';
 import { Sheet } from '../../components/overlays';
 import { Screen } from '../../components/Screen';
-import { Avatar, Card, Eyebrow, H, Icon, LinkText, Mark, Press, Tag, Txt } from '../../components/ui';
+import { Avatar, Card, Eyebrow, H, Icon, LinkText, Meta, Press, Tag, Txt } from '../../components/ui';
 import { PHASE_KEYS, PHASE_NAMES, type Project } from '../../data/types';
 import { dayMonth, greeting, money, weekday, weekLabel } from '../../lib/format';
 import { useStore } from '../../state/store';
@@ -45,11 +45,7 @@ export default function Home() {
 
   return (
     <>
-      <Screen root decor={
-        <Float duration={8000} style={{ position: 'absolute', right: -70, top: 70, opacity: 0.07 }}>
-          <View pointerEvents="none"><Mark size={260} color={C.mint} /></View>
-        </Float>
-      }>
+      <Screen root>
         <View style={{ gap: 20 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
             <Press onPress={() => setSheet(true)} accessibilityLabel={`Project: ${project.name}. Switch project`} style={{
@@ -69,9 +65,7 @@ export default function Home() {
 
           <FadeUp delay={50} duration={500}>
             <Tag tag="hi">{greeting()}{firstName ? ', ' + firstName : ''}</Tag>
-            <Txt f="mono" size={12} ls={0.02} color={C.mu} style={{ marginTop: 10 }}>
-              {weekLabel(project.startOn, project.dueOn)} · due {project.dueOn ? dayMonth(project.dueOn) : 'TBC'}
-            </Txt>
+            <Meta f="mono" style={{ marginTop: 10 }} parts={[weekLabel(project.startOn, project.dueOn), 'due ' + (project.dueOn ? dayMonth(project.dueOn) : 'TBC')]} />
             <H size={30} style={{ marginTop: 6 }}>{project.subtitle}</H>
           </FadeUp>
 
@@ -163,7 +157,7 @@ export default function Home() {
                 <Avatar label={p.name[0]} size={36} bg={C.mint} color={C.mi} display />
                 <View style={{ flex: 1 }}>
                   <Txt w={500} size={15}>{p.name}</Txt>
-                  <Txt size={12} color={C.mu}>{p.subtitle} · {p.status === 'proposal' ? 'Proposal in progress' : PHASE_NAMES[p.currentPhase]}</Txt>
+                  <Meta parts={[p.subtitle, p.status === 'proposal' ? 'Proposal in progress' : PHASE_NAMES[p.currentPhase]]} />
                 </View>
                 <Txt f="mono" size={12} color={C.mu}>{p.status === 'proposal' ? '—' : p.progress + '%'}</Txt>
               </Press>
@@ -178,7 +172,7 @@ export default function Home() {
             </View>
             <View style={{ flex: 1 }}>
               <Txt w={500} size={15}>Start a new project</Txt>
-              <Txt size={12} color={C.mu}>Brief us · proposal within 3 working days</Txt>
+              <Txt size={12} color={C.mu}>Brief us, get a proposal within 3 working days</Txt>
             </View>
           </Press>
         </View>
@@ -202,7 +196,7 @@ function ProposalCard({ project }: { project: Project }) {
       <Eyebrow>Before Phase 1</Eyebrow>
       <H size={22} ls={-0.02} lh={1.1} style={{ marginTop: 6 }}>Brief received — we’re preparing your proposal</H>
       <View style={{ marginTop: 12, gap: 8 }}>
-        <Step state="done">Brief sent · {project.budgetLabel} · {project.timing}</Step>
+        <Step state="done">Brief sent: {[project.budgetLabel, project.timing].filter(Boolean).join(', ')}</Step>
         <Step state="next">{project.leadName} books a 30-min discovery call</Step>
         <Step state="later">Fixed-price proposal here within 3 working days</Step>
       </View>

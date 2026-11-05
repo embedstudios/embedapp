@@ -4,9 +4,9 @@ import type { Approval } from '../data/types';
 import { daysUntil, dueIn } from '../lib/format';
 import { C, R } from '../theme';
 import { FadeUp, PulseDot } from './motion';
-import { Press, Txt } from './ui';
+import { Meta, Press, Txt } from './ui';
 
-/** A pending approval: pulsing dot, title, kind · meta, and due date. */
+/** A pending approval: pulsing dot, title, kind and meta, and due date. */
 export function ApprovalRow({ a, delay }: { a: Approval; delay: number }) {
   const urgent = a.dueOn != null && daysUntil(a.dueOn) < 3;
   return (
@@ -18,7 +18,7 @@ export function ApprovalRow({ a, delay }: { a: Approval; delay: number }) {
         <PulseDot />
         <View style={{ flex: 1, minWidth: 0 }}>
           <Txt w={500} size={15}>{a.title}</Txt>
-          <Txt size={13} color={C.mu} style={{ marginTop: 2 }}>{a.kind} · {a.meta}</Txt>
+          <Meta size={13} style={{ marginTop: 2 }} parts={[a.kind, a.meta]} />
         </View>
         <Txt f="mono" size={11} color={urgent ? C.warn : C.mu}>{dueIn(a.dueOn)}</Txt>
       </Press>

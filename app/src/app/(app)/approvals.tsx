@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { ApprovalRow } from '../../components/ApprovalRow';
 import { Float } from '../../components/motion';
 import { Screen } from '../../components/Screen';
-import { Card, Eyebrow, H, Mark, Pill, Press, Tag, Txt } from '../../components/ui';
+import { Card, Eyebrow, H, Mark, Meta, Pill, Press, Tag, Txt } from '../../components/ui';
 import { decidedOn } from '../../lib/format';
 import { useStore } from '../../state/store';
 import { pill } from '../../state/view';
@@ -20,7 +20,7 @@ export default function Approvals() {
       <H size={30}>Approvals</H>
       <View style={{ marginTop: 6 }}><Tag tag="rule" size={12}>Nothing moves without you</Tag></View>
 
-      <Eyebrow style={{ marginTop: 20 }}>Waiting on you · {pending.length}</Eyebrow>
+      <Eyebrow style={{ marginTop: 20 }}>Waiting on you ({pending.length})</Eyebrow>
       <View style={{ marginTop: 8, gap: 8 }}>
         {pending.map((a, i) => <ApprovalRow key={a.id} a={a} delay={i * 70} />)}
         {pending.length === 0 ? (
@@ -44,7 +44,7 @@ export default function Approvals() {
                 }}>
                   <View style={{ flex: 1, minWidth: 0 }}>
                     <Txt size={15}>{a.title}</Txt>
-                    <Txt size={12} color={C.mu} style={{ marginTop: 1 }}>{a.kind} · {decidedOn(a.decidedAt)}</Txt>
+                    <Meta style={{ marginTop: 1 }} parts={[a.kind, decidedOn(a.decidedAt)]} />
                   </View>
                   <Pill label={p.label} bg={p.bg} color={p.color} />
                 </Press>

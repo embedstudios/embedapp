@@ -3,7 +3,7 @@ import { FlatList, KeyboardAvoidingView, Platform, TextInput, View } from 'react
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Float, Pop, PulseDot, ScreenIn, TypingDot } from '../../components/motion';
 import { useFeedback } from '../../components/overlays';
-import { Avatar, Icon, Press, Txt } from '../../components/ui';
+import { Avatar, Icon, Meta, Press, Txt } from '../../components/ui';
 import { api } from '../../data/api';
 import type { Message } from '../../data/types';
 import { msgTime } from '../../lib/format';
@@ -50,7 +50,7 @@ export default function Chat() {
         <View style={{ paddingTop: insets.top + 4, paddingHorizontal: 20, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: C.ln, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
           <Avatar label={detail.project.name[0]} size={40} bg={C.mint} color={C.mi} display />
           <View style={{ flex: 1 }}>
-            <Txt w={500} size={15}>{detail.project.name} · Embed</Txt>
+            <Txt w={500} size={15}>{detail.project.name} × Embed</Txt>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 3 }}>
               <View style={{ flexDirection: 'row' }}>
                 {team.slice(0, 3).map((m, i) => (
@@ -62,7 +62,7 @@ export default function Chat() {
                 ))}
               </View>
               <PulseDot size={6} />
-              <Txt size={12} color={C.mu}>Online · replies within a working day</Txt>
+              <Txt size={12} color={C.mu}>Online, replies within a working day</Txt>
             </View>
           </View>
         </View>
@@ -86,7 +86,7 @@ export default function Chat() {
                 }}>
                   <Txt size={14} lh={1.45} color={me ? C.mi : C.tx}>{m.body}</Txt>
                 </View>
-                <Txt f="mono" size={10} color={C.mu} style={{ marginTop: 4 }}>{me ? 'You' : m.authorName} · {msgTime(m.createdAt)}</Txt>
+                <Meta f="mono" size={10} style={{ marginTop: 4, justifyContent: me ? 'flex-end' : 'flex-start' }} parts={[me ? 'You' : m.authorName, msgTime(m.createdAt)]} />
               </Pop>
             );
           }}

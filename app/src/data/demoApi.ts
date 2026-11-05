@@ -14,10 +14,10 @@ const uid = (p: string) => p + '-' + Date.now().toString(36) + '-' + (seq++);
 const wait = (ms = 250) => new Promise(r => setTimeout(r, ms));
 
 const PHASE_COPY: Record<PhaseKey, { now: string; blurb: string; items: string[]; files: [string, string, string][] }> = {
-  research: { now: 'wrapped', blurb: 'We learned who your users are and where the current product fails them. Everything downstream is anchored to these findings.', items: ['Product research', 'Stakeholder interviews', 'UX audit', 'Benchmarking'], files: [['PDF', 'UX audit — v1.pdf', '42 pages · 14 Aug'], ['FIG', 'Benchmarking board', 'FigJam · 9 Aug']] },
-  strategy: { now: 'wrapped', blurb: 'The experience map, sitemap and user journeys that define what we are building and why.', items: ['Experience mapping', 'Sitemapping', 'User flow & journey'], files: [['FIG', 'Experience map', 'FigJam · 2 Sep'], ['PDF', 'Sitemap v3.pdf', '6 pages · 8 Sep']] },
-  ideation: { now: 'wrapped', blurb: 'Concepts and low-fidelity wireframes, tested with your team before any pixels were polished.', items: ['Concept sketching', 'Low-fi wireframing', 'Design feedback'], files: [['FIG', 'Low-fi wireframes v2', 'Figma · 1 Oct']] },
-  design: { now: 'hi-fi wireframing', blurb: 'Hi-fidelity screens, an interactive prototype and the design system your engineers will build from.', items: ['Hi-fi wireframing', 'Prototyping', 'Responsive design', 'Design system'], files: [['FIG', 'Hi-fi v2', 'Figma · updated today'], ['FIG', 'Prototype v0.9', 'Figma · 24 Oct']] },
+  research: { now: 'wrapped', blurb: 'We learned who your users are and where the current product fails them. Everything downstream is anchored to these findings.', items: ['Product research', 'Stakeholder interviews', 'UX audit', 'Benchmarking'], files: [['PDF', 'UX audit — v1.pdf', '42 pages, 14 Aug'], ['FIG', 'Benchmarking board', 'FigJam, 9 Aug']] },
+  strategy: { now: 'wrapped', blurb: 'The experience map, sitemap and user journeys that define what we are building and why.', items: ['Experience mapping', 'Sitemapping', 'User flow & journey'], files: [['FIG', 'Experience map', 'FigJam, 2 Sep'], ['PDF', 'Sitemap v3.pdf', '6 pages, 8 Sep']] },
+  ideation: { now: 'wrapped', blurb: 'Concepts and low-fidelity wireframes, tested with your team before any pixels were polished.', items: ['Concept sketching', 'Low-fi wireframing', 'Design feedback'], files: [['FIG', 'Low-fi wireframes v2', 'Figma, 1 Oct']] },
+  design: { now: 'hi-fi wireframing', blurb: 'Hi-fidelity screens, an interactive prototype and the design system your engineers will build from.', items: ['Hi-fi wireframing', 'Prototyping', 'Responsive design', 'Design system'], files: [['FIG', 'Hi-fi v2', 'Figma, updated today'], ['FIG', 'Prototype v0.9', 'Figma, 24 Oct']] },
   handover: { now: 'upcoming', blurb: 'Documented handover, design QA on builds, Jira moduling and post-launch UI enhancements.', items: ['Design handover', 'Design testing', 'Jira moduling', 'UI enhancements'], files: [] },
 };
 
@@ -47,7 +47,7 @@ function seed(): Store {
     { id: 'a4', phase: 'strategy', title: 'User journey map', kind: 'Strategy', meta: '3 journeys', ownerName: 'Arnav', dueOn: null, status: 'approved', decidedAt: iso(-26), previewUrl: null, figmaUrl: null, note: 'First-investment, SIP top-up and withdrawal journeys with pain points ranked.' },
   ];
   const nimaiRequests: ScopeRequest[] = [
-    { id: 'r2', ref: 'SCR-02', title: 'Dark mode across the app', summary: 'Theme tokens, 12 hi-fi screens re-cut, prototype update.', status: 'quoted', priceInr: 240000, timeline: '+9 working days', newDueOn: date(56), validUntil: date(8), quoteNote: 'Sized tight because the token work is already half done in the design system. If you want it later, the price holds for 7 days.', lines: [{ id: 'l1', name: 'Dark token set', qty: '1 set · 2 days', amountInr: 50000 }, { id: 'l2', name: 'Hi-fi screens, dark', qty: '12 screens', amountInr: 120000 }, { id: 'l3', name: 'Prototype update', qty: 'v1 → v1.1', amountInr: 40000 }, { id: 'l4', name: 'QA & contrast audit', qty: '1 day', amountInr: 30000 }] },
+    { id: 'r2', ref: 'SCR-02', title: 'Dark mode across the app', summary: 'Theme tokens, 12 hi-fi screens re-cut, prototype update.', status: 'quoted', priceInr: 240000, timeline: '+9 working days', newDueOn: date(56), validUntil: date(8), quoteNote: 'Sized tight because the token work is already half done in the design system. If you want it later, the price holds for 7 days.', lines: [{ id: 'l1', name: 'Dark token set', qty: '1 set, 2 days', amountInr: 50000 }, { id: 'l2', name: 'Hi-fi screens, dark', qty: '12 screens', amountInr: 120000 }, { id: 'l3', name: 'Prototype update', qty: 'v1 → v1.1', amountInr: 40000 }, { id: 'l4', name: 'QA & contrast audit', qty: '1 day', amountInr: 30000 }] },
     { id: 'r1', ref: 'SCR-01', title: 'Referral screen', summary: 'Invite flow and rewards ledger.', status: 'accepted', priceInr: 95000, timeline: '+4 working days', newDueOn: date(45), validUntil: null, quoteNote: 'Accepted; in Design.', lines: [{ id: 'l5', name: 'Hi-fi screens', qty: '4 screens', amountInr: 60000 }, { id: 'l6', name: 'Prototype update', qty: '', amountInr: 35000 }] },
   ];
   const nimaiInvoices: Invoice[] = [
@@ -61,9 +61,9 @@ function seed(): Store {
     deliverables[p.id] = PHASE_KEYS.flatMap((k, i): Deliverable[] =>
       p.id === 'nimai' && k === 'design'
         ? [
-            { id: 'd-hifi', phase: k, name: 'Hi-fi wireframing', status: 'review' as const, note: '14 of 22 screens · dashboard in review', approvalId: 'a1' },
-            { id: 'd-proto', phase: k, name: 'Prototyping', status: 'progress' as const, note: 'v0.9 shared · v1 after dashboard sign-off', approvalId: null },
-            { id: 'd-resp', phase: k, name: 'Responsive design', status: 'upcoming' as const, note: 'Tablet breakpoints · starts in 2 weeks', approvalId: null },
+            { id: 'd-hifi', phase: k, name: 'Hi-fi wireframing', status: 'review' as const, note: '14 of 22 screens, dashboard in review', approvalId: 'a1' },
+            { id: 'd-proto', phase: k, name: 'Prototyping', status: 'progress' as const, note: 'v0.9 shared, v1 after dashboard sign-off', approvalId: null },
+            { id: 'd-resp', phase: k, name: 'Responsive design', status: 'upcoming' as const, note: 'Tablet breakpoints, starts in 2 weeks', approvalId: null },
             { id: 'd-ds', phase: k, name: 'Design system', status: 'progress' as const, note: 'Tokens & 31 components documented', approvalId: null },
           ]
         : PHASE_COPY[k].items.map((name, j) => ({
@@ -212,7 +212,7 @@ export function createDemoApi(): Api {
       const title = b.description.trim().split(/[.\n]/)[0].slice(0, 48);
       list.unshift({
         id, ref: 'SCR-' + String(list.length + 1).padStart(2, '0'), title,
-        summary: b.types.join(', ') + ' · ' + b.priority + ' · ' + (b.timing || 'Flexible'),
+        summary: b.types.join(', ') + ', ' + b.priority + ', ' + (b.timing || 'Flexible'),
         status: 'reviewing', priceInr: null, timeline: null, newDueOn: null, validUntil: null, quoteNote: null, lines: [],
       });
       log(pid, 'Scope brief sent: “' + title + '”');

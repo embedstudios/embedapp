@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LogoMarquee } from '../components/Marquee';
-import { Caret, FadeUp, Float, MarkIn } from '../components/motion';
+import { Caret, FadeUp, MarkIn } from '../components/motion';
 import { Button, Eyebrow, Field, H, LinkText, Mark, Txt } from '../components/ui';
 import { api } from '../data/api';
 import { useSession } from '../state/session';
@@ -59,10 +59,6 @@ export default function SignIn() {
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: C.bg }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: insets.top + 66, paddingHorizontal: 28, paddingBottom: Math.max(48, insets.bottom + 24) }}
         keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} style={{ overflow: 'hidden' }}>
-        <Float duration={7000} style={{ position: 'absolute', right: -90, top: 60, opacity: 0.08 }}>
-          <View pointerEvents="none"><Mark size={360} color={C.mint} /></View>
-        </Float>
-
         <MarkIn><Mark size={52} color="#333333" /></MarkIn>
         <View style={{ marginTop: 36 }}>
           <FadeUp delay={150} {...ENTER}><H size={36} lh={1.02} ls={-0.035}>Your project,</H></FadeUp>

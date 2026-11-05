@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { Linking, Pressable, View } from 'react-native';
 import { Screen } from '../../components/Screen';
-import { Card, Eyebrow, H, Icon, LinkText, Press, Segmented, Txt } from '../../components/ui';
+import { Card, Eyebrow, H, Icon, LinkText, Meta, Press, Segmented, Txt } from '../../components/ui';
 import { api } from '../../data/api';
 import { PHASE_NAMES } from '../../data/types';
 import { initials } from '../../lib/format';
@@ -21,7 +21,7 @@ export default function More() {
         </View>
         <View style={{ flex: 1 }}>
           <H size={22} ls={-0.02} lh={1.2}>{name}</H>
-          <Txt size={13} color={C.mu}>{[profile?.title, profile?.email].filter(Boolean).join(' · ')}</Txt>
+          <Meta size={13} parts={[profile?.title, profile?.email]} />
         </View>
       </View>
 
@@ -54,7 +54,7 @@ export default function More() {
           }}>
             <View style={{ flex: 1 }}>
               <Txt w={500} size={15}>{p.name}</Txt>
-              <Txt size={12} color={C.mu}>{p.subtitle} · {p.status === 'proposal' ? 'Proposal in progress' : PHASE_NAMES[p.currentPhase]}</Txt>
+              <Meta parts={[p.subtitle, p.status === 'proposal' ? 'Proposal in progress' : PHASE_NAMES[p.currentPhase]]} />
             </View>
             <Txt f="mono" size={12} color={C.mu}>{p.status === 'proposal' ? '—' : p.progress + '%'}</Txt>
           </Press>

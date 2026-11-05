@@ -2,7 +2,7 @@ import { Linking, View } from 'react-native';
 import { Stamp } from '../../components/motion';
 import { useFeedback } from '../../components/overlays';
 import { Screen } from '../../components/Screen';
-import { BackRow, Button, Eyebrow, H, LinkText, Pill, Txt } from '../../components/ui';
+import { BackRow, Button, Eyebrow, H, LinkText, Meta, Pill, Txt } from '../../components/ui';
 import { dayMonth, fmtUSD, money } from '../../lib/format';
 import { useStore } from '../../state/store';
 import { goBack, invoicePill } from '../../state/view';
@@ -27,7 +27,7 @@ export default function Invoices() {
         <Total label="Outstanding" value={money(due, cur)} />
       </View>
       <View style={{ marginTop: 6, flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
-        <Txt size={12} color={C.mu}>Contract {contract} · amounts in {cur} · </Txt>
+        <Meta parts={['Contract ' + contract, 'amounts in ' + cur]} style={{ marginRight: 10 }} />
         <LinkText size={12} onPress={() => setCur(other)}>{'show ' + other}</LinkText>
       </View>
 
@@ -42,7 +42,7 @@ export default function Invoices() {
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, alignItems: 'flex-start' }}>
                 <View style={{ flex: 1 }}>
                   <Txt w={500} size={15}>{inv.title}</Txt>
-                  <Txt f="mono" size={12} color={C.mu} style={{ marginTop: 2 }}>{inv.ref} · {when}</Txt>
+                  <Meta f="mono" style={{ marginTop: 2 }} parts={[inv.ref, when]} />
                 </View>
                 <Txt f="mono" size={15}>{money(inv.amountInr, cur)}</Txt>
               </View>
