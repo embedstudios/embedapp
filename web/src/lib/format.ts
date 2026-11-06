@@ -1,18 +1,35 @@
 export type Currency = 'INR' | 'USD';
 
-// Indicative FX used for display only; invoices settle in the contract currency.
-export const RATE = 83.3;
+import { convert } from './fx';
 
+/** An amount in its own currency: ₹1,23,456 / $300 / AED 1,200. */
+export const fmtIn = (amount: number, c: string) => {
+  if (c === 'INR') return fmtINR(amount);
+  const v = Math.round(amount * 100) / 100;
+  const s = v.toLocaleString('en-US', { maximumFractionDigits: v % 1 ? 2 : 0, minimumFractionDigits: v % 1 ? 2 : 0 });
+  return c === 'USD' ? '$' + s : c === 'EUR' ? '€' + s : c === 'GBP' ? '£' + s : c + ' ' + s;
+};
 export const fmtINR = (n: number) => {
-  const s = String(Math.round(n));
-  if (s.length <= 3) return '₹' + s;
+  const neg = n < 0, s = String(Math.round(Math.abs(n)));
+  if (s.length <= 3) return (neg ? '-' : '') + '₹' + s;
   const last = s.slice(-3);
   const rest = s.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ',');
-  return '₹' + rest + ',' + last;
+  return (neg ? '-' : '') + '₹' + rest + ',' + last;
 };
-export const fmtUSD = (inr: number) => '$' + Math.round(inr / RATE).toLocaleString('en-US');
+/** A rupee figure (quotes, contract) shown in the chosen currency, at the live rate. */
+export const fmtUSD = (inr: number) => '$' + Math.round(convert(inr, 'INR', 'USD') ?? inr / 83.3).toLocaleString('en-US');
 export const money = (inr: number, cur: Currency) => (cur === 'INR' ? fmtINR(inr) : fmtUSD(inr));
 export const moneyAlt = (inr: number, cur: Currency) => (cur === 'INR' ? fmtUSD(inr) : fmtINR(inr));
+
+/** An invoice's own amount and currency (Zoho's), not a conversion. */
+export const invoiceOwn = (i: { amount: number | null; currency: string; amountInr: number }) =>
+  i.currency && i.currency !== 'INR' && i.amount != null ? { amount: i.amount, currency: i.currency } : { amount: i.amountInr, currency: 'INR' };
+/** An invoice in the chosen currency: exact when it is billed in it, else converted at today's rate. */
+export const invoiceIn = (i: { amount: number | null; currency: string; amountInr: number }, cur: string) => {
+  const o = invoiceOwn(i);
+  if (o.currency === cur) return { value: o.amount, exact: true };
+  return { value: convert(o.amount, o.currency, cur) ?? (cur === 'INR' ? i.amountInr : 0), exact: false };
+};
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

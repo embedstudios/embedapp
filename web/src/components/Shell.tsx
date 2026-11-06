@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, type ReactNode } from 'react';
 import { PHASE_NAMES } from '@/lib/data';
+import { hasPhases, hours, istToday, isRetainer, logged, monthOf, needsYou } from '@/lib/retainer';
 import { greeting } from '@/lib/format';
 import { supabase } from '@/lib/supabase';
 import { projectHref, ROOT_DOMAIN } from '@/lib/tenant';
@@ -13,9 +14,13 @@ import { useApp } from './AppProvider';
 import type { IconName } from './icon-data';
 import { Icon, Mark, Meta, Tag } from './ui';
 
-const NAV: { href: string; label: string; short: string; icon: IconName; count?: (d: NonNullable<ReturnType<typeof useApp>['detail']>) => number }[] = [
+type D = NonNullable<ReturnType<typeof useApp>['detail']>;
+/* `show`: one-off projects have phases; retainers have to-dos and a timesheet; 'both' has all. */
+const NAV: { href: string; label: string; short: string; icon: IconName; count?: (d: D) => number; show?: (d: D) => boolean }[] = [
   { href: '/', label: 'Overview', short: 'Home', icon: 'EssentialsHome' },
-  { href: '/phases/', label: 'Phases & files', short: 'Phases', icon: 'InterfaceGridLayout' },
+  { href: '/phases/', label: 'Phases & files', short: 'Phases', icon: 'InterfaceGridLayout', show: hasPhases },
+  { href: '/todos/', label: 'To-dos', short: 'To-dos', icon: 'TasksList', show: isRetainer, count: d => d.todos.filter(needsYou).length },
+  { href: '/timesheet/', label: 'Timesheet', short: 'Time', icon: 'TimeClock', show: isRetainer },
   { href: '/approvals/', label: 'Approvals', short: 'Approvals', icon: 'BasicsTick', count: d => d.approvals.filter(a => a.status === 'pending').length },
   { href: '/scope/', label: 'Scope & quotes', short: 'Scope', icon: 'BasicsPlusCircle', count: d => d.requests.filter(r => r.status === 'quoted').length },
   { href: '/billing/', label: 'Billing', short: 'Billing', icon: 'EssentialsBookmark', count: d => d.invoices.filter(i => i.status === 'due').length },
@@ -53,11 +58,16 @@ function Layout({ children }: { children: ReactNode }) {
           </span>
         </div>
         <div className="side-phase">
+          {d.project.engagement === 'retainer' ? <>
+            <span className="eyebrow"><Meta parts={['Retainer', d.project.retainerHours ? hours(logged(d.time, monthOf(istToday()))) + ' of ' + hours(d.project.retainerHours * 60) + ' this month' : hours(logged(d.time, monthOf(istToday()))) + ' this month']} /></span>
+            <span className="bar"><i style={{ width: (d.project.retainerHours ? Math.min(100, logged(d.time, monthOf(istToday())) / (d.project.retainerHours * 60) * 100) : 0) + '%' }} /></span>
+          </> : <>
           <span className="eyebrow">{d.project.status === 'proposal' ? 'Proposal in progress' : d.project.status === 'complete' ? 'Complete' : <Meta parts={['Phase ' + (['research', 'strategy', 'ideation', 'design', 'handover'].indexOf(d.project.currentPhase) + 1) + ' of 5', PHASE_NAMES[d.project.currentPhase]]} />}</span>
           <span className="bar"><i style={{ width: (d.project.status === 'proposal' ? 0 : d.project.progress) + '%' }} /></span>
+          </>}
         </div>
         <nav className="nav" aria-label="Project">
-          {NAV.map(n => {
+          {NAV.filter(n => !n.show || n.show(d)).map(n => {
             const on = n.href === '/' ? path === '/' : path.startsWith(n.href.replace(/\/$/, ''));
             const c = n.count ? n.count(d) : 0;
             return (

@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import { useApp } from '@/components/AppProvider';
 import { Meta, Pill, Tag } from '@/components/ui';
 import { PHASE_NAMES, PHASES } from '@/lib/data';
-import { dayMonth, dueIn, greeting, money, weekday, weekLabel } from '@/lib/format';
+import { dur, hasPhases, hours, istToday, isRetainer, logged, monthOf, needsYou } from '@/lib/retainer';
+import { dayMonth, dueIn, fmtIn, greeting, invoiceIn, invoiceOwn, money, weekday, weekLabel } from '@/lib/format';
 
 /** Eased count-up to a number, replayed when it changes. */
 function useCountUp(to: number, ms = 900) {
@@ -37,23 +38,44 @@ export default function Overview() {
   const pending = d.approvals.filter(a => a.status === 'pending');
   const quoted = d.requests.filter(r => r.status === 'quoted');
   const due = d.invoices.filter(i => i.status === 'due');
+  const retainer = isRetainer(d), phased = hasPhases(d);
+  const toCheck = d.todos.filter(needsYou);
+  const ym = monthOf(istToday()), used = logged(d.time, ym), cap = p.retainerHours ? p.retainerHours * 60 : 0;
+  const openTodos = d.todos.filter(t => t.status === 'open' || t.status === 'progress');
+  const doneThisMonth = d.todos.filter(t => t.status === 'done' && t.doneAt && monthOf(t.doneAt) === ym).length;
   const needs = [
+    ...toCheck.map(t => ({ key: t.id, href: '/todos/?id=' + t.id, title: 'Check: ' + t.title, sub: <Meta parts={[t.ref, 'ready for you']} />, right: '', urgent: t.priority === 'urgent', label: 'Review' })),
     ...pending.map(a => ({ key: a.id, href: '/approvals/?id=' + a.id, title: a.title, sub: <Meta parts={[a.kind, a.meta]} />, right: dueIn(a.dueOn), urgent: !!a.dueOn && Date.parse(a.dueOn) - Date.now() < 3 * 864e5, label: 'Approve' })),
     ...quoted.map(r => ({ key: r.id, href: '/scope/?id=' + r.id, title: 'Quote ready: ' + r.title, sub: <Meta parts={[money(r.priceInr || 0, cur), r.timeline]} />, right: r.validUntil ? 'valid to ' + dayMonth(r.validUntil) : '', urgent: false, label: 'Review' })),
-    ...due.map(i => ({ key: i.id, href: '/billing/', title: i.title, sub: <Meta parts={[i.ref, money(i.amountInr, cur)]} />, right: i.dueOn ? 'due ' + dayMonth(i.dueOn) : '', urgent: !!i.dueOn && i.dueOn < new Date().toISOString().slice(0, 10), label: 'Pay' })),
+    ...due.map(i => ({ key: i.id, href: '/billing/', title: i.title, sub: <Meta parts={[i.ref, fmtIn(invoiceOwn(i).amount, invoiceOwn(i).currency)]} />, right: i.dueOn ? 'due ' + dayMonth(i.dueOn) : '', urgent: !!i.dueOn && i.dueOn < new Date().toISOString().slice(0, 10), label: 'Pay' })),
   ];
-  const paid = d.invoices.filter(i => i.status === 'paid').reduce((n, i) => n + i.amountInr, 0);
+  const paidIn = d.invoices.filter(i => i.status === 'paid').map(i => invoiceIn(i, cur));
+  const paid = { value: paidIn.reduce((n, v) => n + v.value, 0), exact: paidIn.every(v => v.exact) };
   const done = d.deliverables.filter(x => x.status === 'done').length;
 
   return (
     <div className="page">
       <div className="hero">
         <Tag tag="hi">{greeting()}{first ? ', ' + first : ''}</Tag>
-        <span className="eyebrow"><Meta parts={[weekLabel(p.startOn, p.dueOn), 'due ' + (p.dueOn ? dayMonth(p.dueOn) : 'TBC'), 'lead ' + p.leadName]} /></span>
+        <span className="eyebrow"><Meta parts={phased ? [weekLabel(p.startOn, p.dueOn), 'due ' + (p.dueOn ? dayMonth(p.dueOn) : 'TBC'), 'lead ' + p.leadName] : ['Retainer', 'lead ' + p.leadName]} /></span>
         <h1>{p.subtitle || p.name}</h1>
       </div>
 
-      {proposal ? (
+      {retainer && (
+        <div className="card stack" style={{ gap: 16 }}>
+          <div className="section-head">
+            <span className="eyebrow"><Meta parts={['Retainer', new Date(ym + '-01T00:00:00').toLocaleDateString('en-GB', { month: 'long' })]} /></span>
+            <span className="pct">{hours(used).replace(' h', '')}<small>{cap ? ' / ' + hours(cap) : ' h'}</small></span>
+          </div>
+          {cap > 0 && <span className="bar"><i style={{ width: Math.min(100, (used / cap) * 100) + '%', background: used > cap ? 'var(--bad)' : undefined }} /></span>}
+          <div className="actions" style={{ justifyContent: 'space-between' }}>
+            <span className="hint"><Meta parts={[openTodos.length + ' open to-do' + (openTodos.length === 1 ? '' : 's'), toCheck.length + ' ready for you', doneThisMonth + ' done this month']} /></span>
+            <span className="actions"><Link href="/timesheet/" className="link">Timesheet</Link><Link href="/todos/?new=1" className="btn btn-sm">Add a to-do</Link></span>
+          </div>
+        </div>
+      )}
+
+      {!phased ? null : proposal ? (
         <div className="card stack">
           <span className="eyebrow">Before Phase 1</span>
           <h3>Brief received — we’re preparing your proposal</h3>
@@ -89,9 +111,10 @@ export default function Overview() {
       )}
 
       <div className="stats">
-        <div className="stat"><span className="eyebrow">Deliverables</span><strong>{done}<small className="muted" style={{ fontSize: 16 }}> / {d.deliverables.length}</small></strong><small>signed off or delivered</small></div>
-        <div className="stat"><span className="eyebrow">Waiting on you</span><strong>{needs.length}</strong><small><Meta parts={[pending.length + ' approval' + (pending.length === 1 ? '' : 's'), quoted.length + ' quote' + (quoted.length === 1 ? '' : 's'), due.length + ' invoice' + (due.length === 1 ? '' : 's')]} /></small></div>
-        <div className="stat"><span className="eyebrow">Paid to date</span><strong>{money(paid, cur)}</strong><small>{p.contractInr ? 'of ' + money(p.contractInr, cur) + ' contract' : 'see Billing'}</small></div>
+        {phased ? <div className="stat"><span className="eyebrow">Deliverables</span><strong>{done}<small className="muted" style={{ fontSize: 16 }}> / {d.deliverables.length}</small></strong><small>signed off or delivered</small></div>
+          : <div className="stat"><span className="eyebrow">This month</span><strong>{dur(used)}</strong><small>{doneThisMonth} to-do{doneThisMonth === 1 ? '' : 's'} done</small></div>}
+        <div className="stat"><span className="eyebrow">Waiting on you</span><strong>{needs.length}</strong><small><Meta parts={[retainer && toCheck.length + ' to-do' + (toCheck.length === 1 ? '' : 's'), pending.length + ' approval' + (pending.length === 1 ? '' : 's'), quoted.length + ' quote' + (quoted.length === 1 ? '' : 's'), due.length + ' invoice' + (due.length === 1 ? '' : 's')]} /></small></div>
+        <div className="stat"><span className="eyebrow">Paid to date</span><strong>{(paid.exact ? '' : '≈ ') + fmtIn(paid.value, cur)}</strong><small>{p.contractInr ? 'of ' + money(p.contractInr, cur) + ' contract' : 'see Billing'}</small></div>
       </div>
 
       <div className="cols">
@@ -142,8 +165,9 @@ export default function Overview() {
           </div>
           <div className="card stack" style={{ gap: 10 }}>
             <span className="eyebrow">Need something new?</span>
-            <p className="hint">Add a new scope and get a fixed-price quote here within one working day.</p>
-            <Link href="/scope/?new=1" className="btn btn-sm">Add a new scope</Link>
+            <p className="hint">{phased ? 'Add a new scope and get a fixed-price quote here within one working day.' : 'Day-to-day work goes in To-dos. For a bigger piece of work, add a scope and get a fixed-price quote.'}</p>
+            {!phased && <Link href="/todos/?new=1" className="btn btn-sm">Add a to-do</Link>}
+            <Link href="/scope/?new=1" className={'btn btn-sm' + (phased ? '' : ' btn-quiet')}>Add a new scope</Link>
           </div>
           {d.files.length > 0 && (
             <div className="card stack" style={{ gap: 8 }}>

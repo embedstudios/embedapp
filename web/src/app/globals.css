@@ -334,3 +334,12 @@ a.picker-row:hover { border-color: var(--mint); }
 /* Sign-in: "or" divider before the passkey button. */
 .or { display: flex; align-items: center; gap: 12px; color: var(--mu); font-size: 12.5px; }
 .or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--ln); }
+
+/* Retainers: to-dos and timesheet */
+.callout { background: var(--mintsoft); border-radius: var(--r); padding: 16px 18px; }
+.callout strong { color: var(--mint); font-weight: 600; }
+.seg-wide { align-self: flex-start; max-width: 100%; overflow-x: auto; }
+.seg-wide button { min-width: 0; padding: 0 14px; white-space: nowrap; }
+.seg button:disabled { opacity: .35; cursor: not-allowed; }
+.stat .bar { margin-top: 6px; }
+.cols > *, .split > * { min-width: 0; }

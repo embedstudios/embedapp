@@ -7,6 +7,7 @@ import { playChat } from '@/lib/sound';
 import { adoptHandoff } from '@/lib/passkey';
 import { supabase } from '@/lib/supabase';
 import { currentSubdomain } from '@/lib/tenant';
+import { loadFx } from '@/lib/fx';
 import type { Currency } from '@/lib/format';
 
 /** Where this tab is: which gate is showing, or the project is ready. */
@@ -30,6 +31,8 @@ type App = {
   /** The full-screen check moment (1.4s), then resolves. */
   celebrate: (title: string, tag: string, sub: string) => Promise<void>;
   signOut: () => Promise<void>;
+  /** Bumps when live exchange rates arrive, so converted figures re-render. */
+  fxTick: number;
 };
 
 const Ctx = createContext<App | null>(null);
@@ -53,6 +56,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [toastState, setToast] = useState<Toast>(null);
   const [cele, setCele] = useState<{ title: string; tag: string; sub: string } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  /* Today's exchange rates, for converted amounts; re-render once they land. */
+  const [fxTick, setFxTick] = useState(0);
+  useEffect(() => { loadFx().then(() => setFxTick(n => n + 1)); }, []);
 
   // The subdomain is only known in the browser.
   useEffect(() => {
@@ -134,7 +140,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     toast,
     celebrate,
     signOut: async () => { await supabase.auth.signOut(); setProfile(null); setDetail(null); setLoaded(false); },
-  }), [gate, sub, brand, session, profile, projects, detail, error, load, toast, celebrate]);
+    fxTick,
+  }), [gate, sub, brand, session, profile, projects, detail, error, load, toast, celebrate, fxTick]);
 
   return (
     <Ctx.Provider value={value}>
