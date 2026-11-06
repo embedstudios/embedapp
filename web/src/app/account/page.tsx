@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
+import { goToPasskeyHub, passkeyError, passkeysSupported } from '@/lib/passkey';
 import { useApp } from '@/components/AppProvider';
 import { updateProfile } from '@/lib/data';
 import { projectHref, ROOT_DOMAIN } from '@/lib/tenant';
@@ -39,6 +41,7 @@ export default function Account() {
           </label>
         </div>
       </div>
+      <Passkeys />
       <section className="section">
         <span className="eyebrow">Your projects</span>
         <div className="card card-flush">
@@ -56,5 +59,47 @@ export default function Account() {
         <button className="btn btn-ghost btn-sm" onClick={signOut}>Sign out</button>
       </div>
     </div>
+  );
+}
+
+/* Passkeys on this account (Supabase Auth). Adding one runs on account.embed.design
+   (lib/passkey.ts); listing and removing work from here. */
+type Pk = { id: string; friendly_name?: string; created_at: string; last_used_at?: string };
+function Passkeys() {
+  const { toast } = useApp();
+  const [keys, setKeys] = useState<Pk[] | null>(null);
+  const [supported, setSupported] = useState(true);
+  const [err, setErr] = useState<string | null>(null);
+  const load = () => supabase.auth.passkey.list().then(({ data, error }) => { if (error) { setErr(passkeyError(error)); setKeys([]); } else setKeys(data || []); });
+  useEffect(() => { setSupported(passkeysSupported()); load(); }, []);
+  const day = (d?: string) => d ? new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+  const remove = async (k: Pk) => {
+    if (!confirm('Remove the passkey “' + (k.friendly_name || 'Passkey') + '”? You can still sign in with an email code.')) return;
+    const { error } = await supabase.auth.passkey.delete({ passkeyId: k.id });
+    if (error) return toast(passkeyError(error));
+    toast('Passkey removed.'); load();
+  };
+  return (
+    <section className="section">
+      <span className="eyebrow">Passkeys</span>
+      <div className="card stack">
+        <p style={{ margin: 0 }}>Sign in with Face ID, Touch ID or your device PIN instead of an email code. A passkey saved to iCloud Keychain or Google Password Manager works on your other devices too, for every Embed project you’re on.</p>
+        {keys === null ? <span className="spinner" /> : keys.length ? (
+          <div className="card card-flush">
+            {keys.map(k => (
+              <div key={k.id} className="row">
+                <span className="grow"><strong>{k.friendly_name || 'Passkey'}</strong><small>Added {day(k.created_at)}{k.last_used_at ? ', last used ' + day(k.last_used_at) : ''}</small></span>
+                <button className="link" onClick={() => remove(k)}>Remove</button>
+              </div>
+            ))}
+          </div>
+        ) : <p className="hint" style={{ margin: 0 }}>No passkeys yet.</p>}
+        {err && <p className="err" role="alert">{err}</p>}
+        <div className="actions">
+          {supported ? <button className="btn btn-sm" onClick={() => goToPasskeyHub('register').catch(e => toast(passkeyError(e)))}>Add a passkey</button>
+            : <p className="hint" style={{ margin: 0 }}>This browser doesn’t support passkeys.</p>}
+        </div>
+      </div>
+    </section>
   );
 }

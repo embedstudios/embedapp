@@ -1,8 +1,10 @@
 'use client';
 
+import { PasskeyHub } from './PasskeyHub';
+import { goToPasskeyHub, isPasskeyHub, passkeysSupported } from '@/lib/passkey';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { PHASE_NAMES } from '@/lib/data';
 import { greeting } from '@/lib/format';
 import { supabase } from '@/lib/supabase';
@@ -23,6 +25,10 @@ const NAV: { href: string; label: string; short: string; icon: IconName; count?:
 
 export function Shell({ children }: { children: ReactNode }) {
   const app = useApp();
+  /* Known only in the browser; deciding after mount keeps hydration identical. */
+  const [hub, setHub] = useState(false);
+  useEffect(() => { setHub(isPasskeyHub()); }, []);
+  if (hub) return <PasskeyHub />;
   if (app.gate === 'loading') return <div className="gate-center"><span className="spinner" aria-label="Loading" /></div>;
   if (app.gate === 'not-found') return <NotFound />;
   if (app.gate === 'signed-out') return <SignIn />;
@@ -141,6 +147,13 @@ function SignIn() {
           </label>
           {err && <p className="err" role="alert">{err}</p>}
           <button className="btn" disabled={busy}>{busy ? 'Sending…' : 'Email me a sign-in code'}</button>
+          {passkeysSupported() && <>
+            <div className="or" aria-hidden="true"><span>or</span></div>
+            <button type="button" className="btn btn-ghost" onClick={() => goToPasskeyHub('signin')}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4" /><path d="M2 20a7 7 0 0 1 11.5-5.4" /><circle cx="18" cy="14" r="2.5" /><path d="M18 16.5V22M18 19.5h2" /></svg>
+              Sign in with a passkey
+            </button>
+          </>}
           <p className="hint center">No password. Access is by invite from your Embed project lead{sub ? <> for <b>{sub}.{ROOT_DOMAIN}</b></> : null}.</p>
         </form>
       ) : (

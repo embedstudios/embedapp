@@ -330,3 +330,7 @@ a.picker-row:hover { border-color: var(--mint); }
 .linkcard-body strong { font-family: var(--display); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; line-height: 1.25; }
 .linkcard-desc { color: var(--mu); font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .linkcard-url { color: var(--mint); font-size: 13px; margin-top: 4px; }
+
+/* Sign-in: "or" divider before the passkey button. */
+.or { display: flex; align-items: center; gap: 12px; color: var(--mu); font-size: 12.5px; }
+.or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--ln); }

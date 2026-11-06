@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { Session } from '@supabase/supabase-js';
 import { brandCard, listProjects, loadDetail, loadProfile, subscribeMessages, updateProfile, type Detail, type Profile, type Project } from '@/lib/data';
 import { playChat } from '@/lib/sound';
+import { adoptHandoff } from '@/lib/passkey';
 import { supabase } from '@/lib/supabase';
 import { currentSubdomain } from '@/lib/tenant';
 import type { Currency } from '@/lib/format';
@@ -62,8 +63,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     else setBrandChecked(true);
   }, []);
 
+  /* A session handed back from the passkey address (account.embed.design) is adopted first. */
+  const [handoff, setHandoff] = useState<'signed-in' | 'registered' | null>(null);
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    adoptHandoff().then(r => { setHandoff(r); return supabase.auth.getSession(); }).then(({ data }) => setSession(data.session));
     const { data } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
     return () => data.subscription.unsubscribe();
   }, []);
@@ -103,6 +106,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       toast(m.authorName + ': ' + (m.body.length > 70 ? m.body.slice(0, 70) + '…' : m.body));
     }, 'global');
   }, [projectId, toast]);
+
+  useEffect(() => {
+    if (handoff) toast(handoff === 'registered' ? 'Passkey added. Next time, sign in with Face ID or Touch ID.' : 'Signed in with your passkey.');
+  }, [handoff, toast]);
 
   const celebrate = useCallback((title: string, tag: string, subLine: string) => new Promise<void>(resolve => {
     setCele({ title, tag, sub: subLine });

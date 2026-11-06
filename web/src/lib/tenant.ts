@@ -14,7 +14,8 @@ export function currentSubdomain(): string | null {
   const host = window.location.hostname.toLowerCase();
   if (host.endsWith('.' + ROOT_DOMAIN)) {
     const label = host.slice(0, -(ROOT_DOMAIN.length + 1));
-    if (label && !label.includes('.') && label !== 'www') return label;
+    /* "account" is the passkey address, not a project (lib/passkey.ts). */
+    if (label && !label.includes('.') && label !== 'www' && label !== 'account') return label;
     return null;
   }
   const q = new URLSearchParams(window.location.search).get('project');
