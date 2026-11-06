@@ -14,6 +14,8 @@ export type Project = {
   id: string; name: string; subtitle: string; status: 'proposal' | 'active' | 'complete'; currentPhase: PhaseKey; progress: number;
   phaseSummary: string; startOn: string | null; dueOn: string | null; contractInr: number | null; leadName: string;
   budgetLabel: string | null; timing: string | null; subdomain: string | null; services: string[]; brief: string;
+  /** 'project' (one-off, phases), 'retainer' (to-dos + timesheet) or 'both'. */
+  engagement: 'project' | 'retainer' | 'both'; retainerHours: number | null;
 };
 export type Phase = { key: PhaseKey; nowLabel: string; blurb: string };
 export type Deliverable = { id: string; phase: PhaseKey; name: string; status: 'done' | 'review' | 'progress' | 'upcoming'; note: string; approvalId: string | null };
@@ -33,11 +35,18 @@ export type ScopeRequest = {
   acceptedAt: string | null; createdAt: string; lines: QuoteLine[];
 };
 export type Invoice = { id: string; ref: string; title: string; amountInr: number; amount: number | null; currency: string; status: 'scheduled' | 'due' | 'paid'; dueOn: string | null; paidOn: string | null; paymentUrl: string | null; requestId: string | null };
+export type TodoComment = { id: string; authorId: string | null; authorName: string; fromClient: boolean; body: string; createdAt: string };
+export type Todo = {
+  id: string; ref: string; title: string; details: string; status: 'open' | 'progress' | 'review' | 'done'; priority: 'normal' | 'urgent';
+  dueOn: string | null; fromClient: boolean; createdBy: string | null; byName: string; doneAt: string | null; createdAt: string; updatedAt: string; comments: TodoComment[];
+};
+export type TimeEntry = { id: string; todoId: string | null; personName: string; description: string; workOn: string; minutes: number; billable: boolean; running: boolean; startedAt: string | null };
 export type Activity = { id: string; body: string; actorName: string; createdAt: string };
 export type Message = { id: string; authorId: string | null; authorName: string; fromClient: boolean; body: string; createdAt: string };
 export type Detail = {
   project: Project; phases: Phase[]; deliverables: Deliverable[]; files: ProjectFile[]; team: TeamMember[];
   approvals: Approval[]; requests: ScopeRequest[]; invoices: Invoice[]; activity: Activity[];
+  todos: Todo[]; time: TimeEntry[];
 };
 
 const n = (v: any) => (v == null ? null : Number(v));
@@ -50,6 +59,7 @@ export const toProject = (r: any): Project => ({
   id: r.id, name: r.name, subtitle: r.subtitle, status: r.status, currentPhase: r.current_phase, progress: r.progress,
   phaseSummary: r.phase_summary, startOn: r.start_on, dueOn: r.due_on, contractInr: n(r.contract_inr), leadName: r.lead_name,
   budgetLabel: r.budget_label, timing: r.timing, subdomain: r.subdomain, services: r.services || [], brief: r.brief || '',
+  engagement: r.engagement || 'project', retainerHours: n(r.retainer_hours),
 });
 export const toMessage = (r: any): Message => ({ id: r.id, authorId: r.author_id, authorName: r.author_name, fromClient: r.from_client, body: r.body, createdAt: r.created_at });
 
@@ -82,7 +92,7 @@ export async function listProjects(): Promise<Project[]> {
 
 export async function loadDetail(projectId: string): Promise<Detail> {
   const q = <T,>(p: PromiseLike<{ data: T; error: any }>) => p.then(check);
-  const [project, phases, deliverables, files, team, approvals, requests, invoices, activity] = await Promise.all([
+  const [project, phases, deliverables, files, team, approvals, requests, invoices, activity, todos, time] = await Promise.all([
     q(supabase.from('projects').select('*').eq('id', projectId).single()),
     q(supabase.from('phases').select('*').eq('project_id', projectId)),
     q(supabase.from('deliverables').select('*').eq('project_id', projectId).order('position')),
@@ -92,6 +102,8 @@ export async function loadDetail(projectId: string): Promise<Detail> {
     q(supabase.from('scope_requests').select('*, quote_lines(*)').eq('project_id', projectId).order('created_at', { ascending: false })),
     q(supabase.from('invoices').select('*').eq('project_id', projectId).order('created_at', { ascending: false })),
     q(supabase.from('activity').select('*').eq('project_id', projectId).order('created_at', { ascending: false }).limit(12)),
+    q(supabase.from('todos').select('*, todo_comments(*)').eq('project_id', projectId).order('created_at', { ascending: false }).limit(500)),
+    q(supabase.from('time_entries').select('*').eq('project_id', projectId).order('work_on', { ascending: false }).order('created_at', { ascending: false }).limit(3000)),
   ]) as any[];
   return {
     project: toProject(project),
@@ -115,7 +127,37 @@ export async function loadDetail(projectId: string): Promise<Detail> {
       status: r.status, dueOn: r.due_on, paidOn: r.paid_on, paymentUrl: r.payment_url, requestId: r.request_id,
     })),
     activity: activity.map((r: any) => ({ id: r.id, body: r.body, actorName: r.actor_name, createdAt: r.created_at })),
+    todos: todos.map(toTodo),
+    time: time.map((r: any) => ({ id: r.id, todoId: r.todo_id, personName: r.person_name, description: r.description, workOn: r.work_on, minutes: r.minutes, billable: r.billable, running: r.running, startedAt: r.started_at })),
   };
+}
+
+const toComment = (c: any): TodoComment => ({ id: c.id, authorId: c.author_id, authorName: c.author_name, fromClient: c.from_client, body: c.body, createdAt: c.created_at });
+const toTodo = (r: any): Todo => ({
+  id: r.id, ref: r.ref, title: r.title, details: r.details || '', status: r.status, priority: r.priority, dueOn: r.due_on, fromClient: r.from_client,
+  createdBy: r.created_by, byName: r.created_by_name, doneAt: r.done_at, createdAt: r.created_at, updatedAt: r.updated_at,
+  comments: [...(r.todo_comments || [])].sort((a: any, b: any) => (a.created_at < b.created_at ? -1 : 1)).map(toComment),
+});
+
+/* Retainer to-dos: the client adds them and signs off; Embed does the rest. */
+export const addTodo = async (projectId: string, f: { title: string; details: string; priority: 'normal' | 'urgent'; dueOn: string }) =>
+  check(await supabase.rpc('add_todo', { project: projectId, title: f.title, details: f.details, priority: f.priority, due_on: f.dueOn || null })) as string;
+export const todoAction = async (todo: string, action: 'approve' | 'reopen' | 'withdraw', note?: string) =>
+  check(await supabase.rpc('todo_action', { todo, action, note: note ?? null }));
+export async function commentTodo(projectId: string, todoId: string, body: string) {
+  const { data: u } = await supabase.auth.getUser();
+  // author_name and from_client are set by the database, as for chat.
+  check(await supabase.from('todo_comments').insert({ todo_id: todoId, project_id: projectId, author_id: u.user?.id, author_name: '', from_client: true, body }));
+}
+/** Live changes to to-dos, comments and time on a project. */
+export function subscribeRetainer(projectId: string, onChange: () => void) {
+  const f = 'project_id=eq.' + projectId;
+  const ch = supabase.channel('web-retainer:' + projectId)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'todos', filter: f }, onChange)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'todo_comments', filter: f }, onChange)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'time_entries', filter: f }, onChange)
+    .subscribe();
+  return () => { supabase.removeChannel(ch); };
 }
 
 export async function listMessages(projectId: string): Promise<Message[]> {

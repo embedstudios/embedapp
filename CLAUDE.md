@@ -20,7 +20,9 @@ deliverables, files, team, chat replies, client access and invoices.
 ### Contract with the portal
 - **Tables and columns** the portal reads and writes: `projects`, `phases`,
   `deliverables`, `project_files`, `team_members`, `approvals`, `scope_requests`,
-  `quote_lines`, `invoices`, `activity`, `messages`. Includes
+  `quote_lines`, `invoices`, `activity`, `messages`, and for retainers `todos`,
+  `todo_comments`, `time_entries`, `projects.engagement` /
+  `retainer_hours`. Includes
   `projects.external_ref` (= the portal's `studio_engagements.id`), and
   `invoices.zoho_invoice_id`, `currency`, `amount`, `request_id`, `payment_url`.
 - **Keys the portal upserts on:** `projects.external_ref`,
@@ -31,6 +33,11 @@ deliverables, files, team, chat replies, client access and invoices.
   `pending` / `approved` / `changes`; scope request
   `reviewing` / `quoted` / `accepted` / `declined`; invoice
   `scheduled` / `due` / `paid`.
+- **Retainer values:** engagement `project` / `retainer` / `both`; to-do status
+  `open` / `progress` / `review` / `done`, priority `normal` / `urgent`; refs
+  `TD-n`. Client RPCs `add_todo`, `todo_action(approve|reopen|withdraw)`; the
+  pg_net trigger posts `{todo}` or `{comment}` to `/api/clientapp/hooks/todo`.
+  The Expo app doesn't show to-dos or the timesheet yet; the web portal does.
 - **Functions** (service role only): `studio_project_access(project)`,
   `studio_grant_access(project, email, full_name, title, role)`,
   `studio_revoke_access(project, email)`.
