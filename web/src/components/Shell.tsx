@@ -24,6 +24,7 @@ const NAV: { href: string; label: string; short: string; icon: IconName; count?:
   { href: '/approvals/', label: 'Approvals', short: 'Approvals', icon: 'BasicsTick', count: d => d.approvals.filter(a => a.status === 'pending').length },
   { href: '/scope/', label: 'Scope & quotes', short: 'Scope', icon: 'BasicsPlusCircle', count: d => d.requests.filter(r => r.status === 'quoted').length },
   { href: '/billing/', label: 'Billing', short: 'Billing', icon: 'EssentialsBookmark', count: d => d.invoices.filter(i => i.status === 'due').length },
+  { href: '/audits/', label: 'Audits', short: 'Audits', icon: 'SearchScan', count: d => d.audits.filter(a => a.status === 'ready' && a.readyAt && Date.now() - new Date(a.readyAt).getTime() < 7 * 86400e3).length },
   { href: '/messages/', label: 'Messages', short: 'Chat', icon: 'EssentialsChat' },
   { href: '/account/', label: 'Account', short: 'You', icon: 'EssentialsUserCircle' },
 ];

@@ -16,6 +16,8 @@ export type Project = {
   budgetLabel: string | null; timing: string | null; subdomain: string | null; services: string[]; brief: string;
   /** 'project' (one-off, phases), 'retainer' (to-dos + timesheet) or 'both'. */
   engagement: 'project' | 'retainer' | 'both'; retainerHours: number | null;
+  /** The client's own site, offered for the free first look on the Audits tab. */
+  website: string | null;
 };
 export type Phase = { key: PhaseKey; nowLabel: string; blurb: string };
 export type Deliverable = { id: string; phase: PhaseKey; name: string; status: 'done' | 'review' | 'progress' | 'upcoming'; note: string; approvalId: string | null };
@@ -42,11 +44,18 @@ export type Todo = {
 };
 export type TimeEntry = { id: string; todoId: string | null; personName: string; description: string; workOn: string; minutes: number; billable: boolean; running: boolean; startedAt: string | null };
 export type Activity = { id: string; body: string; actorName: string; createdAt: string };
+/** An audit from embed.design/audit, published to the project by the studio (matched by the buyer's email, or linked by hand). */
+export type Audit = {
+  token: string; kind: 'url' | 'app' | 'screens' | 'figma'; target: string; name: string;
+  status: 'collecting' | 'first_look' | 'auditing' | 'ready' | 'delayed'; paid: boolean; reaudit: boolean;
+  overall: number | null; scores: Record<string, number | null>; verdict: string; findings: number | null;
+  reportUrl: string; createdAt: string; readyAt: string | null;
+};
 export type Message = { id: string; authorId: string | null; authorName: string; fromClient: boolean; body: string; createdAt: string };
 export type Detail = {
   project: Project; phases: Phase[]; deliverables: Deliverable[]; files: ProjectFile[]; team: TeamMember[];
   approvals: Approval[]; requests: ScopeRequest[]; invoices: Invoice[]; activity: Activity[];
-  todos: Todo[]; time: TimeEntry[];
+  todos: Todo[]; time: TimeEntry[]; audits: Audit[];
 };
 
 const n = (v: any) => (v == null ? null : Number(v));
@@ -59,7 +68,7 @@ export const toProject = (r: any): Project => ({
   id: r.id, name: r.name, subtitle: r.subtitle, status: r.status, currentPhase: r.current_phase, progress: r.progress,
   phaseSummary: r.phase_summary, startOn: r.start_on, dueOn: r.due_on, contractInr: n(r.contract_inr), leadName: r.lead_name,
   budgetLabel: r.budget_label, timing: r.timing, subdomain: r.subdomain, services: r.services || [], brief: r.brief || '',
-  engagement: r.engagement || 'project', retainerHours: n(r.retainer_hours),
+  engagement: r.engagement || 'project', retainerHours: n(r.retainer_hours), website: r.website || null,
 });
 export const toMessage = (r: any): Message => ({ id: r.id, authorId: r.author_id, authorName: r.author_name, fromClient: r.from_client, body: r.body, createdAt: r.created_at });
 
@@ -92,7 +101,7 @@ export async function listProjects(): Promise<Project[]> {
 
 export async function loadDetail(projectId: string): Promise<Detail> {
   const q = <T,>(p: PromiseLike<{ data: T; error: any }>) => p.then(check);
-  const [project, phases, deliverables, files, team, approvals, requests, invoices, activity, todos, time] = await Promise.all([
+  const [project, phases, deliverables, files, team, approvals, requests, invoices, activity, todos, time, audits] = await Promise.all([
     q(supabase.from('projects').select('*').eq('id', projectId).single()),
     q(supabase.from('phases').select('*').eq('project_id', projectId)),
     q(supabase.from('deliverables').select('*').eq('project_id', projectId).order('position')),
@@ -104,6 +113,7 @@ export async function loadDetail(projectId: string): Promise<Detail> {
     q(supabase.from('activity').select('*').eq('project_id', projectId).order('created_at', { ascending: false }).limit(12)),
     q(supabase.from('todos').select('*, todo_comments(*)').eq('project_id', projectId).order('created_at', { ascending: false }).limit(500)),
     q(supabase.from('time_entries').select('*').eq('project_id', projectId).order('work_on', { ascending: false }).order('created_at', { ascending: false }).limit(3000)),
+    q(supabase.from('audits').select('*').eq('project_id', projectId).order('created_at', { ascending: false }).limit(100)),
   ]) as any[];
   return {
     project: toProject(project),
@@ -129,6 +139,10 @@ export async function loadDetail(projectId: string): Promise<Detail> {
     activity: activity.map((r: any) => ({ id: r.id, body: r.body, actorName: r.actor_name, createdAt: r.created_at })),
     todos: todos.map(toTodo),
     time: time.map((r: any) => ({ id: r.id, todoId: r.todo_id, personName: r.person_name, description: r.description, workOn: r.work_on, minutes: r.minutes, billable: r.billable, running: r.running, startedAt: r.started_at })),
+    audits: audits.map((r: any) => ({
+      token: r.token, kind: r.kind, target: r.target || '', name: r.name || '', status: r.status, paid: !!r.paid, reaudit: !!r.reaudit,
+      overall: n(r.overall), scores: r.scores || {}, verdict: r.verdict || '', findings: n(r.findings), reportUrl: r.report_url, createdAt: r.created_at, readyAt: r.ready_at,
+    })),
   };
 }
 

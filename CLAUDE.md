@@ -26,7 +26,14 @@ deliverables, files, team, chat replies, client access and invoices.
   `projects.external_ref` (= the portal's `studio_engagements.id`), and
   `invoices.zoho_invoice_id`, `currency`, `amount`, `request_id`, `payment_url`.
 - **Keys the portal upserts on:** `projects.external_ref`,
-  `invoices.zoho_invoice_id`, and the `phases` primary key `(project_id, key)`.
+  `invoices.zoho_invoice_id`, the `phases` primary key `(project_id, key)`
+  and the `audits` primary key `(project_id, token)`.
+- **Audits:** `audits` (written only by the portal's `syncAppAudits()`;
+  members read) and `projects.website` (set in the admin). Status values
+  `collecting` / `first_look` / `auditing` / `ready` / `delayed`; kind
+  `url` / `app` / `screens` / `figma`; `report_url` is the private
+  embed.design report link. The web portal's Audits tab reads them; the Expo
+  app doesn't yet.
 - **Enum and status values:** phase keys `research`, `strategy`, `ideation`,
   `design`, `handover`; project status `proposal` / `active` / `complete`;
   deliverable `done` / `review` / `progress` / `upcoming`; approval

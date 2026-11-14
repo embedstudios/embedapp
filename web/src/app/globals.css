@@ -343,3 +343,17 @@ a.picker-row:hover { border-color: var(--mint); }
 .seg button:disabled { opacity: .35; cursor: not-allowed; }
 .stat .bar { margin-top: 6px; }
 .cols > *, .split > * { min-width: 0; }
+
+/* Audits: on phones each audit is a card (name, then date, status and score in a row, then the action). */
+@media (max-width: 640px) {
+  .audits-list .table thead { display: none; }
+  .audits-list .table, .audits-list .table tbody, .audits-list .table tr { display: block; width: 100%; }
+  .audits-list .table tr { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px 12px; padding: 16px 18px; border-bottom: 1px solid var(--ln); }
+  .audits-list .table tr:last-child { border-bottom: 0; }
+  .audits-list .table td { display: block; padding: 0; border: 0; }
+  .audits-list .table td:first-child { grid-column: 1 / -1; }
+  .audits-list .table td[data-label]::before { content: attr(data-label); display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--mu); margin-bottom: 4px; }
+  .audits-list .table td.audits-act { grid-column: 1 / -1; text-align: left !important; }
+  .audits-list .table td.audits-act .btn { width: 100%; justify-content: center; }
+}
+
