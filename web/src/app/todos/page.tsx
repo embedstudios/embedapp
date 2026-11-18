@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useApp } from '@/components/AppProvider';
-import { Empty, Meta, Pill, Tag, type Tone } from '@/components/ui';
+import { Empty, Linked, Meta, Pill, Tag, type Tone } from '@/components/ui';
 import { addTodo, commentTodo, subscribeRetainer, todoAction, type Todo } from '@/lib/data';
 import { dayMonth, msgTime } from '@/lib/format';
 import { dur, isRetainer, TODO_LABEL } from '@/lib/retainer';
@@ -86,7 +86,7 @@ function TodoDetail({ t }: { t: Todo }) {
     <article className="card stack split-detail" style={{ gap: 16 }}>
       <div className="section-head"><span className="eyebrow"><Meta parts={[t.ref, t.fromClient ? 'added by ' + (t.createdBy === profile?.id ? 'you' : t.byName) : 'added by Embed', msgTime(t.createdAt)]} /></span><Pill tone={TONE[t.status]}>{TODO_LABEL[t.status]}</Pill></div>
       <h2 style={{ fontSize: 26 }}>{t.title}</h2>
-      {t.details && <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{t.details}</p>}
+      {t.details && <p style={{ margin: 0, whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}><Linked text={t.details} /></p>}
       <p className="hint"><Meta parts={[t.priority === 'urgent' && 'Urgent', t.dueOn && 'Wanted by ' + dayMonth(t.dueOn), mins > 0 && dur(mins) + ' logged', working.length > 0 && working.map(e => e.personName).join(', ') + ' on it now']} /></p>
       {t.status === 'review' && (
         <div className="callout stack" style={{ gap: 10 }}>
@@ -110,7 +110,7 @@ function TodoDetail({ t }: { t: Todo }) {
       <div className="stack" style={{ gap: 10 }}>
         <span className="eyebrow">Comments</span>
         {t.comments.length ? t.comments.map(c => (
-          <div key={c.id} className={'bubble' + (c.fromClient ? ' me' : '')}><p>{c.body}</p><small><Meta parts={[c.authorId === profile?.id ? 'You' : c.authorName, msgTime(c.createdAt)]} /></small></div>
+          <div key={c.id} className={'bubble' + (c.fromClient ? ' me' : '')}><p><Linked text={c.body} /></p><small><Meta parts={[c.authorId === profile?.id ? 'You' : c.authorName, msgTime(c.createdAt)]} /></small></div>
         )) : <p className="hint">No comments yet. Add details, links or questions for the team.</p>}
         <div ref={end} />
         <div className="composer" style={{ padding: 0, border: 0 }}>

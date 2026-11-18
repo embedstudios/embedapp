@@ -226,6 +226,9 @@ a.picker-row:hover { border-color: var(--mint); }
 .chat-log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 20px; }
 .bubble { max-width: min(72%, 620px); align-self: flex-start; animation: pop .35s var(--ease) both; transform-origin: bottom left; }
 .bubble p { margin: 0; padding: 11px 15px; border-radius: 16px 16px 16px 4px; background: var(--sf2); white-space: pre-wrap; }
+a.linked { color: var(--mint); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.bubble p { overflow-wrap: anywhere; }
+.bubble.me a.linked { color: #fff; }
 .bubble small { display: block; margin-top: 5px; font-family: var(--mono); font-size: 11px; color: var(--mu); }
 .bubble.me { align-self: flex-end; transform-origin: bottom right; text-align: right; }
 .bubble.me p { background: var(--mint); color: #fff; border-radius: 16px 16px 4px 16px; text-align: left; }
