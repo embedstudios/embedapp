@@ -46,3 +46,16 @@ export function Meta({ parts, className }: { parts: ReactNode[]; className?: str
   const xs = parts.filter(p => p !== null && p !== undefined && p !== false && p !== '');
   return <span className={'meta' + (className ? ' ' + className : '')}>{xs.map((p, i) => <span key={i}>{p}</span>)}</span>;
 }
+
+/* Text typed by a person (to-do details, comments), with any web address in it
+   turned into a link that opens in a new tab. Only http(s) addresses become
+   links; closing punctuation after one stays as text. */
+const URL_RE = /(https?:\/\/[^\s<>"']+)/g;
+export function Linked({ text }: { text: string }) {
+  return <>{String(text || '').split(URL_RE).map((part, i) => {
+    if (i % 2 === 0) return part;
+    const tail = (part.match(/[.,;:!?)\]]+$/) || [''])[0];
+    const url = tail ? part.slice(0, -tail.length) : part;
+    return <span key={i}><a className="linked" href={url} target="_blank" rel="noopener noreferrer">{url}</a>{tail}</span>;
+  })}</>;
+}
