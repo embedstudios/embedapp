@@ -19,11 +19,16 @@ function Todos() {
   const id = params.get('id');
   const composing = params.get('new') === '1';
   const [filter, setFilter] = useState<(typeof FILTERS)[number][0]>('active');
+  const [q, setQ] = useState('');
   useEffect(() => subscribeRetainer(d.project.id, () => { refresh(); }), [d.project.id]);
 
   if (!isRetainer(d)) return <div className="page"><Empty title="No to-dos on this project">To-dos are for retainer work.</Empty></div>;
   const of = (k: string) => d.todos.filter(t => (k === 'active' ? t.status === 'open' || t.status === 'progress' : t.status === k));
-  const list = of(filter);
+  /* Searching looks through every to-do, whatever its status: the title,
+     reference, details and comments. */
+  const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const hay = (t: Todo) => [t.ref, t.title, t.details, ...t.comments.map(c => c.body)].join(' ').toLowerCase();
+  const list = words.length ? d.todos.filter(t => { const h = hay(t); return words.every(w => h.includes(w)); }) : of(filter);
   const selected = d.todos.find(t => t.id === id) || (!composing ? of('review')[0] || list[0] : null) || null;
   const go = (q: string) => router.replace('/todos/' + q, { scroll: false });
 
@@ -38,7 +43,9 @@ function Todos() {
       </div>
       <div className="split">
         <div className="stack" style={{ gap: 14 }}>
-          <span className="seg seg-wide">{FILTERS.map(([k, v]) => <button key={k} aria-pressed={filter === k} onClick={() => setFilter(k)}>{v}{of(k).length ? ' ' + of(k).length : ''}</button>)}</span>
+          <label className="search"><span className="sr">Search to-dos</span><input type="search" value={q} onChange={e => setQ(e.target.value)} placeholder="Search to-dos" autoComplete="off" />{q && <button type="button" onClick={() => setQ('')} aria-label="Clear search">Clear</button>}</label>
+          {words.length ? <p className="hint" role="status" style={{ margin: 0 }}>{list.length} of {d.todos.length} to-dos match, across every status.</p>
+            : <span className="seg seg-wide">{FILTERS.map(([k, v]) => <button key={k} aria-pressed={filter === k} onClick={() => setFilter(k)}>{v}{of(k).length ? ' ' + of(k).length : ''}</button>)}</span>}
           {list.length ? (
             <div className="card card-flush">
               {list.map((t, i) => (
@@ -49,7 +56,7 @@ function Todos() {
                 </button>
               ))}
             </div>
-          ) : <div className="empty" style={{ padding: 24 }}><Tag tag="inbox-zero">{filter === 'review' ? 'Nothing waiting for you to check' : filter === 'done' ? 'Nothing done yet' : 'No open to-dos'}</Tag></div>}
+          ) : <div className="empty" style={{ padding: 24 }}><Tag tag="inbox-zero">{words.length ? 'No to-dos match that search' : filter === 'review' ? 'Nothing waiting for you to check' : filter === 'done' ? 'Nothing done yet' : 'No open to-dos'}</Tag></div>}
           <div className="card stack" style={{ gap: 12 }}>
             <Tag tag="how-it-works" />
             <ol className="stack" style={{ gap: 8, margin: 0, paddingLeft: 18, fontSize: 14 }}>
