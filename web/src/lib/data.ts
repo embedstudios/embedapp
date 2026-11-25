@@ -37,7 +37,9 @@ export type ScopeRequest = {
   acceptedAt: string | null; createdAt: string; lines: QuoteLine[];
 };
 export type Invoice = { id: string; ref: string; title: string; amountInr: number; amount: number | null; currency: string; status: 'scheduled' | 'due' | 'paid'; dueOn: string | null; paidOn: string | null; paymentUrl: string | null; requestId: string | null };
-export type TodoComment = { id: string; authorId: string | null; authorName: string; fromClient: boolean; body: string; createdAt: string };
+/** A file on a to-do comment: where it sits in the `todo-files` bucket, and what it is. */
+export type Attachment = { path: string; name: string; mime: string; size: number };
+export type TodoComment = { id: string; authorId: string | null; authorName: string; fromClient: boolean; body: string; createdAt: string; attachments: Attachment[] };
 export type Todo = {
   id: string; ref: string; title: string; details: string; status: 'open' | 'progress' | 'review' | 'done'; priority: 'normal' | 'urgent';
   dueOn: string | null; fromClient: boolean; createdBy: string | null; byName: string; doneAt: string | null; createdAt: string; updatedAt: string; comments: TodoComment[];
@@ -146,7 +148,7 @@ export async function loadDetail(projectId: string): Promise<Detail> {
   };
 }
 
-const toComment = (c: any): TodoComment => ({ id: c.id, authorId: c.author_id, authorName: c.author_name, fromClient: c.from_client, body: c.body, createdAt: c.created_at });
+const toComment = (c: any): TodoComment => ({ id: c.id, authorId: c.author_id, authorName: c.author_name, fromClient: c.from_client, body: c.body || '', createdAt: c.created_at, attachments: Array.isArray(c.attachments) ? c.attachments : [] });
 const toTodo = (r: any): Todo => ({
   id: r.id, ref: r.ref, title: r.title, details: r.details || '', status: r.status, priority: r.priority, dueOn: r.due_on, fromClient: r.from_client,
   createdBy: r.created_by, byName: r.created_by_name, doneAt: r.done_at, createdAt: r.created_at, updatedAt: r.updated_at,
@@ -158,10 +160,85 @@ export const addTodo = async (projectId: string, f: { title: string; details: st
   check(await supabase.rpc('add_todo', { project: projectId, title: f.title, details: f.details, priority: f.priority, due_on: f.dueOn || null })) as string;
 export const todoAction = async (todo: string, action: 'approve' | 'reopen' | 'withdraw', note?: string) =>
   check(await supabase.rpc('todo_action', { todo, action, note: note ?? null }));
-export async function commentTodo(projectId: string, todoId: string, body: string) {
+export async function commentTodo(projectId: string, todoId: string, body: string, attachments: Attachment[] = []) {
   const { data: u } = await supabase.auth.getUser();
   // author_name and from_client are set by the database, as for chat.
-  check(await supabase.from('todo_comments').insert({ todo_id: todoId, project_id: projectId, author_id: u.user?.id, author_name: '', from_client: true, body }));
+  check(await supabase.from('todo_comments').insert({ todo_id: todoId, project_id: projectId, author_id: u.user?.id, author_name: '', from_client: true, body, attachments }));
+}
+
+/* ---- files on to-do comments ----------------------------------------------
+   Files go to the private `todo-files` bucket at
+   <project>/<todo>/<random>-<name>; row-level security lets only the project's
+   members add and read them. Photos and screenshots are made smaller in the
+   browser first (longest side 2000px, WebP), which usually cuts a phone photo
+   from several MB to a few hundred KB; PDFs and documents go up as they are. */
+export const TODO_FILE_MAX = 15 * 1024 * 1024;
+export const TODO_FILES_PER_COMMENT = 8;
+export const TODO_FILE_TYPES: Record<string, string> = {
+  'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif', 'application/pdf': 'pdf',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
+  'text/csv': 'csv', 'text/plain': 'txt',
+};
+export const TODO_FILE_ACCEPT = Object.keys(TODO_FILE_TYPES).join(',');
+export const isImage = (mime: string) => /^image\/(jpeg|png|webp|gif)$/.test(mime);
+
+/** Shrinks a photo or screenshot; returns the original when that wouldn't help. */
+export async function shrinkImage(file: File): Promise<{ blob: Blob; name: string; mime: string }> {
+  const keep = { blob: file as Blob, name: file.name, mime: file.type };
+  if (!/^image\/(jpeg|png|webp)$/.test(file.type)) return keep;
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+    if (scale === 1 && file.size < 400 * 1024) { bmp.close(); return keep; }
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bmp.width * scale); canvas.height = Math.round(bmp.height * scale);
+    canvas.getContext('2d')!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    bmp.close();
+    const blob = await new Promise<Blob | null>(res => canvas.toBlob(res, 'image/webp', 0.82));
+    // A browser that can't write WebP hands back a PNG: keep the original then.
+    if (!blob || blob.type !== 'image/webp' || blob.size >= file.size) return keep;
+    return { blob, name: file.name.replace(/\.[a-z0-9]+$/i, '') + '.webp', mime: 'image/webp' };
+  } catch { return keep; }
+}
+
+/** Uploads one file for a to-do and returns what to store on the comment. */
+export async function uploadTodoFile(projectId: string, todoId: string, file: File): Promise<Attachment> {
+  if (!TODO_FILE_TYPES[file.type]) throw new Error('“' + file.name + '” can’t be attached. Use an image, a PDF, or a Word, Excel, PowerPoint, CSV or text file.');
+  const f = await shrinkImage(file);
+  if (f.blob.size > TODO_FILE_MAX) throw new Error('“' + file.name + '” is over 15 MB. Share a link to it instead.');
+  const safe = f.name.normalize('NFKD').replace(/[^\w.-]+/g, '-').replace(/-+/g, '-').slice(-80) || 'file';
+  const path = projectId + '/' + todoId + '/' + crypto.randomUUID() + '-' + safe;
+  const { error } = await supabase.storage.from('todo-files').upload(path, f.blob, { contentType: f.mime, cacheControl: '3600', upsert: false });
+  if (error) throw new Error('“' + file.name + '” didn’t upload. Try again.');
+  return { path, name: f.name.slice(0, 120), mime: f.mime, size: f.blob.size };
+}
+
+/** Short-lived links to open files in the private bucket, by path. */
+export async function signTodoFiles(paths: string[]): Promise<Record<string, string>> {
+  if (!paths.length) return {};
+  const { data } = await supabase.storage.from('todo-files').createSignedUrls(paths, 3600);
+  const out: Record<string, string> = {};
+  for (const r of data || []) if (r.path && r.signedUrl) out[r.path] = r.signedUrl;
+  return out;
+}
+
+/** Tidies dictated text (punctuation, obvious mis-heard words) on the studio's
+    server. Never throws: on any problem the spoken text stands as it is. */
+export async function tidyDictation(text: string, context: string): Promise<string> {
+  try {
+    const { data } = await supabase.auth.getSession();
+    const token = data.session?.access_token;
+    if (!token) return text;
+    const r = await fetch('https://embed.design/api/portal/tidy', {
+      method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + token },
+      body: JSON.stringify({ text, context }), signal: AbortSignal.timeout(20000),
+    });
+    if (!r.ok) return text;
+    const d = await r.json();
+    return typeof d.text === 'string' && d.text.trim() ? d.text.trim() : text;
+  } catch { return text; }
 }
 /** Live changes to to-dos, comments and time on a project. */
 export function subscribeRetainer(projectId: string, onChange: () => void) {

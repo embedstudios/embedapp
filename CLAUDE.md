@@ -45,6 +45,19 @@ deliverables, files, team, chat replies, client access and invoices.
   `TD-n`. Client RPCs `add_todo`, `todo_action(approve|reopen|withdraw)`; the
   pg_net trigger posts `{todo}` or `{comment}` to `/api/clientapp/hooks/todo`.
   The Expo app doesn't show to-dos or the timesheet yet; the web portal does.
+- **Files on to-do comments:** `todo_comments.attachments` is a list of
+  `{path, name, mime, size}` (8 at most; a comment may be files alone). The
+  files sit in the private Storage bucket `todo-files` at
+  `<project_id>/<todo_id>/<random>-<name>`, 15 MB each, images, PDF, Office
+  files, CSV and text. Members add and read them under RLS (the first folder
+  is the project id); the admin signs links and upload links with the secret
+  key and only for paths under the comment's own project. The web portal
+  shrinks photos in the browser before upload (`shrinkImage`, 2000px WebP).
+- **Voice comments (web portal):** the browser's speech recognition turns
+  speech into text live (`lib/dictation.ts`); after a pause the portal posts
+  the words to the admin server's `POST /api/portal/tidy` with the user's
+  Supabase access token, and offers the tidied text to accept or ignore.
+  Firefox has no speech recognition, so the microphone button is hidden there.
 - **Functions** (service role only): `studio_project_access(project)`,
   `studio_grant_access(project, email, full_name, title, role)`,
   `studio_revoke_access(project, email)`.
