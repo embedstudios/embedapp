@@ -3,8 +3,9 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useApp } from '@/components/AppProvider';
-import { Empty, Linked, Meta, Pill, Tag, type Tone } from '@/components/ui';
-import { addTodo, commentTodo, subscribeRetainer, todoAction, type Todo } from '@/lib/data';
+import { Empty, Icon, Linked, Meta, Pill, Tag, type Tone } from '@/components/ui';
+import { addTodo, commentTodo, isImage, signTodoFiles, subscribeRetainer, tidyDictation, todoAction, uploadTodoFile, TODO_FILE_ACCEPT, TODO_FILES_PER_COMMENT, type Attachment, type Todo } from '@/lib/data';
+import { useDictation } from '@/lib/dictation';
 import { dayMonth, msgTime } from '@/lib/format';
 import { dur, isRetainer, TODO_LABEL } from '@/lib/retainer';
 
@@ -72,6 +73,24 @@ function Todos() {
   );
 }
 
+const ext = (name: string) => (name.match(/\.([a-z0-9]{1,5})$/i)?.[1] || 'file').toUpperCase();
+const size = (n: number) => (n >= 1048576 ? (Math.round(n / 104857.6) / 10) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB');
+const Mic = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" /></svg>;
+
+/** The files on a comment: pictures as thumbnails, everything else as a named chip. */
+function Files({ items, urls }: { items: Attachment[]; urls: Record<string, string> }) {
+  return (
+    <div className="files">
+      {items.map(a => {
+        const url = urls[a.path];
+        return isImage(a.mime)
+          ? <a key={a.path} className="file-img" href={url} target="_blank" rel="noopener noreferrer" aria-label={'Open ' + a.name}>{url ? <img src={url} alt={a.name} loading="lazy" /> : <span />}</a>
+          : <a key={a.path} className="file-chip" href={url} target="_blank" rel="noopener noreferrer"><span className="attach-ext">{ext(a.name)}</span><span><b>{a.name}</b><small>{size(a.size)}</small></span></a>;
+      })}
+    </div>
+  );
+}
+
 function TodoDetail({ t }: { t: Todo }) {
   const { detail, profile, refresh, toast, celebrate } = useApp();
   const d = detail!;
@@ -88,7 +107,59 @@ function TodoDetail({ t }: { t: Todo }) {
     catch (e) { toast((e as Error).message === "can't withdraw" ? 'Only an open to-do you added can be withdrawn.' : 'That didn’t go through. Try again.'); }
     setBusy(false);
   };
-  const comment = () => { const b = draft.trim(); if (!b) return; setDraft(''); act(() => commentTodo(d.project.id, t.id, b)); };
+  /* Files picked for the next comment: uploaded straight away, sent with it. */
+  const [files, setFiles] = useState<{ key: string; name: string; done?: Attachment; error?: string }[]>([]);
+  const picker = useRef<HTMLInputElement>(null);
+  /* The box grows with what is typed or dictated, up to its CSS max-height. */
+  const box = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => { const el = box.current; if (!el) return; el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight + 2, 140) + 'px'; }, [draft]);
+  const uploading = files.some(f => !f.done && !f.error);
+  const ready = files.filter(f => f.done).map(f => f.done!);
+  const addFiles = (list: FileList | File[] | null) => {
+    const picked = Array.from(list || []);
+    if (!picked.length) return;
+    const room = TODO_FILES_PER_COMMENT - files.filter(f => !f.error).length;
+    if (picked.length > room) toast('Up to ' + TODO_FILES_PER_COMMENT + ' files on one comment.');
+    for (const file of picked.slice(0, Math.max(0, room))) {
+      const key = crypto.randomUUID();
+      setFiles(x => [...x, { key, name: file.name }]);
+      uploadTodoFile(d.project.id, t.id, file)
+        .then(done => setFiles(x => x.map(f => (f.key === key ? { ...f, done, name: done.name } : f))))
+        .catch(e => setFiles(x => x.map(f => (f.key === key ? { ...f, error: (e as Error).message } : f))));
+    }
+  };
+  /* Links to the files already on this to-do, signed for an hour. */
+  const paths = t.comments.flatMap(c => c.attachments.map(a => a.path)).concat(ready.map(a => a.path));
+  const [urls, setUrls] = useState<Record<string, string>>({});
+  useEffect(() => { let on = true; signTodoFiles(paths).then(u => { if (on) setUrls(u); }); return () => { on = false; }; }, [paths.join('|')]);
+
+  /* Voice: words land in the box as they are spoken, after whatever was typed.
+     After a pause the studio's server tidies them and offers the result. */
+  const base = useRef('');
+  const [tidy, setTidy] = useState<{ spoken: string; clean: string; base: string } | null>(null);
+  const [checking, setChecking] = useState(false);
+  const join = (a: string, b: string) => (a.trim() ? a.replace(/\s+$/, '') + ' ' : '') + b;
+  const voice = useDictation({
+    onText: spoken => setDraft(join(base.current, spoken)),
+    onDone: async spoken => {
+      if (spoken.length < 12) return;
+      const at = base.current;
+      setChecking(true);
+      const clean = await tidyDictation(spoken, t.title);
+      setChecking(false);
+      if (clean && clean !== spoken) setTidy({ spoken, clean, base: at });
+    },
+  });
+  const speak = () => { if (voice.listening) return voice.stop(); base.current = draft; setTidy(null); voice.start(); };
+
+  const comment = () => {
+    const b = draft.trim();
+    if ((!b && !ready.length) || uploading) return;
+    if (voice.listening) voice.stop();
+    const sent = ready;
+    setDraft(''); setFiles([]); setTidy(null);
+    act(() => commentTodo(d.project.id, t.id, b, sent));
+  };
   return (
     <article className="card stack split-detail" style={{ gap: 16 }}>
       <div className="section-head"><span className="eyebrow"><Meta parts={[t.ref, t.fromClient ? 'added by ' + (t.createdBy === profile?.id ? 'you' : t.byName) : 'added by Embed', msgTime(t.createdAt)]} /></span><Pill tone={TONE[t.status]}>{TODO_LABEL[t.status]}</Pill></div>
@@ -117,12 +188,37 @@ function TodoDetail({ t }: { t: Todo }) {
       <div className="stack" style={{ gap: 10 }}>
         <span className="eyebrow">Comments</span>
         {t.comments.length ? t.comments.map(c => (
-          <div key={c.id} className={'bubble' + (c.fromClient ? ' me' : '')}><p><Linked text={c.body} /></p><small><Meta parts={[c.authorId === profile?.id ? 'You' : c.authorName, msgTime(c.createdAt)]} /></small></div>
+          <div key={c.id} className={'bubble' + (c.fromClient ? ' me' : '')}>{c.body && <p><Linked text={c.body} /></p>}{c.attachments.length > 0 && <Files items={c.attachments} urls={urls} />}<small><Meta parts={[c.authorId === profile?.id ? 'You' : c.authorName, msgTime(c.createdAt)]} /></small></div>
         )) : <p className="hint">No comments yet. Add details, links or questions for the team.</p>}
         <div ref={end} />
-        <div className="composer" style={{ padding: 0, border: 0 }}>
-          <textarea rows={1} value={draft} placeholder="Write a comment" onChange={e => setDraft(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); comment(); } }} />
-          <button className="btn btn-sm" disabled={busy || !draft.trim()} onClick={comment}>Send</button>
+        {files.length > 0 && (
+          <ul className="attach-list">
+            {files.map(f => (
+              <li key={f.key} className={f.error ? 'bad' : ''}>
+                {f.done && isImage(f.done.mime) && urls[f.done.path] ? <img src={urls[f.done.path]} alt="" /> : <span className="attach-ext">{f.error ? '!' : f.done ? ext(f.done.name) : '…'}</span>}
+                <span className="grow"><b>{f.name}</b><small>{f.error || (f.done ? size(f.done.size) : 'Uploading')}</small></span>
+                <button type="button" className="link" onClick={() => setFiles(x => x.filter(y => y.key !== f.key))} aria-label={'Remove ' + f.name}>Remove</button>
+              </li>
+            ))}
+          </ul>
+        )}
+        {tidy && (
+          <div className="callout stack" style={{ gap: 8 }} role="status">
+            <strong>Tidied from what you said</strong>
+            <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{tidy.clean}</p>
+            <div className="actions">
+              <button className="btn btn-sm" onClick={() => { setDraft(join(tidy.base, tidy.clean)); setTidy(null); }}>Use this</button>
+              <button className="link" onClick={() => setTidy(null)}>Keep mine</button>
+            </div>
+          </div>
+        )}
+        {(voice.listening || checking || voice.error) && <p className={'hint voice-line' + (voice.listening ? ' on' : '')} role="status">{voice.error || (voice.listening ? 'Listening. Pause when you’re done, or tap the microphone to stop.' : 'Checking what you said…')}</p>}
+        <div className="composer composer-rich" style={{ padding: 0, border: 0 }} onDragOver={e => e.preventDefault()} onDrop={e => { e.preventDefault(); addFiles(e.dataTransfer.files); }}>
+          <input ref={picker} type="file" multiple hidden accept={TODO_FILE_ACCEPT} onChange={e => { addFiles(e.target.files); e.target.value = ''; }} />
+          <button type="button" className="icon-btn" onClick={() => picker.current?.click()} aria-label="Attach a file" title="Attach images, PDFs or documents"><Icon name="AuthoringAttach" size={18} /></button>
+          <textarea ref={box} rows={1} value={draft} placeholder={voice.listening ? 'Speak now…' : 'Write a comment'} onChange={e => setDraft(e.target.value)} onPaste={e => { const fs = Array.from(e.clipboardData.files); if (fs.length) { e.preventDefault(); addFiles(fs); } }} onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); comment(); } }} />
+          {voice.supported && <button type="button" className={'icon-btn' + (voice.listening ? ' live' : '')} onClick={speak} aria-pressed={voice.listening} aria-label={voice.listening ? 'Stop voice input' : 'Speak your comment'} title={voice.listening ? 'Stop' : 'Speak instead of typing'}><Mic /></button>}
+          <button className="btn btn-sm" disabled={busy || uploading || (!draft.trim() && !ready.length)} onClick={comment}>{uploading ? 'Uploading' : 'Send'}</button>
         </div>
       </div>
       {t.status === 'open' && t.createdBy === profile?.id && <button className="link" style={{ alignSelf: 'flex-start' }} disabled={busy} onClick={() => { if (confirm('Withdraw ' + t.ref + '? The team hasn’t started it.')) act(() => todoAction(t.id, 'withdraw'), 'Withdrawn.'); }}>Withdraw this to-do</button>}
